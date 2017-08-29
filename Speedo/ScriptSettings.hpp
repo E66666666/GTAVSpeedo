@@ -71,9 +71,17 @@ struct SpeedoStuff {
 	float NOSTextSize;
 
 	// TODO - Group them together and translate by size???
-	std::array<float, numNOSItems> NOSXpos;
-	std::array<float, numNOSItems> NOSYpos;
-	std::array<float, numNOSItems> NOSSize;
+	std::array<float, numNOSItemsStage1> NOSStage1Xpos;
+	std::array<float, numNOSItemsStage1> NOSStage1Ypos;
+	std::array<float, numNOSItemsStage1> NOSStage1Size;
+
+	std::array<float, numNOSItemsStage2> NOSStage2Xpos;
+	std::array<float, numNOSItemsStage2> NOSStage2Ypos;
+	std::array<float, numNOSItemsStage2> NOSStage2Size;
+
+	std::array<float, numNOSItemsStage3> NOSStage3Xpos;
+	std::array<float, numNOSItemsStage3> NOSStage3Ypos;
+	std::array<float, numNOSItemsStage3> NOSStage3Size;
 };
 
 enum class UnitType {
