@@ -2,7 +2,9 @@
 #include <string>
 #include <array>
 
-const int numNOSItems = 6;
+const int numNOSItemsStage1 = 2;
+const int numNOSItemsStage2 = 4;
+const int numNOSItemsStage3 = 6;
 
 struct SpeedoStuff {
 	std::string SpeedoName;
