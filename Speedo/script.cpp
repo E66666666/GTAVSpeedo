@@ -28,6 +28,7 @@ const char* decorMTShiftIndicator   = "mt_shift_indicator";
 const char* decorMTGetShiftMode     = "mt_get_shiftmode";
 const char* decorNOS                = "ikt_speedo_nos";
 const char* decorNOSLevel           = "ikt_speedo_nos_level";
+const char* decorNOSStage = "nfsnitro_stage";
 
 struct WTFABColor {
 	float r;
@@ -76,7 +77,9 @@ SpriteInfo spriteKMH;
 SpriteInfo spriteMPH;
 
 SpriteInfo spriteNOSText;
-std::vector<SpriteInfo> spritesNOS;
+std::vector<SpriteInfo> spritesNOSStage1;
+std::vector<SpriteInfo> spritesNOSStage2;
+std::vector<SpriteInfo> spritesNOSStage3;
 
 float displayRPM = 0.0f;
 
@@ -124,20 +127,80 @@ void drawNOSBars(bool hasBoost, float boostVal, float nosVal, float screencorrec
 	            0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 1.0f * speedoAlpha);
 
 	int i = 0;
-	float portion = maxVal / numNOSItems;
-	for (auto sprite : spritesNOS) {
-		float min = maxVal - portion * (i + 1);
+	float portion = 0;
+	if (DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)decorNOSStage, 3))
+	{
+		if (DECORATOR::DECOR_GET_INT(vehicle, (char*)decorNOSStage) == 1)
+		{
+			portion = maxVal / numNOSItemsStage1;
+			for (auto sprite : spritesNOSStage1) {
+				float min = maxVal - portion * (i + 1);
 
-		float res = (val - min) / portion;
-		if (res > 1.0f) res = 1.0f;
-		if (res < 0.0f) res = 0.0f;
+				float res = (val - min) / portion;
+				if (res > 1.0f) res = 1.0f;
+				if (res < 0.0f) res = 0.0f;
 
-		drawTexture(sprite.Id, i, -9998, 100,
-		            settings.SpeedoSettings.NOSSize[i], static_cast<float>(sprite.Height) * (settings.SpeedoSettings.NOSSize[i] / static_cast<float>(sprite.Width)),
-		            0.5f, 0.5f,
-		            settings.SpeedoSettings.NOSXpos[i] + offsetX, settings.SpeedoSettings.NOSYpos[i] + offsetY,
-		            0.0f, screencorrection, 0.0f, 1.0f, 0.0f, baseAlpha * res * speedoAlpha);
-		i++;
+				drawTexture(sprite.Id, i, -9998, 100,
+					settings.SpeedoSettings.NOSStage1Size[i], static_cast<float>(sprite.Height) * (settings.SpeedoSettings.NOSStage1Size[i] / static_cast<float>(sprite.Width)),
+					0.5f, 0.5f,
+					settings.SpeedoSettings.NOSStage1Xpos[i] + offsetX, settings.SpeedoSettings.NOSStage1Ypos[i] + offsetY,
+					0.0f, screencorrection, 0.0f, 1.0f, 0.0f, baseAlpha * res * speedoAlpha);
+				i++;
+			}
+		}
+		else if (DECORATOR::DECOR_GET_INT(vehicle, (char*)decorNOSStage) == 2)
+		{
+			portion = maxVal / numNOSItemsStage2;
+			for (auto sprite : spritesNOSStage2) {
+				float min = maxVal - portion * (i + 1);
+
+				float res = (val - min) / portion;
+				if (res > 1.0f) res = 1.0f;
+				if (res < 0.0f) res = 0.0f;
+
+				drawTexture(sprite.Id, i, -9998, 100,
+					settings.SpeedoSettings.NOSStage2Size[i], static_cast<float>(sprite.Height) * (settings.SpeedoSettings.NOSStage2Size[i] / static_cast<float>(sprite.Width)),
+					0.5f, 0.5f,
+					settings.SpeedoSettings.NOSStage2Xpos[i] + offsetX, settings.SpeedoSettings.NOSStage2Ypos[i] + offsetY,
+					0.0f, screencorrection, 0.0f, 1.0f, 0.0f, baseAlpha * res * speedoAlpha);
+				i++;
+			}
+		}
+		else if (DECORATOR::DECOR_GET_INT(vehicle, (char*)decorNOSStage) == 3)
+		{
+			portion = maxVal / numNOSItemsStage3;
+			for (auto sprite : spritesNOSStage3) {
+				float min = maxVal - portion * (i + 1);
+
+				float res = (val - min) / portion;
+				if (res > 1.0f) res = 1.0f;
+				if (res < 0.0f) res = 0.0f;
+
+				drawTexture(sprite.Id, i, -9998, 100,
+					settings.SpeedoSettings.NOSStage3Size[i], static_cast<float>(sprite.Height) * (settings.SpeedoSettings.NOSStage3Size[i] / static_cast<float>(sprite.Width)),
+					0.5f, 0.5f,
+					settings.SpeedoSettings.NOSStage3Xpos[i] + offsetX, settings.SpeedoSettings.NOSStage3Ypos[i] + offsetY,
+					0.0f, screencorrection, 0.0f, 1.0f, 0.0f, baseAlpha * res * speedoAlpha);
+				i++;
+			}
+		}
+	}
+	else
+	{
+		portion = maxVal / numNOSItemsStage3;
+		for (auto sprite : spritesNOSStage3) {
+			float min = maxVal - portion * (i + 1);
+
+			float res = (val - min) / portion;
+			if (res > 1.0f) res = 1.0f;
+			if (res < 0.0f) res = 0.0f;
+			drawTexture(sprite.Id, i, -9998, 100,
+				settings.SpeedoSettings.NOSStage3Size[i], static_cast<float>(sprite.Height) * (settings.SpeedoSettings.NOSStage3Size[i] / static_cast<float>(sprite.Width)),
+				0.5f, 0.5f,
+				settings.SpeedoSettings.NOSStage3Xpos[i] + offsetX, settings.SpeedoSettings.NOSStage3Ypos[i] + offsetY,
+				0.0f, screencorrection, 0.0f, 1.0f, 0.0f, baseAlpha * res * speedoAlpha);
+			i++;
+		}
 	}
 }
 
@@ -524,11 +587,23 @@ void createTextures(std::string skin) {
 
 	spriteNOSText.Id = createTextureDefault(skinPath + "\\nosText.png", &spriteNOSText);
 
-	spritesNOS.clear();
-	for (int i = 0; i < numNOSItems; i++ ) {
+	spritesNOSStage1.clear();
+	spritesNOSStage2.clear();
+	spritesNOSStage3.clear();
+	for (int i = 0; i < numNOSItemsStage1; i++) {
 		SpriteInfo sprite;
-		sprite.Id = createTextureDefault(skinPath + "\\nos"+std::to_string(i)+".png", &sprite);
-		spritesNOS.push_back(sprite);
+		sprite.Id = createTextureDefault(skinPath + "\\nos0_" + std::to_string(i) + ".png", &sprite);
+		spritesNOSStage1.push_back(sprite);
+	}
+	for (int i = 0; i < numNOSItemsStage2; i++) {
+		SpriteInfo sprite;
+		sprite.Id = createTextureDefault(skinPath + "\\nos1_" + std::to_string(i) + ".png", &sprite);
+		spritesNOSStage2.push_back(sprite);
+	}
+	for (int i = 0; i < numNOSItemsStage3; i++) {
+		SpriteInfo sprite;
+		sprite.Id = createTextureDefault(skinPath + "\\nos2_" + std::to_string(i) + ".png", &sprite);
+		spritesNOSStage3.push_back(sprite);
 	}
 }
 

@@ -86,10 +86,22 @@ void ScriptSettings::SaveGeneral() const {
 	settingsGeneral.SetDoubleValue("SPEEDO", "NOSTextYpos", SpeedoSettings.NOSTextYpos);
 	settingsGeneral.SetDoubleValue("SPEEDO", "NOSTextSize", SpeedoSettings.NOSTextSize);
 
-	for (int i = 0; i < numNOSItems; i++) {
-		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS"+std::to_string(i)+"Xpos").c_str(), SpeedoSettings.NOSXpos[i]);
-		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS"+std::to_string(i)+"Ypos").c_str(), SpeedoSettings.NOSYpos[i]);
-		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS"+std::to_string(i)+"Size").c_str(), SpeedoSettings.NOSSize[i]);
+	for (int i = 0; i < numNOSItemsStage1; i++) {
+		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage1Xpos").c_str(), SpeedoSettings.NOSStage1Xpos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage1Ypos").c_str(), SpeedoSettings.NOSStage1Ypos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage1Size").c_str(), SpeedoSettings.NOSStage1Size[i]);
+	}
+
+	for (int i = 0; i < numNOSItemsStage2; i++) {
+		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage2Xpos").c_str(), SpeedoSettings.NOSStage2Xpos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage2Ypos").c_str(), SpeedoSettings.NOSStage2Ypos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage2Size").c_str(), SpeedoSettings.NOSStage2Size[i]);
+	}
+
+	for (int i = 0; i < numNOSItemsStage3; i++) {
+		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS"+std::to_string(i)+"Stage3Xpos").c_str(), SpeedoSettings.NOSStage3Xpos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS"+std::to_string(i)+"Stage3Ypos").c_str(), SpeedoSettings.NOSStage3Ypos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS"+std::to_string(i)+"Stage3Size").c_str(), SpeedoSettings.NOSStage3Size[i]);
 	}
 	settingsGeneral.SaveFile(settingsGeneralFile.c_str());
 }
@@ -112,8 +124,14 @@ void ScriptSettings::Normalize(SpeedoStuff &coords) {
 	minX > coords.UnitXpos ? minX = coords.UnitXpos : minX = minX;
 	minX > coords.GearXpos ? minX = coords.GearXpos : minX = minX;
 	minX > coords.NOSTextXpos ? minX = coords.NOSTextXpos : minX = minX;
-	for (int i = 0; i < numNOSItems; i++) {
-		minX > coords.NOSXpos[i] ? minX = coords.NOSXpos[i] : minX = minX;
+	for (int i = 0; i < numNOSItemsStage1; i++) {
+		minX > coords.NOSStage1Xpos[i] ? minX = coords.NOSStage1Xpos[i] : minX = minX;
+	}
+	for (int i = 0; i < numNOSItemsStage2; i++) {
+		minX > coords.NOSStage2Xpos[i] ? minX = coords.NOSStage2Xpos[i] : minX = minX;
+	}
+	for (int i = 0; i < numNOSItemsStage3; i++) {
+		minX > coords.NOSStage3Xpos[i] ? minX = coords.NOSStage3Xpos[i] : minX = minX;
 	}
 
 
@@ -131,8 +149,14 @@ void ScriptSettings::Normalize(SpeedoStuff &coords) {
 	minY > coords.UnitYpos ? minY = coords.UnitYpos : minY = minY;
 	minY > coords.GearYpos ? minY = coords.GearYpos : minY = minY;
 	minY > coords.NOSTextYpos ? minY = coords.NOSTextYpos : minY = minY;
-	for (int i = 0; i < numNOSItems; i++) {
-		minY > coords.NOSYpos[i] ? minY = coords.NOSYpos[i] : minY = minY;
+	for (int i = 0; i < numNOSItemsStage1; i++) {
+		minY > coords.NOSStage1Ypos[i] ? minY = coords.NOSStage1Ypos[i] : minY = minY;
+	}
+	for (int i = 0; i < numNOSItemsStage2; i++) {
+		minY > coords.NOSStage2Ypos[i] ? minY = coords.NOSStage2Ypos[i] : minY = minY;
+	}
+	for (int i = 0; i < numNOSItemsStage3; i++) {
+		minY > coords.NOSStage3Ypos[i] ? minY = coords.NOSStage3Ypos[i] : minY = minY;		
 	}
 
 	coords.RPMBgXpos = coords.RPMBgXpos - minX;
@@ -149,8 +173,17 @@ void ScriptSettings::Normalize(SpeedoStuff &coords) {
 	coords.UnitXpos = coords.UnitXpos - minX;
 	coords.GearXpos = coords.GearXpos - minX;
 	coords.NOSTextXpos = coords.NOSTextXpos - minX;
-	for (int i = 0; i < numNOSItems; i++) {
-		coords.NOSXpos[i] = coords.NOSXpos[i] - minX;
+	for (int i = 0; i < numNOSItemsStage1; i++) {
+		coords.NOSStage1Xpos[i] = coords.NOSStage1Xpos[i] - minX;
+
+	}
+	for (int i = 0; i < numNOSItemsStage2; i++) {
+		coords.NOSStage2Xpos[i] = coords.NOSStage2Xpos[i] - minX;
+
+	}
+	for (int i = 0; i < numNOSItemsStage3; i++) {
+		coords.NOSStage3Xpos[i] = coords.NOSStage3Xpos[i] - minX;
+	
 	}
 
 	coords.RPMBgYpos = coords.RPMBgYpos - minY;
@@ -167,8 +200,15 @@ void ScriptSettings::Normalize(SpeedoStuff &coords) {
 	coords.UnitYpos = coords.UnitYpos - minY;
 	coords.GearYpos = coords.GearYpos - minY;
 	coords.NOSTextYpos = coords.NOSTextYpos - minY;
-	for (int i = 0; i < numNOSItems; i++) {
-		coords.NOSYpos[i] = coords.NOSYpos[i] - minY;
+	for (int i = 0; i < numNOSItemsStage1; i++) {
+		coords.NOSStage1Ypos[i] = coords.NOSStage1Ypos[i] - minY;
+
+	}
+	for (int i = 0; i < numNOSItemsStage2; i++) {
+		coords.NOSStage2Ypos[i] = coords.NOSStage2Ypos[i] - minY;
+	}
+	for (int i = 0; i < numNOSItemsStage3; i++) {
+		coords.NOSStage3Ypos[i] = coords.NOSStage3Ypos[i] - minY;
 	}
 
 	SaveGeneral();
@@ -247,9 +287,21 @@ void ScriptSettings::parseSettingsGeneral() {
 	SpeedoSettings.NOSTextYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "NOSTextYpos"));
 	SpeedoSettings.NOSTextSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "NOSTextSize"));
 
-	for (int i = 0; i < numNOSItems; i++) {
-		SpeedoSettings.NOSXpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Xpos").c_str());
-		SpeedoSettings.NOSYpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Ypos").c_str());
-		SpeedoSettings.NOSSize[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Size").c_str());
+	for (int i = 0; i < numNOSItemsStage1; i++) {
+		SpeedoSettings.NOSStage1Xpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage1Xpos").c_str());
+		SpeedoSettings.NOSStage1Ypos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage1Ypos").c_str());
+		SpeedoSettings.NOSStage1Size[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage1Size").c_str());
+	}
+
+	for (int i = 0; i < numNOSItemsStage2; i++) {
+		SpeedoSettings.NOSStage2Xpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage2Xpos").c_str());
+		SpeedoSettings.NOSStage2Ypos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage2Ypos").c_str());
+		SpeedoSettings.NOSStage2Size[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage2Size").c_str());
+	}
+
+	for (int i = 0; i < numNOSItemsStage3; i++) {
+		SpeedoSettings.NOSStage3Xpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage3Xpos").c_str());
+		SpeedoSettings.NOSStage3Ypos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage3Ypos").c_str());
+		SpeedoSettings.NOSStage3Size[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage3Size").c_str());
 	}
 }

@@ -128,14 +128,30 @@ void update_menu() {
 		menu.FloatOption("NOSTextYpos", settings.SpeedoSettings.NOSTextYpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("NOSTextSize", settings.SpeedoSettings.NOSTextSize, 0.0f, 1.0f, 0.001f);
 
-		menu.FloatOption("NOS0Size", settings.SpeedoSettings.NOSSize[0], 0.0f, 1.0f, 0.001f);
-		for (int i = 1; i < numNOSItems; i++) {
-			settings.SpeedoSettings.NOSSize[i] = settings.SpeedoSettings.NOSSize[0];
+		menu.FloatOption("NOS0Stage1Size", settings.SpeedoSettings.NOSStage1Size[0], 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("NOS0Stage2Size", settings.SpeedoSettings.NOSStage2Size[0], 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("NOS0Stage3Size", settings.SpeedoSettings.NOSStage3Size[0], 0.0f, 1.0f, 0.001f);
+		for (int i = 1; i < numNOSItemsStage1; i++) {
+			settings.SpeedoSettings.NOSStage1Size[i] = settings.SpeedoSettings.NOSStage1Size[0];
+		}
+		for (int i = 1; i < numNOSItemsStage2; i++) {
+			settings.SpeedoSettings.NOSStage2Size[i] = settings.SpeedoSettings.NOSStage2Size[0];
+		}
+		for (int i = 1; i < numNOSItemsStage3; i++) {
+			settings.SpeedoSettings.NOSStage3Size[i] = settings.SpeedoSettings.NOSStage3Size[0];
 		}
 
-		for (int i = 0; i < numNOSItems; i++) {
-			menu.FloatOption("NOS"+std::to_string(i)+"Xpos", settings.SpeedoSettings.NOSXpos[i], 0.0f, 1.0f, 0.001f);
-			menu.FloatOption("NOS"+std::to_string(i)+"Ypos", settings.SpeedoSettings.NOSYpos[i], 0.0f, 1.0f, 0.001f);
+		for (int i = 0; i < numNOSItemsStage1; i++) {
+			menu.FloatOption("NOS" + std::to_string(i) + "Xpos", settings.SpeedoSettings.NOSStage1Xpos[i], 0.0f, 1.0f, 0.001f);
+			menu.FloatOption("NOS" + std::to_string(i) + "Ypos", settings.SpeedoSettings.NOSStage1Ypos[i], 0.0f, 1.0f, 0.001f);
+		}
+		for (int i = 0; i < numNOSItemsStage2; i++) {
+			menu.FloatOption("NOS" + std::to_string(i) + "Xpos", settings.SpeedoSettings.NOSStage2Xpos[i], 0.0f, 1.0f, 0.001f);
+			menu.FloatOption("NOS" + std::to_string(i) + "Ypos", settings.SpeedoSettings.NOSStage2Ypos[i], 0.0f, 1.0f, 0.001f);
+		}
+		for (int i = 0; i < numNOSItemsStage3; i++) {
+			menu.FloatOption("NOS"+std::to_string(i)+"Xpos", settings.SpeedoSettings.NOSStage3Xpos[i], 0.0f, 1.0f, 0.001f);
+			menu.FloatOption("NOS"+std::to_string(i)+"Ypos", settings.SpeedoSettings.NOSStage3Ypos[i], 0.0f, 1.0f, 0.001f);
 		}
 	}
 
