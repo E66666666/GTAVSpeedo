@@ -103,6 +103,98 @@ void ScriptSettings::SaveGeneral() const {
 		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS"+std::to_string(i)+"Stage3Ypos").c_str(), SpeedoSettings.NOSStage3Ypos[i]);
 		settingsGeneral.SetDoubleValue("SPEEDO", ("NOS"+std::to_string(i)+"Stage3Size").c_str(), SpeedoSettings.NOSStage3Size[i]);
 	}
+	
+	// DRAG
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragRPMBgXpos", SpeedoSettings.DragRPMBgXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragRPMBgYpos", SpeedoSettings.DragRPMBgYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragRPMBgSize", SpeedoSettings.DragRPMBgSize);
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragLinesXpos", SpeedoSettings.DragLinesXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragLinesYpos", SpeedoSettings.DragLinesYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragLinesSize", SpeedoSettings.DragLinesSize);
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragNosLinesXpos", SpeedoSettings.DragNosLinesXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragNosLinesYpos", SpeedoSettings.DragNosLinesYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragNosLinesSize", SpeedoSettings.DragNosLinesSize);
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragHeatLinesXpos", SpeedoSettings.DragHeatLinesXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragHeatLinesYpos", SpeedoSettings.DragHeatLinesYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragHeatLinesSize", SpeedoSettings.DragHeatLinesSize);
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragRPMDialXpos", SpeedoSettings.DragRPMDialXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragRPMDialYpos", SpeedoSettings.DragRPMDialYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragRPMDialSize", SpeedoSettings.DragRPMDialSize);
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragRPMRedXpos", SpeedoSettings.DragRPMRedXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragRPMRedYpos", SpeedoSettings.DragRPMRedYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragRPMRedSize", SpeedoSettings.DragRPMRedSize);
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragHeatAlertXpos", SpeedoSettings.DragHeatAlertXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragHeatAlertYpos", SpeedoSettings.DragHeatAlertYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragHeatAlertSize", SpeedoSettings.DragHeatAlertSize);
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragShiftLightXpos", SpeedoSettings.DragShiftLightXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragShiftLightYpos", SpeedoSettings.DragShiftLightYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragShiftLightSize", SpeedoSettings.DragShiftLightSize);
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragRPMBoxXpos", SpeedoSettings.DragRPMBoxXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragRPMBoxYpos", SpeedoSettings.DragRPMBoxYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragRPMBoxSize", SpeedoSettings.DragRPMBoxSize);
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragSpeedBoxXpos", SpeedoSettings.DragSpeedBoxXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragSpeedBoxYpos", SpeedoSettings.DragSpeedBoxYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragSpeedBoxSize", SpeedoSettings.DragSpeedBoxSize);
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragSpeedXpos", SpeedoSettings.DragSpeedXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragSpeedYpos", SpeedoSettings.DragSpeedYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragSpeedSize", SpeedoSettings.DragSpeedSize);
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragUnitXpos", SpeedoSettings.DragUnitXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragUnitYpos", SpeedoSettings.DragUnitYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragUnitSize", SpeedoSettings.DragUnitSize);
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragGearXpos", SpeedoSettings.DragGearXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragGearYpos", SpeedoSettings.DragGearYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragGearSize", SpeedoSettings.DragGearSize);
+
+	for (int i = 0; i < numDragHeat; i++) {
+		settingsGeneral.SetDoubleValue("SPEEDO", ("DragHeat" + std::to_string(i) + "Xpos").c_str(), SpeedoSettings.DragHeatXpos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("DragHeat" + std::to_string(i) + "Ypos").c_str(), SpeedoSettings.DragHeatYpos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("DragHeat" + std::to_string(i) + "Size").c_str(), SpeedoSettings.DragHeatSize[i]);
+	}
+
+	for (int i = 0; i < numNOSItemsStage1; i++) {
+		settingsGeneral.SetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage1Xpos").c_str(), SpeedoSettings.DragNOSStage1Xpos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage1Ypos").c_str(), SpeedoSettings.DragNOSStage1Ypos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage1Size").c_str(), SpeedoSettings.DragNOSStage1Size[i]);
+	}
+
+	for (int i = 0; i < numNOSItemsStage2; i++) {
+		settingsGeneral.SetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage2Xpos").c_str(), SpeedoSettings.DragNOSStage2Xpos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage2Ypos").c_str(), SpeedoSettings.DragNOSStage2Ypos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage2Size").c_str(), SpeedoSettings.DragNOSStage2Size[i]);
+	}
+
+	for (int i = 0; i < numNOSItemsStage3; i++) {
+		settingsGeneral.SetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage3Xpos").c_str(), SpeedoSettings.DragNOSStage3Xpos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage3Ypos").c_str(), SpeedoSettings.DragNOSStage3Ypos[i]);
+		settingsGeneral.SetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage3Size").c_str(), SpeedoSettings.DragNOSStage3Size[i]);
+	}
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragTurboXpos", SpeedoSettings.DragTurboXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragTurboYpos", SpeedoSettings.DragTurboYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragTurboSize", SpeedoSettings.DragTurboSize);
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragTurboDialXpos", SpeedoSettings.DragTurboDialXpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragTurboDialYpos", SpeedoSettings.DragTurboDialYpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragTurboDialSize", SpeedoSettings.DragTurboDialSize);
+
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragTurboRed1Xpos", SpeedoSettings.DragTurboRed1Xpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragTurboRed1Ypos", SpeedoSettings.DragTurboRed1Ypos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragTurboRed2Xpos", SpeedoSettings.DragTurboRed2Xpos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragTurboRed2Ypos", SpeedoSettings.DragTurboRed2Ypos);
+	settingsGeneral.SetDoubleValue("SPEEDO", "DragTurboDialSize", SpeedoSettings.DragTurboDialSize);
+	
 	settingsGeneral.SaveFile(settingsGeneralFile.c_str());
 }
 
@@ -133,7 +225,6 @@ void ScriptSettings::Normalize(SpeedoStuff &coords) {
 	for (int i = 0; i < numNOSItemsStage3; i++) {
 		minX > coords.NOSStage3Xpos[i] ? minX = coords.NOSStage3Xpos[i] : minX = minX;
 	}
-
 
 	minY > coords.RPMBgYpos ? minY = coords.RPMBgYpos : minY = minY;
 	minY > coords.RPMNumYpos ? minY = coords.RPMNumYpos : minY = minY;
@@ -175,15 +266,12 @@ void ScriptSettings::Normalize(SpeedoStuff &coords) {
 	coords.NOSTextXpos = coords.NOSTextXpos - minX;
 	for (int i = 0; i < numNOSItemsStage1; i++) {
 		coords.NOSStage1Xpos[i] = coords.NOSStage1Xpos[i] - minX;
-
 	}
 	for (int i = 0; i < numNOSItemsStage2; i++) {
 		coords.NOSStage2Xpos[i] = coords.NOSStage2Xpos[i] - minX;
-
 	}
 	for (int i = 0; i < numNOSItemsStage3; i++) {
 		coords.NOSStage3Xpos[i] = coords.NOSStage3Xpos[i] - minX;
-	
 	}
 
 	coords.RPMBgYpos = coords.RPMBgYpos - minY;
@@ -202,7 +290,6 @@ void ScriptSettings::Normalize(SpeedoStuff &coords) {
 	coords.NOSTextYpos = coords.NOSTextYpos - minY;
 	for (int i = 0; i < numNOSItemsStage1; i++) {
 		coords.NOSStage1Ypos[i] = coords.NOSStage1Ypos[i] - minY;
-
 	}
 	for (int i = 0; i < numNOSItemsStage2; i++) {
 		coords.NOSStage2Ypos[i] = coords.NOSStage2Ypos[i] - minY;
@@ -210,6 +297,128 @@ void ScriptSettings::Normalize(SpeedoStuff &coords) {
 	for (int i = 0; i < numNOSItemsStage3; i++) {
 		coords.NOSStage3Ypos[i] = coords.NOSStage3Ypos[i] - minY;
 	}
+	
+	// DRAG
+	minX > coords.DragRPMBgXpos ? minX = coords.DragRPMBgXpos : minX = minX;
+	minX > coords.DragLinesXpos ? minX = coords.DragLinesXpos : minX = minX;
+	minX > coords.DragNosLinesXpos ? minX = coords.DragNosLinesXpos : minX = minX;
+	minX > coords.DragHeatLinesXpos ? minX = coords.DragHeatLinesXpos : minX = minX;
+	minX > coords.DragRPMDialXpos ? minX = coords.DragRPMDialXpos : minX = minX;
+	minX > coords.DragRPMRedXpos ? minX = coords.DragRPMRedXpos : minX = minX;
+	minX > coords.DragHeatAlertXpos ? minX = coords.DragHeatAlertXpos : minX = minX;
+	minX > coords.DragShiftLightXpos ? minX = coords.DragShiftLightXpos : minX = minX;
+	minX > coords.DragRPMBoxXpos ? minX = coords.DragRPMBoxXpos : minX = minX;
+	minX > coords.DragSpeedBoxXpos ? minX = coords.DragSpeedBoxXpos : minX = minX;
+	minX > coords.DragSpeedXpos ? minX = coords.DragSpeedXpos : minX = minX;
+	minX > coords.DragUnitXpos ? minX = coords.DragUnitXpos : minX = minX;
+	minX > coords.DragGearXpos ? minX = coords.DragGearXpos : minX = minX;
+	for (int i = 0; i < numDragHeat; i++) {
+		minX > coords.DragHeatXpos[i] ? minX = coords.DragHeatXpos[i] : minX = minX;
+	}
+	for (int i = 0; i < numNOSItemsStage1; i++) {
+		minX > coords.DragNOSStage1Xpos[i] ? minX = coords.DragNOSStage1Xpos[i] : minX = minX;
+	}
+	for (int i = 0; i < numNOSItemsStage2; i++) {
+		minX > coords.DragNOSStage2Xpos[i] ? minX = coords.DragNOSStage2Xpos[i] : minX = minX;
+	}
+	for (int i = 0; i < numNOSItemsStage3; i++) {
+		minX > coords.DragNOSStage3Xpos[i] ? minX = coords.DragNOSStage3Xpos[i] : minX = minX;
+	}
+	minX > coords.DragTurboXpos ? minX = coords.DragTurboXpos : minX = minX;
+	minX > coords.DragTurboDialXpos ? minX = coords.DragTurboDialXpos : minX = minX;
+	minX > coords.DragTurboRed1Xpos ? minX = coords.DragTurboRed1Xpos : minX = minX;
+	minX > coords.DragTurboRed2Xpos ? minX = coords.DragTurboRed2Xpos : minX = minX;
+
+
+	minY > coords.DragRPMBgYpos ? minY = coords.DragRPMBgYpos : minY = minY;
+	minY > coords.DragLinesYpos ? minY = coords.DragLinesYpos : minY = minY;
+	minY > coords.DragNosLinesYpos ? minY = coords.DragNosLinesYpos : minY = minY;
+	minY > coords.DragHeatLinesYpos ? minY = coords.DragHeatLinesYpos : minY = minY;
+	minY > coords.DragRPMDialYpos ? minY = coords.DragRPMDialYpos : minY = minY;
+	minY > coords.DragRPMRedYpos ? minY = coords.DragRPMRedYpos : minY = minY;
+	minY > coords.DragHeatAlertYpos ? minX = coords.DragHeatAlertYpos : minY = minY;
+	minY > coords.DragShiftLightYpos ? minX = coords.DragShiftLightYpos : minY = minY;
+	minY > coords.DragRPMBoxYpos ? minY = coords.DragRPMBoxYpos : minY = minY;
+	minY > coords.DragSpeedBoxYpos ? minY = coords.DragSpeedBoxYpos : minY = minY;
+	minY > coords.DragSpeedYpos ? minY = coords.DragSpeedYpos : minY = minY;
+	minY > coords.DragUnitYpos ? minY = coords.DragUnitYpos : minY = minY;
+	minY > coords.DragGearYpos ? minY = coords.DragGearYpos : minY = minY;
+	for (int i = 0; i < numDragHeat; i++) {
+		minY > coords.DragHeatYpos[i] ? minY = coords.DragHeatYpos[i] : minY = minY;
+	}
+	for (int i = 0; i < numNOSItemsStage1; i++) {
+		minY > coords.DragNOSStage1Ypos[i] ? minY = coords.DragNOSStage1Ypos[i] : minY = minY;
+	}
+	for (int i = 0; i < numNOSItemsStage2; i++) {
+		minY > coords.DragNOSStage2Ypos[i] ? minY = coords.DragNOSStage2Ypos[i] : minY = minY;
+	}
+	for (int i = 0; i < numNOSItemsStage3; i++) {
+		minY > coords.DragNOSStage3Ypos[i] ? minY = coords.DragNOSStage3Ypos[i] : minY = minY;
+	}
+	minY > coords.DragTurboYpos ? minY = coords.DragTurboYpos : minY = minY;
+	minY > coords.DragTurboDialYpos ? minY = coords.DragTurboDialYpos : minY = minY;
+	minY > coords.DragTurboRed1Ypos ? minY = coords.DragTurboRed1Ypos : minY = minY;
+	minY > coords.DragTurboRed2Ypos ? minY = coords.DragTurboRed2Ypos : minY = minY;
+
+	coords.DragRPMBgXpos = coords.DragRPMBgXpos - minX;
+	coords.DragLinesXpos = coords.DragLinesXpos - minX;
+	coords.DragNosLinesXpos = coords.DragNosLinesXpos - minX;
+	coords.DragHeatLinesXpos = coords.DragHeatLinesXpos - minX;
+	coords.DragRPMDialXpos = coords.DragRPMDialXpos - minX;
+	coords.DragRPMRedXpos = coords.DragRPMRedXpos - minX;
+	coords.DragHeatAlertXpos = coords.DragHeatAlertXpos - minX;
+	coords.DragShiftLightXpos = coords.DragShiftLightXpos - minX;
+	coords.DragRPMBoxXpos = coords.DragRPMBoxXpos - minX;
+	coords.DragSpeedBoxXpos = coords.DragSpeedBoxXpos - minX;
+	coords.DragSpeedXpos = coords.DragSpeedXpos - minX;
+	coords.DragUnitXpos = coords.DragUnitXpos - minX;
+	coords.DragGearXpos = coords.DragGearXpos - minX;
+	for (int i = 0; i < numDragHeat; i++) {
+		coords.DragHeatXpos[i] = coords.DragHeatXpos[i] - minX;
+	}
+	for (int i = 0; i < numNOSItemsStage1; i++) {
+		coords.DragNOSStage1Xpos[i] = coords.DragNOSStage1Xpos[i] - minX;
+	}
+	for (int i = 0; i < numNOSItemsStage2; i++) {
+		coords.DragNOSStage2Xpos[i] = coords.DragNOSStage2Xpos[i] - minX;
+	}
+	for (int i = 0; i < numNOSItemsStage3; i++) {
+		coords.DragNOSStage3Xpos[i] = coords.DragNOSStage3Xpos[i] - minX;
+	}
+	coords.DragTurboXpos = coords.DragTurboXpos - minX;
+	coords.DragTurboDialXpos = coords.DragTurboDialXpos - minX;
+	coords.DragTurboRed1Xpos = coords.DragTurboRed1Xpos - minX;
+	coords.DragTurboRed2Xpos = coords.DragTurboRed2Xpos - minX;
+
+	coords.DragRPMBgYpos = coords.DragRPMBgYpos - minY;
+	coords.DragLinesYpos = coords.DragLinesYpos - minY;
+	coords.DragNosLinesYpos = coords.DragNosLinesYpos - minY;
+	coords.DragHeatLinesYpos = coords.DragHeatLinesYpos - minY;
+	coords.DragRPMDialYpos = coords.DragRPMDialYpos - minY;
+	coords.DragRPMRedYpos = coords.DragRPMRedYpos - minY;
+	coords.DragHeatAlertYpos = coords.DragHeatAlertYpos - minY;
+	coords.DragShiftLightYpos = coords.DragShiftLightYpos - minY;
+	coords.DragRPMBoxYpos = coords.DragRPMBoxYpos - minY;
+	coords.DragSpeedBoxYpos = coords.DragSpeedBoxYpos - minY;
+	coords.DragSpeedYpos = coords.DragSpeedYpos - minY;
+	coords.DragUnitYpos = coords.DragUnitYpos - minY;
+	coords.DragGearYpos = coords.DragGearYpos - minY;
+	for (int i = 0; i < numDragHeat; i++) {
+		coords.DragHeatYpos[i] = coords.DragHeatYpos[i] - minY;
+	}
+	for (int i = 0; i < numNOSItemsStage1; i++) {
+		coords.DragNOSStage1Ypos[i] = coords.DragNOSStage1Ypos[i] - minY;
+	}
+	for (int i = 0; i < numNOSItemsStage2; i++) {
+		coords.DragNOSStage2Ypos[i] = coords.DragNOSStage2Ypos[i] - minY;
+	}
+	for (int i = 0; i < numNOSItemsStage3; i++) {
+		coords.DragNOSStage3Ypos[i] = coords.DragNOSStage3Ypos[i] - minY;
+	}
+	coords.DragTurboYpos = coords.DragTurboYpos - minY;
+	coords.DragTurboDialYpos = coords.DragTurboDialYpos - minY;
+	coords.DragTurboRed1Ypos = coords.DragTurboRed1Ypos - minY;
+	coords.DragTurboRed2Ypos = coords.DragTurboRed2Ypos - minY;
 
 	SaveGeneral();
 }
@@ -304,4 +513,95 @@ void ScriptSettings::parseSettingsGeneral() {
 		SpeedoSettings.NOSStage3Ypos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage3Ypos").c_str());
 		SpeedoSettings.NOSStage3Size[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage3Size").c_str());
 	}
+	
+	// DRAG
+	SpeedoSettings.DragRPMBgXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragRPMBgXpos"));
+	SpeedoSettings.DragRPMBgYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragRPMBgYpos"));
+	SpeedoSettings.DragRPMBgSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragRPMBgSize"));
+
+	SpeedoSettings.DragLinesXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragLinesXpos"));
+	SpeedoSettings.DragLinesYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragLinesYpos"));
+	SpeedoSettings.DragLinesSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragLinesSize"));
+
+	SpeedoSettings.DragNosLinesXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragNosLinesXpos"));
+	SpeedoSettings.DragNosLinesYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragNosLinesYpos"));
+	SpeedoSettings.DragNosLinesSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragNosLinesSize"));
+
+	SpeedoSettings.DragHeatLinesXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragHeatLinesXpos"));
+	SpeedoSettings.DragHeatLinesYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragHeatLinesYpos"));
+	SpeedoSettings.DragHeatLinesSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragHeatLinesSize"));
+
+	SpeedoSettings.DragRPMDialXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragRPMDialXpos"));
+	SpeedoSettings.DragRPMDialYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragRPMDialYpos"));
+	SpeedoSettings.DragRPMDialSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragRPMDialSize"));
+
+	SpeedoSettings.DragRPMRedXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragRPMRedXpos"));
+	SpeedoSettings.DragRPMRedYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragRPMRedYpos"));
+	SpeedoSettings.DragRPMRedSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragRPMRedSize"));
+
+	SpeedoSettings.DragHeatAlertXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragHeatAlertXpos"));
+	SpeedoSettings.DragHeatAlertYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragHeatAlertYpos"));
+	SpeedoSettings.DragHeatAlertSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragHeatAlertSize"));
+
+	SpeedoSettings.DragShiftLightXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragShiftLightXpos"));
+	SpeedoSettings.DragShiftLightYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragShiftLightYpos"));
+	SpeedoSettings.DragShiftLightSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragShiftLightSize"));
+
+	SpeedoSettings.DragRPMBoxXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragRPMBoxXpos"));
+	SpeedoSettings.DragRPMBoxYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragRPMBoxYpos"));
+	SpeedoSettings.DragRPMBoxSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragRPMBoxSize"));
+
+	SpeedoSettings.DragSpeedBoxXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragSpeedBoxXpos"));
+	SpeedoSettings.DragSpeedBoxYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragSpeedBoxYpos"));
+	SpeedoSettings.DragSpeedBoxSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragSpeedBoxSize"));
+
+	SpeedoSettings.DragSpeedXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragSpeedXpos"));
+	SpeedoSettings.DragSpeedYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragSpeedYpos"));
+	SpeedoSettings.DragSpeedSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragSpeedSize"));
+
+	SpeedoSettings.DragUnitXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragUnitXpos"));
+	SpeedoSettings.DragUnitYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragUnitYpos"));
+	SpeedoSettings.DragUnitSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragUnitSize"));
+
+	SpeedoSettings.DragGearXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragGearXpos"));
+	SpeedoSettings.DragGearYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragGearYpos"));
+	SpeedoSettings.DragGearSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragGearSize"));
+
+	for (int i = 0; i < numDragHeat; i++) {
+		SpeedoSettings.DragHeatXpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragHeat" + std::to_string(i) + "Xpos").c_str());
+		SpeedoSettings.DragHeatYpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragHeat" + std::to_string(i) + "Ypos").c_str());
+		SpeedoSettings.DragHeatSize[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragHeat" + std::to_string(i) + "Size").c_str());
+	}
+
+	for (int i = 0; i < numNOSItemsStage1; i++) {
+		SpeedoSettings.DragNOSStage1Xpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage1Xpos").c_str());
+		SpeedoSettings.DragNOSStage1Ypos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage1Ypos").c_str());
+		SpeedoSettings.DragNOSStage1Size[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage1Size").c_str());
+	}
+
+	for (int i = 0; i < numNOSItemsStage2; i++) {
+		SpeedoSettings.DragNOSStage2Xpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage2Xpos").c_str());
+		SpeedoSettings.DragNOSStage2Ypos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage2Ypos").c_str());
+		SpeedoSettings.DragNOSStage2Size[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage2Size").c_str());
+	}
+
+	for (int i = 0; i < numNOSItemsStage3; i++) {
+		SpeedoSettings.DragNOSStage3Xpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage3Xpos").c_str());
+		SpeedoSettings.DragNOSStage3Ypos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage3Ypos").c_str());
+		SpeedoSettings.DragNOSStage3Size[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage3Size").c_str());
+	}
+
+	SpeedoSettings.DragTurboXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragTurboXpos"));
+	SpeedoSettings.DragTurboYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragTurboYpos"));
+	SpeedoSettings.DragTurboSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragTurboSize"));
+
+	SpeedoSettings.DragTurboDialXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragTurboDialXpos"));
+	SpeedoSettings.DragTurboDialYpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragTurboDialYpos"));
+	SpeedoSettings.DragTurboDialSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragTurboDialSize"));
+
+	SpeedoSettings.DragTurboRed1Xpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragTurboRed1Xpos"));
+	SpeedoSettings.DragTurboRed1Ypos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragTurboRed1Ypos"));
+	SpeedoSettings.DragTurboRed2Xpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragTurboRed2Xpos"));
+	SpeedoSettings.DragTurboRed2Ypos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragTurboRed2Ypos"));
+	SpeedoSettings.DragTurboRedSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragTurboRedSize"));
 }
