@@ -290,7 +290,7 @@ void drawDragNOSBars(bool hasBoost, float boostVal, float nosVal, float screenco
 	}
 }
 
-void drawDragHeats(float heatVal, float screencorrection, float offsetX, float offsetY) {
+void drawDragEngineHeating(float heatVal, float screencorrection, float offsetX, float offsetY) {
 	float maxVal = 1.0f;
 	float val = heatVal;
 
@@ -387,7 +387,7 @@ void drawDragShiftLight(float rpm, float screencorrection, float offsetX, float 
 		0.0f, screencorrection, baseR, baseG, baseB, baseAlpha * speedoAlpha);
 }
 
-void drawDrag(float rpm, float screencorrection, float offsetX, float offsetY) {
+void drawDragHUD(float rpm, float screencorrection, float offsetX, float offsetY) {
 	displayRPM = lerp(displayRPM, rpm, 15.0f * GAMEPLAY::GET_FRAME_TIME());
 	float rpmRot = displayRPM / 3.3f + 0.070f;
 	// Short shift: 1.0f, 1.0f, 1.0f
@@ -501,7 +501,7 @@ void drawDragSpeed(float speed, int &charNum, float screencorrection, float offs
 		default: si = spriteNE; break;
 		}
 
-		drawTexture(si.Id, charNum, -9980, displayTime,
+		drawTexture(si.Id, charNum, -9980, (int)displayTime,
 			settings.SpeedoSettings.DragSpeedSize, static_cast<float>(si.Height) * (settings.SpeedoSettings.DragSpeedSize / static_cast<float>(si.Width)),
 			0.5f, 0.5f,
 			settings.SpeedoSettings.DragSpeedXpos + offsetX + settings.SpeedoSettings.DragSpeedSize * charNum, settings.SpeedoSettings.DragSpeedYpos + offsetY,
@@ -531,7 +531,7 @@ void drawDragGear(int gear, bool neutral, bool shift_indicator, int charNum, flo
 		c.b = 0.25f;
 	}
 
-	drawTexture(spriteGear.Id, charNum, -9980, displayTime,
+	drawTexture(spriteGear.Id, charNum, -9980, (int)displayTime,
 		settings.SpeedoSettings.DragGearSize, static_cast<float>(spriteGear.Height) * (settings.SpeedoSettings.DragGearSize / static_cast<float>(spriteGear.Width)),
 		0.5f, 0.5f,
 		settings.SpeedoSettings.DragGearXpos + offsetX, settings.SpeedoSettings.DragGearYpos + offsetY,
@@ -665,7 +665,7 @@ void drawSpeed(float speed, int &charNum, float screencorrection, float offsetX,
 			default: si = spriteNE; break;
 		}
 
-		drawTexture(si.Id, charNum, -9990, displayTime,
+		drawTexture(si.Id, charNum, -9990, (int)displayTime,
 		            settings.SpeedoSettings.SpeedSize, static_cast<float>(si.Height) * (settings.SpeedoSettings.SpeedSize / static_cast<float>(si.Width)),
 		            0.5f, 0.5f,
 		            settings.SpeedoSettings.SpeedXpos + offsetX + settings.SpeedoSettings.SpeedSize * charNum, settings.SpeedoSettings.SpeedYpos + offsetY,
@@ -695,7 +695,7 @@ void drawGear(int gear, bool neutral, bool shift_indicator, int charNum, float s
 		c.b = 0.25f;
 	}
 
-	drawTexture(spriteGear.Id, charNum, -9990, displayTime,
+	drawTexture(spriteGear.Id, charNum, -9990, (int)displayTime,
 	            settings.SpeedoSettings.GearSize, static_cast<float>(spriteGear.Height) * (settings.SpeedoSettings.GearSize / static_cast<float>(spriteGear.Width)),
 	            0.5f, 0.5f,
 	            settings.SpeedoSettings.GearXpos + offsetX, settings.SpeedoSettings.GearYpos + offsetY,
@@ -760,48 +760,25 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 	float screencorrection = invoke<float>(0xF1307EF624A80D87, FALSE);
 	float offsetX = settings.SpeedoSettings.SpeedoXpos;
 	float offsetY = settings.SpeedoSettings.SpeedoYpos;
-	
-	if (DECORATOR::DECOR_GET_BOOL(vehicle, (char*)decorDragShowHud) == false) {
-		// RPM
-		drawRPM(rpm, screencorrection, offsetX, offsetY);
 
-		// Turbo
-		drawTurbo(turbo, screencorrection, offsetX, offsetY);
-
-		// Speed unit
-		drawSpeedUnit(type, speed, screencorrection, offsetX, offsetY);
-
-		// Speed numbers
-		auto now = std::chrono::steady_clock::now().time_since_epoch();
-		auto displayTime = now - previousDisplayTime;
-		previousDisplayTime = now;
-
-		int charNum;
-		drawSpeed(speed, charNum, screencorrection, offsetX, offsetY, 2 * std::chrono::duration_cast<std::chrono::milliseconds>(displayTime).count());
-
-		// Gear
-		drawGear(gear, neutral, shift_indicator, charNum, screencorrection, offsetX, offsetY, 2 * std::chrono::duration_cast<std::chrono::milliseconds>(displayTime).count());
-
-		// Shift mode
-		// do something with shiftmode bruh
-
-		// NOS level
-		if (hasBoost || hasNOS) {
-			drawNOSBars(hasBoost, boostVal, nosVal, screencorrection, offsetX, offsetY);
-		}
+	bool dragHUDRegistered = DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)decorDragShowHud, DECOR_TYPE_BOOL);
+	bool useDragHUD = false;
+	if (dragHUDRegistered) {
+		if (DECORATOR::DECOR_GET_BOOL(vehicle, (char*)decorDragShowHud))
+			useDragHUD = true;
 	}
-	
-	// Drag
-	if (DECORATOR::DECOR_GET_BOOL(vehicle, (char*)decorDragShowHud) == true) {
-		drawDrag(rpm, screencorrection, 0.0f, 0.0f);
-		drawDragHeats(heatVal, screencorrection, 0.0f, 0.0f);
+
+	auto now = std::chrono::steady_clock::now().time_since_epoch();
+	auto displayTime = now - previousDisplayTime;
+	previousDisplayTime = now;
+	int charNum; // each sprite can be drawn multiple times so just assign incremental IDs to not clash
+
+	if (useDragHUD) {
+		drawDragHUD(rpm, screencorrection, 0.0f, 0.0f);
+		drawDragEngineHeating(heatVal, screencorrection, 0.0f, 0.0f);
 		drawDragShiftLight(rpm, screencorrection, 0.0f, 0.0f);
 		drawDragTurbo(turbo, screencorrection, 0.0f, 0.0f);
 		drawDragSpeedUnit(type, speed, screencorrection, 0.0f, 0.0f);
-		auto now = std::chrono::steady_clock::now().time_since_epoch();
-		auto displayTime = now - previousDisplayTime;
-		previousDisplayTime = now;
-		int charNum;
 		drawDragSpeed(speed, charNum, screencorrection, 0.0f, 0.0f, 2 * std::chrono::duration_cast<std::chrono::milliseconds>(displayTime).count());
 		drawDragGear(gear, neutral, shift_indicator, charNum, screencorrection, 0.0f, 0.0f, 2 * std::chrono::duration_cast<std::chrono::milliseconds>(displayTime).count());
 		if (heatVal >= 0.625f) {
@@ -810,6 +787,21 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		if (hasBoost || hasNOS) {
 			drawDragNOSBars(hasBoost, boostVal, nosVal, screencorrection, 0.0f, 0.0f);
 		}
+	}
+	else {
+		drawRPM(rpm, screencorrection, offsetX, offsetY);
+		drawTurbo(turbo, screencorrection, offsetX, offsetY);
+		drawSpeedUnit(type, speed, screencorrection, offsetX, offsetY);
+
+		drawSpeed(speed, charNum, screencorrection, offsetX, offsetY, 2 * std::chrono::duration_cast<std::chrono::milliseconds>(displayTime).count());
+		drawGear(gear, neutral, shift_indicator, charNum, screencorrection, offsetX, offsetY, 2 * std::chrono::duration_cast<std::chrono::milliseconds>(displayTime).count());
+
+		if (hasBoost || hasNOS) {
+			drawNOSBars(hasBoost, boostVal, nosVal, screencorrection, offsetX, offsetY);
+		}
+
+		// Shift mode
+		// todo: mt shift mode integration?
 	}
 }
 
@@ -900,7 +892,7 @@ bool setupGlobals() {
 	registerDecorator(decorMTNeutral, DECOR_TYPE_INT);
 	registerDecorator(decorNOS, DECOR_TYPE_INT);
 	registerDecorator(decorNOSLevel, DECOR_TYPE_FLOAT);
-
+	registerDecorator(decorDragShowHud, DECOR_TYPE_BOOL);
 	*g_bIsDecorRegisterLockedPtr = 1;
 	return true;
 }
