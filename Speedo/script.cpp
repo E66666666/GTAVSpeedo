@@ -28,11 +28,11 @@ const char* decorMTShiftIndicator   = "mt_shift_indicator";
 const char* decorMTGetShiftMode     = "mt_get_shiftmode";
 const char* decorNOS                = "ikt_speedo_nos";
 const char* decorNOSLevel           = "ikt_speedo_nos_level";
-const char* decorNOSStage = "nfsnitro_stage";
-const char* decorDragHeat = "nfsdrag_heat";
-const char* decorDragShowHud = "nfsdrag_showhud";
+const char* decorNOSStage           = "nfsnitro_stage";
+const char* decorDragHeat           = "nfsdrag_heat";
+const char* decorDragShowHud        = "nfsdrag_showhud";
 
-struct WTFABColor {
+struct Colorf {
 	float r;
 	float g;
 	float b;
@@ -541,7 +541,7 @@ void drawDragSpeed(float speed, int &charNum, float screencorrection, float offs
 
 void drawDragGear(int gear, bool neutral, bool shift_indicator, int charNum, float screencorrection, float offsetX, float offsetY, long long displayTime) {
 	SpriteInfo spriteGear;
-	WTFABColor c = { 0.0f, 0.5f, 0.74f, 1.0f };
+	Colorf c = { 0.0f, 0.5f, 0.74f, 1.0f };
 
 	if (neutral) spriteGear = spriteNN;
 	else if (gear == 0) spriteGear = spriteNR;
@@ -705,7 +705,7 @@ void drawSpeed(float speed, int &charNum, float screencorrection, float offsetX,
 
 void drawGear(int gear, bool neutral, bool shift_indicator, int charNum, float screencorrection, float offsetX, float offsetY, long long displayTime) {
 	SpriteInfo spriteGear;
-	WTFABColor c = { 0.0f, 0.5f, 0.74f, 1.0f };
+	Colorf c = { 0.0f, 0.5f, 0.74f, 1.0f };
 
 	if (neutral) spriteGear = spriteNN;
 	else if (gear == 0) spriteGear = spriteNR;
