@@ -231,81 +231,62 @@ void drawDragNOSBars(bool hasBoost, float boostVal, float nosVal, float screenco
 
 	float baseAlpha = 1.0f;
 
-	int i = 0;
-	float portion = 0;
-	if (DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)decorNOSStage, 3))
-	{
-		if (DECORATOR::DECOR_GET_INT(vehicle, (char*)decorNOSStage) == 1)
-		{
-			portion = maxVal / numNOSItemsStage1;
-			for (auto sprite : spritesDragNOSStage1) {
-				float min = maxVal - portion * (i + 1);
+	int numNOSItems;
+	int nosStage = 3;
 
-				float res = (val - min) / portion;
-				if (res > 1.0f) res = 1.0f;
-				if (res < 0.0f) res = 0.0f;
-
-				drawTexture(sprite.Id, i, -9998, 100,
-					settings.SpeedoSettings.DragNOSStage1Size[i], static_cast<float>(sprite.Height) * (settings.SpeedoSettings.DragNOSStage1Size[i] / static_cast<float>(sprite.Width)),
-					0.5f, 0.5f,
-					settings.SpeedoSettings.DragNOSStage1Xpos[i] + offsetX, settings.SpeedoSettings.DragNOSStage1Ypos[i] + offsetY,
-					0.0f, screencorrection, 0.0f, 1.0f, 0.0f, baseAlpha * res * speedoAlpha);
-				i++;
-			}
-		}
-		else if (DECORATOR::DECOR_GET_INT(vehicle, (char*)decorNOSStage) == 2)
-		{
-			portion = maxVal / numNOSItemsStage2;
-			for (auto sprite : spritesDragNOSStage2) {
-				float min = maxVal - portion * (i + 1);
-
-				float res = (val - min) / portion;
-				if (res > 1.0f) res = 1.0f;
-				if (res < 0.0f) res = 0.0f;
-
-				drawTexture(sprite.Id, i, -9998, 100,
-					settings.SpeedoSettings.DragNOSStage2Size[i], static_cast<float>(sprite.Height) * (settings.SpeedoSettings.DragNOSStage2Size[i] / static_cast<float>(sprite.Width)),
-					0.5f, 0.5f,
-					settings.SpeedoSettings.DragNOSStage2Xpos[i] + offsetX, settings.SpeedoSettings.DragNOSStage2Ypos[i] + offsetY,
-					0.0f, screencorrection, 0.0f, 1.0f, 0.0f, baseAlpha * res * speedoAlpha);
-				i++;
-			}
-		}
-		else if (DECORATOR::DECOR_GET_INT(vehicle, (char*)decorNOSStage) == 3)
-		{
-			portion = maxVal / numNOSItemsStage3;
-			for (auto sprite : spritesDragNOSStage3) {
-				float min = maxVal - portion * (i + 1);
-
-				float res = (val - min) / portion;
-				if (res > 1.0f) res = 1.0f;
-				if (res < 0.0f) res = 0.0f;
-
-				drawTexture(sprite.Id, i, -9998, 100,
-					settings.SpeedoSettings.DragNOSStage3Size[i], static_cast<float>(sprite.Height) * (settings.SpeedoSettings.DragNOSStage3Size[i] / static_cast<float>(sprite.Width)),
-					0.5f, 0.5f,
-					settings.SpeedoSettings.DragNOSStage3Xpos[i] + offsetX, settings.SpeedoSettings.DragNOSStage3Ypos[i] + offsetY,
-					0.0f, screencorrection, 0.0f, 1.0f, 0.0f, baseAlpha * res * speedoAlpha);
-				i++;
-			}
-		}
+	bool isStageUsed = DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)decorNOSStage, DECOR_TYPE_INT);
+	if (isStageUsed) {
+		nosStage = DECORATOR::DECOR_GET_INT(vehicle, (char*)decorNOSStage);
 	}
-	else
-	{
-		portion = maxVal / numNOSItemsStage3;
-		for (auto sprite : spritesDragNOSStage3) {
-			float min = maxVal - portion * (i + 1);
 
-			float res = (val - min) / portion;
-			if (res > 1.0f) res = 1.0f;
-			if (res < 0.0f) res = 0.0f;
-			drawTexture(sprite.Id, i, -9998, 100,
-				settings.SpeedoSettings.DragNOSStage3Size[i], static_cast<float>(sprite.Height) * (settings.SpeedoSettings.DragNOSStage3Size[i] / static_cast<float>(sprite.Width)),
-				0.5f, 0.5f,
-				settings.SpeedoSettings.DragNOSStage3Xpos[i] + offsetX, settings.SpeedoSettings.DragNOSStage3Ypos[i] + offsetY,
-				0.0f, screencorrection, 0.0f, 1.0f, 0.0f, baseAlpha * res * speedoAlpha);
-			i++;
-		}
+	std::vector<SpriteInfo> nosSprites;
+	std::vector<float> nosBarSize;
+	std::vector<float> nosBarXpos;
+	std::vector<float> nosBarYpos;
+
+	switch (nosStage) {
+	case 1: {
+		numNOSItems = numNOSItemsStage1;
+		nosSprites = spritesDragNOSStage1;
+		std::copy_n(nosBarSize.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage1Size.begin());
+		std::copy_n(nosBarXpos.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage1Xpos.begin());
+		std::copy_n(nosBarYpos.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage1Ypos.begin());
+		break;
+	}
+	case 2: {
+		numNOSItems = numNOSItemsStage2;
+		nosSprites = spritesDragNOSStage2;
+		std::copy_n(nosBarSize.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage2Size.begin());
+		std::copy_n(nosBarXpos.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage2Xpos.begin());
+		std::copy_n(nosBarYpos.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage2Ypos.begin());
+		break;
+	}
+	default:
+	case 3: {
+		numNOSItems = numNOSItemsStage3;
+		nosSprites = spritesDragNOSStage3;
+		std::copy_n(nosBarSize.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage3Size.begin());
+		std::copy_n(nosBarXpos.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage3Xpos.begin());
+		std::copy_n(nosBarYpos.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage3Ypos.begin());
+		break;
+	}
+	}
+
+	float portion = maxVal / numNOSItems;
+	int i = 0;
+	for (auto sprite : nosSprites) {
+		float min = maxVal - portion * (i + 1);
+
+		float res = (val - min) / portion;
+		if (res > 1.0f) res = 1.0f;
+		if (res < 0.0f) res = 0.0f;
+
+		drawTexture(sprite.Id, i, -9998, 100,
+			nosBarSize[i], static_cast<float>(sprite.Height) * (nosBarSize[i] / static_cast<float>(sprite.Width)),
+			0.5f, 0.5f,
+			nosBarXpos[i] + offsetX, nosBarYpos[i] + offsetY,
+			0.0f, screencorrection, 0.0f, 1.0f, 0.0f, baseAlpha * res * speedoAlpha);
+		i++;
 	}
 }
 
