@@ -91,27 +91,6 @@ std::vector<SpriteInfo> spritesNOSStage1;
 std::vector<SpriteInfo> spritesNOSStage2;
 std::vector<SpriteInfo> spritesNOSStage3;
 
-// DRAG
-SpriteInfo spriteDragRPMBg;
-SpriteInfo spriteDragLines;
-SpriteInfo spriteDragNosLines;
-SpriteInfo spriteDragHeatLines;
-SpriteInfo spriteDragRPMDial;
-SpriteInfo spriteDragRPMRed;
-SpriteInfo spriteDragHeatAlert;
-SpriteInfo spriteDragShiftLight;
-SpriteInfo spriteDragRPMBox;
-SpriteInfo spriteDragSpeedBox;
-SpriteInfo spriteDragTurboBack;
-SpriteInfo spriteDragTurboMeter;
-SpriteInfo spriteDragTurboDial;
-SpriteInfo spriteDragTurboRed1;
-SpriteInfo spriteDragTurboRed2;
-std::vector<SpriteInfo> spritesDragHeat;
-std::vector<SpriteInfo> spritesDragNOSStage1;
-std::vector<SpriteInfo> spritesDragNOSStage2;
-std::vector<SpriteInfo> spritesDragNOSStage3;
-
 float displayRPM = 0.0f;
 
 NativeMenu::Menu menu;
@@ -217,107 +196,6 @@ void drawNOSBars(bool hasBoost, float boostVal, float nosVal, float screencorrec
 	}
 }
 
-void drawDragNOSBars(bool hasBoost, float boostVal, float nosVal, float screencorrection, float offsetX, float offsetY) {
-	float maxVal;
-	float val;
-	if (hasBoost) {
-		maxVal = 1.25f;
-		val = boostVal;
-	}
-	else {
-		maxVal = 1.0f;
-		val = nosVal;
-	}
-
-	float baseAlpha = 1.0f;
-
-	int numNOSItems;
-	int nosStage = 3;
-
-	bool isStageUsed = DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)decorNOSStage, DECOR_TYPE_INT);
-	if (isStageUsed) {
-		nosStage = DECORATOR::DECOR_GET_INT(vehicle, (char*)decorNOSStage);
-	}
-
-	std::vector<SpriteInfo> nosSprites;
-	std::vector<float> nosBarSize;
-	std::vector<float> nosBarXpos;
-	std::vector<float> nosBarYpos;
-
-	switch (nosStage) {
-	case 1: {
-		numNOSItems = numNOSItemsStage1;
-		nosSprites = spritesDragNOSStage1;
-		std::copy_n(nosBarSize.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage1Size.begin());
-		std::copy_n(nosBarXpos.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage1Xpos.begin());
-		std::copy_n(nosBarYpos.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage1Ypos.begin());
-		break;
-	}
-	case 2: {
-		numNOSItems = numNOSItemsStage2;
-		nosSprites = spritesDragNOSStage2;
-		std::copy_n(nosBarSize.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage2Size.begin());
-		std::copy_n(nosBarXpos.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage2Xpos.begin());
-		std::copy_n(nosBarYpos.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage2Ypos.begin());
-		break;
-	}
-	default:
-	case 3: {
-		numNOSItems = numNOSItemsStage3;
-		nosSprites = spritesDragNOSStage3;
-		std::copy_n(nosBarSize.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage3Size.begin());
-		std::copy_n(nosBarXpos.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage3Xpos.begin());
-		std::copy_n(nosBarYpos.begin(), numNOSItems, settings.SpeedoSettings.DragNOSStage3Ypos.begin());
-		break;
-	}
-	}
-
-	float portion = maxVal / numNOSItems;
-	int i = 0;
-	for (auto sprite : nosSprites) {
-		float min = maxVal - portion * (i + 1);
-
-		float res = (val - min) / portion;
-		if (res > 1.0f) res = 1.0f;
-		if (res < 0.0f) res = 0.0f;
-
-		drawTexture(sprite.Id, i, -9998, 100,
-			nosBarSize[i], static_cast<float>(sprite.Height) * (nosBarSize[i] / static_cast<float>(sprite.Width)),
-			0.5f, 0.5f,
-			nosBarXpos[i] + offsetX, nosBarYpos[i] + offsetY,
-			0.0f, screencorrection, 0.0f, 1.0f, 0.0f, baseAlpha * res * speedoAlpha);
-		i++;
-	}
-}
-
-void drawDragEngineHeating(float heatVal, float screencorrection, float offsetX, float offsetY) {
-	float maxVal = 1.0f;
-	float val = heatVal;
-
-	float baseAlpha = 1.0f;
-
-	int i = 0;
-	float portion = maxVal / numDragHeat;
-	for (auto sprite : spritesDragHeat) {
-		float min = maxVal - portion * (i + 1);
-
-		float res = (val - min) / portion;
-		if (res > 1.0f) res = 1.0f;
-		if (res < 0.0f) res = 0.0f;
-
-		float finalAlpha;
-		if (res < 1.0f) finalAlpha = 0.0f;
-		if (res == 1.0f) finalAlpha = 1.0f;
-
-		drawTexture(sprite.Id, i, -9998, 100,
-			settings.SpeedoSettings.DragHeatSize[i], static_cast<float>(sprite.Height) * (settings.SpeedoSettings.DragHeatSize[i] / static_cast<float>(sprite.Width)),
-			0.5f, 0.5f,
-			settings.SpeedoSettings.DragHeatXpos[i] + offsetX, settings.SpeedoSettings.DragHeatYpos[i] + offsetY,
-			0.0f, screencorrection, 1.0f, 1.0f, 0.0f, finalAlpha * speedoAlpha);
-		i++;
-	}
-}
-
 void drawRPM(float rpm, float screencorrection, float offsetX, float offsetY) {
 	displayRPM = lerp(displayRPM, rpm, 15.0f * GAMEPLAY::GET_FRAME_TIME());
 	float rpmRot = displayRPM / 2.0f + 0.125f;
@@ -342,241 +220,6 @@ void drawRPM(float rpm, float screencorrection, float offsetX, float offsetY) {
 	            0.5f, 0.5f,
 	            settings.SpeedoSettings.RPMRedXpos + offsetX, settings.SpeedoSettings.RPMRedYpos + offsetY,
 	            0.0f, screencorrection, 1.0f, 0.0f, 0.0f, 0.6f* speedoAlpha);
-}
-
-void drawDragHeatAlert(float screencorrection, float offsetX, float offsetY) {
-	drawTexture(spriteDragHeatAlert.Id, 0, -9999, 100,
-		settings.SpeedoSettings.DragHeatAlertSize, static_cast<float>(spriteDragHeatAlert.Height) * (settings.SpeedoSettings.DragHeatAlertSize / static_cast<float>(spriteDragHeatAlert.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragHeatAlertXpos + offsetX, settings.SpeedoSettings.DragHeatAlertYpos + offsetY,
-		0.0f, screencorrection, 0.6f, 0.0f, 0.0f, 0.75f * speedoAlpha);
-}
-
-void drawDragShiftLight(float rpm, float screencorrection, float offsetX, float offsetY) {
-	float baseR = 1.0f;
-	float baseG = 1.0f;
-	float baseB = 1.0f;
-	float baseAlpha = 0.0f;
-
-	if (rpm < 0.65f) {
-		baseAlpha = 0.0f;
-	}
-	else if (rpm >= 0.65f && rpm < 0.73f) {
-		baseR = 0.26f;
-		baseG = 0.52f;
-		baseB = 0.96f;
-		baseAlpha = 1.0f;
-	}
-	else if (rpm >= 0.73f && rpm < 0.85f) {
-		baseR = 0.0f;
-		baseG = 1.0f;
-		baseB = 0.0f;
-		baseAlpha = 1.0f;
-	}
-	else if (rpm >= 0.85f) {
-		baseR = 0.8f;
-		baseG = 0.0f;
-		baseB = 0.0f;
-		baseAlpha = 1.0f;
-	}
-
-	drawTexture(spriteDragShiftLight.Id, 0, -9999, 100,
-		settings.SpeedoSettings.DragShiftLightSize, static_cast<float>(spriteDragShiftLight.Height) * (settings.SpeedoSettings.DragShiftLightSize / static_cast<float>(spriteDragShiftLight.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragShiftLightXpos + offsetX, settings.SpeedoSettings.DragShiftLightYpos + offsetY,
-		0.0f, screencorrection, baseR, baseG, baseB, baseAlpha * speedoAlpha);
-}
-
-void drawDragHUD(float rpm, float screencorrection, float offsetX, float offsetY) {
-	displayRPM = lerp(displayRPM, rpm, 15.0f * GAMEPLAY::GET_FRAME_TIME());
-	float rpmRot = displayRPM / 3.3f + 0.070f;
-	// Short shift: 1.0f, 1.0f, 1.0f
-	// Good shift: 0.26f, 0.52f, 0.96f
-	// Perfect shift: 0.0f, 1.0f, 0.0f
-	// Overrev shift: 1.0f, 0.0f, 0.0f
-
-	float dialR = 1.0f;
-	float dialG = 1.0f;
-	float dialB = 1.0f;
-
-	if (displayRPM < 0.65f) {
-		dialR = 1.0f;
-		dialG = 1.0f;
-		dialB = 1.0f;
-	}
-	else if (displayRPM >= 0.65f && displayRPM < 0.73f) {
-		dialR = 0.26f;
-		dialG = 0.52f;
-		dialB = 0.96f;
-	}
-	else if (displayRPM >= 0.73f && displayRPM < 0.85f) {
-		dialR = 0.0f;
-		dialG = 1.0f;
-		dialB = 0.0f;
-	}
-	else if (displayRPM >= 0.85f) {
-		dialR = 0.8f;
-		dialG = 0.0f;
-		dialB = 0.0f;
-	}
-
-	drawTexture(spriteDragRPMBg.Id, 0, -9999, 100,
-		settings.SpeedoSettings.DragRPMBgSize, static_cast<float>(spriteDragRPMBg.Height) * (settings.SpeedoSettings.DragRPMBgSize / static_cast<float>(spriteDragRPMBg.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragRPMBgXpos + offsetX, settings.SpeedoSettings.DragRPMBgYpos + offsetY,
-		0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 0.75f * speedoAlpha);
-	drawTexture(spriteDragLines.Id, 0, -9998, 100,
-		settings.SpeedoSettings.DragLinesSize, static_cast<float>(spriteDragLines.Height) * (settings.SpeedoSettings.DragLinesSize / static_cast<float>(spriteDragLines.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragLinesXpos + offsetX, settings.SpeedoSettings.DragLinesYpos + offsetY,
-		0.0f, screencorrection, 80.0f / 255.0f, 175.0f / 255.0f, 255.0f / 255.0f, 1.0f * speedoAlpha);
-	drawTexture(spriteDragNosLines.Id, 0, -9998, 100,
-		settings.SpeedoSettings.DragNosLinesSize, static_cast<float>(spriteDragNosLines.Height) * (settings.SpeedoSettings.DragNosLinesSize / static_cast<float>(spriteDragNosLines.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragNosLinesXpos + offsetX, settings.SpeedoSettings.DragNosLinesYpos + offsetY,
-		0.0f, screencorrection, 80.0f / 255.0f, 175.0f / 255.0f, 255.0f / 255.0f, 1.0f * speedoAlpha);
-	drawTexture(spriteDragHeatLines.Id, 0, -9998, 100,
-		settings.SpeedoSettings.DragHeatLinesSize, static_cast<float>(spriteDragHeatLines.Height) * (settings.SpeedoSettings.DragHeatLinesSize / static_cast<float>(spriteDragHeatLines.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragHeatLinesXpos + offsetX, settings.SpeedoSettings.DragHeatLinesYpos + offsetY,
-		0.0f, screencorrection, 80.0f / 255.0f, 175.0f / 255.0f, 255.0f / 255.0f, 1.0f * speedoAlpha);
-	drawTexture(spriteDragRPMDial.Id, 0, -9990, 100,
-		settings.SpeedoSettings.DragRPMDialSize, static_cast<float>(spriteDragRPMDial.Height) * (settings.SpeedoSettings.DragRPMDialSize / static_cast<float>(spriteDragRPMDial.Width)),
-		0.5f, -0.5f,
-		settings.SpeedoSettings.DragRPMDialXpos + offsetX, settings.SpeedoSettings.DragRPMDialYpos + offsetY,
-		rpmRot, screencorrection, dialR, dialG, dialB, 0.9f * speedoAlpha);
-	drawTexture(spriteDragRPMRed.Id, 0, -9991, 100,
-		settings.SpeedoSettings.DragRPMRedSize, static_cast<float>(spriteDragRPMRed.Height) * (settings.SpeedoSettings.DragRPMRedSize / static_cast<float>(spriteDragRPMRed.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragRPMRedXpos + offsetX, settings.SpeedoSettings.DragRPMRedYpos + offsetY,
-		0.0f, screencorrection, 0.8f, 0.0f, 0.0f, 1.0f * speedoAlpha);
-	drawTexture(spriteDragRPMBox.Id, 0, -9990, 100,
-		settings.SpeedoSettings.DragRPMBoxSize, static_cast<float>(spriteDragRPMBox.Height) * (settings.SpeedoSettings.DragRPMBoxSize / static_cast<float>(spriteDragRPMBox.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragRPMBoxXpos + offsetX, settings.SpeedoSettings.DragRPMBoxYpos + offsetY,
-		0.0f, screencorrection, 0.0f, 0.0f, 0.0f, 0.3f * speedoAlpha);
-	drawTexture(spriteDragSpeedBox.Id, 0, -9990, 100,
-		settings.SpeedoSettings.DragSpeedBoxSize, static_cast<float>(spriteDragRPMBox.Height) * (settings.SpeedoSettings.DragSpeedBoxSize / static_cast<float>(spriteDragRPMBox.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragSpeedBoxXpos + offsetX, settings.SpeedoSettings.DragSpeedBoxYpos + offsetY,
-		0.0f, screencorrection, 0.0f, 0.0f, 0.0f, 0.3f * speedoAlpha);
-}
-
-void drawDragSpeedUnit(UnitType type, float &speed, float screencorrection, float offsetX, float offsetY) {
-	SpriteInfo spriteUnit;
-	if (type == UnitType::Imperial) {
-		speed = speed / 0.44704f;
-		spriteUnit = spriteMPH;
-	}
-	else {
-		speed = speed * 3.6f;
-		spriteUnit = spriteKMH;
-	}
-	drawTexture(spriteUnit.Id, 0, -9980, 100,
-		settings.SpeedoSettings.DragUnitSize, static_cast<float>(spriteUnit.Height) * (settings.SpeedoSettings.DragUnitSize / static_cast<float>(spriteUnit.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragUnitXpos + offsetX, settings.SpeedoSettings.DragUnitYpos + offsetY,
-		0.0f, screencorrection, 0.54f, 0.69f, 0.93f, 1.0f* speedoAlpha);
-}
-
-void drawDragSpeed(float speed, int &charNum, float screencorrection, float offsetX, float offsetY, long long displayTime) {
-	std::stringstream speedoFormat;
-	speedoFormat << std::setfill('_') << std::setw(3) << std::to_string(static_cast<int>(std::round(speed)));
-	std::string speedoTxt = speedoFormat.str();
-
-	charNum = 0;
-	for (char c : speedoTxt) {
-		SpriteInfo si;
-		switch (c) {
-		case '0': si = spriteN0; break;
-		case '1': si = spriteN1; break;
-		case '2': si = spriteN2; break;
-		case '3': si = spriteN3; break;
-		case '4': si = spriteN4; break;
-		case '5': si = spriteN5; break;
-		case '6': si = spriteN6; break;
-		case '7': si = spriteN7; break;
-		case '8': si = spriteN8; break;
-		case '9': si = spriteN9; break;
-		default: si = spriteNE; break;
-		}
-
-		drawTexture(si.Id, charNum, -9980, (int)displayTime,
-			settings.SpeedoSettings.DragSpeedSize, static_cast<float>(si.Height) * (settings.SpeedoSettings.DragSpeedSize / static_cast<float>(si.Width)),
-			0.5f, 0.5f,
-			settings.SpeedoSettings.DragSpeedXpos + offsetX + settings.SpeedoSettings.DragSpeedSize * charNum, settings.SpeedoSettings.DragSpeedYpos + offsetY,
-			0.0f, screencorrection, 0.0f, 0.5f, 0.74f, 1.0f * speedoAlpha);
-		charNum++;
-	}
-}
-
-void drawDragGear(int gear, bool neutral, bool shift_indicator, int charNum, float screencorrection, float offsetX, float offsetY, long long displayTime) {
-	SpriteInfo spriteGear;
-	Colorf c = { 0.0f, 0.5f, 0.74f, 1.0f };
-
-	if (neutral) spriteGear = spriteNN;
-	else if (gear == 0) spriteGear = spriteNR;
-	else if (gear == 1) spriteGear = spriteN1;
-	else if (gear == 2) spriteGear = spriteN2;
-	else if (gear == 3) spriteGear = spriteN3;
-	else if (gear == 4) spriteGear = spriteN4;
-	else if (gear == 5) spriteGear = spriteN5;
-	else if (gear == 6) spriteGear = spriteN6;
-	else if (gear == 7) spriteGear = spriteN7;
-	else spriteGear = spriteN9;
-
-	if (neutral || shift_indicator || ext.GetHandbrake(vehicle)) {
-		c.r = 0.99f;
-		c.g = 0.5f;
-		c.b = 0.25f;
-	}
-
-	drawTexture(spriteGear.Id, charNum, -9980, (int)displayTime,
-		settings.SpeedoSettings.DragGearSize, static_cast<float>(spriteGear.Height) * (settings.SpeedoSettings.DragGearSize / static_cast<float>(spriteGear.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragGearXpos + offsetX, settings.SpeedoSettings.DragGearYpos + offsetY,
-		0.0f, screencorrection, c.r, c.g, c.b, c.a * speedoAlpha);
-}
-
-void drawDragTurbo(float turbo, float screencorrection, float offsetX, float offsetY) {
-	float displayTurboRot;
-	if (turbo < -0.5f) {
-		displayTurboRot = map(turbo, -1.0f, -0.5f, -1.0f, 0.25f);
-	}
-	else if (turbo <= 0.9f) {
-		displayTurboRot = map(turbo, -0.5f, 0.9f, 0.25f, 0.75f);
-	}
-	else {
-		displayTurboRot = map(turbo, 0.9f, 1.0f, 0.75f, 1.0f);
-	}
-
-	float turboRot = displayTurboRot / 4.8f - 0.04f;
-
-	drawTexture(spriteDragTurboBack.Id, 0, -9999, 100,
-		settings.SpeedoSettings.DragTurboSize, static_cast<float>(spriteDragTurboBack.Height) * (settings.SpeedoSettings.DragTurboSize / static_cast<float>(spriteDragTurboBack.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragTurboXpos + offsetX, settings.SpeedoSettings.DragTurboYpos + offsetY,
-		0.0f, screencorrection, 0.0f, 0.0f, 0.0f, 0.75f * turboalpha * speedoAlpha);
-	drawTexture(spriteDragTurboMeter.Id, 0, -9998, 100,
-		settings.SpeedoSettings.DragTurboSize, static_cast<float>(spriteDragTurboMeter.Height) * (settings.SpeedoSettings.DragTurboSize / static_cast<float>(spriteDragTurboMeter.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragTurboXpos + offsetX, settings.SpeedoSettings.DragTurboYpos + offsetY,
-		0.0f, screencorrection, 80.0f / 255.0f, 175.0f / 255.0f, 255.0f / 255.0f, 0.75f * turboalpha * speedoAlpha);
-	drawTexture(spriteDragTurboDial.Id, 0, -9990, 100,
-		settings.SpeedoSettings.DragTurboDialSize, static_cast<float>(spriteDragTurboDial.Height) * (settings.SpeedoSettings.DragTurboDialSize / static_cast<float>(spriteDragTurboDial.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragTurboDialXpos + offsetX, settings.SpeedoSettings.DragTurboDialYpos + offsetY,
-		turboRot, screencorrection, 1.0f, 1.0f, 1.0f, 0.9f * turboalpha * speedoAlpha);
-	drawTexture(spriteDragTurboRed1.Id, 0, -9990, 100,
-		settings.SpeedoSettings.DragTurboRedSize, static_cast<float>(spriteDragTurboRed1.Height) * (settings.SpeedoSettings.DragTurboRedSize / static_cast<float>(spriteDragTurboRed1.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragTurboRed1Xpos + offsetX, settings.SpeedoSettings.DragTurboRed1Ypos + offsetY,
-		0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 0.9f * turboalpha * speedoAlpha);
-	drawTexture(spriteDragTurboRed2.Id, 0, -9990, 100,
-		settings.SpeedoSettings.DragTurboRedSize, static_cast<float>(spriteDragTurboRed2.Height) * (settings.SpeedoSettings.DragTurboRedSize / static_cast<float>(spriteDragTurboRed2.Width)),
-		0.5f, 0.5f,
-		settings.SpeedoSettings.DragTurboRed2Xpos + offsetX, settings.SpeedoSettings.DragTurboRed2Ypos + offsetY,
-		0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 0.9f * turboalpha * speedoAlpha);
 }
 
 void drawTurbo(float turbo, float screencorrection, float offsetX, float offsetY) {
@@ -747,7 +390,6 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 			hasNOS = true;
 			nosVal = DECORATOR::_DECOR_GET_FLOAT(vehicle, (char*)decorNOSLevel);
 		}
-		heatVal = DECORATOR::_DECOR_GET_FLOAT(vehicle, (char*)decorDragHeat);
 		switch(DECORATOR::DECOR_GET_INT(vehicle, (char*)decorMTGetShiftMode)) {
 			case 1: shiftMode = ShiftMode::Sequential;
 			case 2: shiftMode = ShiftMode::HPattern;
@@ -761,13 +403,6 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 	float offsetX = settings.SpeedoSettings.SpeedoXpos;
 	float offsetY = settings.SpeedoSettings.SpeedoYpos;
 
-	bool dragHUDRegistered = DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)decorDragShowHud, DECOR_TYPE_BOOL);
-	bool useDragHUD = false;
-	if (dragHUDRegistered) {
-		if (DECORATOR::DECOR_GET_BOOL(vehicle, (char*)decorDragShowHud))
-			useDragHUD = true;
-	}
-
 	auto now = std::chrono::steady_clock::now().time_since_epoch();
 	auto newDisplayTime = now - previousDisplayTime;
 	previousDisplayTime = now;
@@ -778,36 +413,21 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		nextFrameTime = 16666/1000;
 	}
 	nextFrameTime *= 1.5;
-	if (useDragHUD) {
-		drawDragHUD(rpm, screencorrection, 0.0f, 0.0f);
-		drawDragEngineHeating(heatVal, screencorrection, 0.0f, 0.0f);
-		drawDragShiftLight(rpm, screencorrection, 0.0f, 0.0f);
-		drawDragTurbo(turbo, screencorrection, 0.0f, 0.0f);
-		drawDragSpeedUnit(type, speed, screencorrection, 0.0f, 0.0f);
-		drawDragSpeed(speed, charNum, screencorrection, 0.0f, 0.0f, nextFrameTime);
-		drawDragGear(gear, neutral, shift_indicator, charNum, screencorrection, 0.0f, 0.0f, nextFrameTime);
-		if (heatVal >= 0.625f) {
-			drawDragHeatAlert(screencorrection, 0.0f, 0.0f);
-		}
-		if (hasBoost || hasNOS) {
-			drawDragNOSBars(hasBoost, boostVal, nosVal, screencorrection, 0.0f, 0.0f);
-		}
+	
+	drawRPM(rpm, screencorrection, offsetX, offsetY);
+	drawTurbo(turbo, screencorrection, offsetX, offsetY);
+	drawSpeedUnit(type, speed, screencorrection, offsetX, offsetY);
+
+	drawSpeed(speed, charNum, screencorrection, offsetX, offsetY, nextFrameTime);
+	drawGear(gear, neutral, shift_indicator, charNum, screencorrection, offsetX, offsetY, nextFrameTime);
+
+	if (hasBoost || hasNOS) {
+		drawNOSBars(hasBoost, boostVal, nosVal, screencorrection, offsetX, offsetY);
 	}
-	else {
-		drawRPM(rpm, screencorrection, offsetX, offsetY);
-		drawTurbo(turbo, screencorrection, offsetX, offsetY);
-		drawSpeedUnit(type, speed, screencorrection, offsetX, offsetY);
 
-		drawSpeed(speed, charNum, screencorrection, offsetX, offsetY, nextFrameTime);
-		drawGear(gear, neutral, shift_indicator, charNum, screencorrection, offsetX, offsetY, nextFrameTime);
-
-		if (hasBoost || hasNOS) {
-			drawNOSBars(hasBoost, boostVal, nosVal, screencorrection, offsetX, offsetY);
-		}
-
-		// Shift mode
-		// todo: mt shift mode integration?
-	}
+	// Shift mode
+	// todo: mt shift mode integration?
+	
 }
 
 void update() {
@@ -965,50 +585,6 @@ void createTextures(std::string skin) {
 		sprite.Id = createTextureDefault(skinPath + "\\nos2_" + std::to_string(i) + ".png", &sprite);
 		spritesNOSStage3.push_back(sprite);
 	}
-	
-	// DRAG
-	spriteDragRPMBg.Id = createTextureDefault(skinPath + "\\drag\\bgDragRPM.png", &spriteDragRPMBg);
-	spriteDragLines.Id = createTextureDefault(skinPath + "\\drag\\rpmLines.png", &spriteDragLines);
-	spriteDragNosLines.Id = createTextureDefault(skinPath + "\\drag\\nosLines.png", &spriteDragNosLines);
-	spriteDragHeatLines.Id = createTextureDefault(skinPath + "\\drag\\heatLines.png", &spriteDragHeatLines);
-	spriteDragRPMDial.Id = createTextureDefault(skinPath + "\\drag\\rpmDial.png", &spriteDragRPMDial);
-	spriteDragRPMRed.Id = createTextureDefault(skinPath + "\\drag\\rpmRed.png", &spriteDragRPMRed);
-	spriteDragHeatAlert.Id = createTextureDefault(skinPath + "\\drag\\heatAlert.png", &spriteDragHeatAlert);
-	spriteDragShiftLight.Id = createTextureDefault(skinPath + "\\drag\\shiftLight.png", &spriteDragShiftLight);
-	spriteDragRPMBox.Id = createTextureDefault(skinPath + "\\drag\\rpmBox.png", &spriteDragRPMBox);
-	spriteDragSpeedBox.Id = createTextureDefault(skinPath + "\\drag\\speedBox.png", &spriteDragSpeedBox);
-
-	spritesDragHeat.clear();
-	for (int i = numDragHeat; i > 0; i--) {
-		SpriteInfo sprite;
-		sprite.Id = createTextureDefault(skinPath + "\\drag\\heat" + std::to_string(i - 1) + ".png", &sprite);
-		spritesDragHeat.push_back(sprite);
-	}
-
-	spritesDragNOSStage1.clear();
-	spritesDragNOSStage2.clear();
-	spritesDragNOSStage3.clear();
-	for (int i = 0; i < numNOSItemsStage1; i++) {
-		SpriteInfo sprite;
-		sprite.Id = createTextureDefault(skinPath + "\\drag\\nos0_" + std::to_string(i) + ".png", &sprite);
-		spritesDragNOSStage1.push_back(sprite);
-	}
-	for (int i = 0; i < numNOSItemsStage2; i++) {
-		SpriteInfo sprite;
-		sprite.Id = createTextureDefault(skinPath + "\\drag\\nos1_" + std::to_string(i) + ".png", &sprite);
-		spritesDragNOSStage2.push_back(sprite);
-	}
-	for (int i = 0; i < numNOSItemsStage3; i++) {
-		SpriteInfo sprite;
-		sprite.Id = createTextureDefault(skinPath + "\\drag\\nos2_" + std::to_string(i) + ".png", &sprite);
-		spritesDragNOSStage3.push_back(sprite);
-	}
-
-	spriteDragTurboBack.Id = createTextureDefault(skinPath + "\\drag\\turboBack.png", &spriteDragTurboBack);
-	spriteDragTurboMeter.Id = createTextureDefault(skinPath + "\\drag\\turboMeter.png", &spriteDragTurboMeter);
-	spriteDragTurboDial.Id = createTextureDefault(skinPath + "\\drag\\turboDial.png", &spriteDragTurboDial);
-	spriteDragTurboRed1.Id = createTextureDefault(skinPath + "\\drag\\turboRed1.png", &spriteDragTurboRed1);
-	spriteDragTurboRed2.Id = createTextureDefault(skinPath + "\\drag\\turboRed2.png", &spriteDragTurboRed2);
 }
 
 void main() {

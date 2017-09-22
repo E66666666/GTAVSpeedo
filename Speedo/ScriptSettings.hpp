@@ -6,10 +6,7 @@ const int numNOSItemsStage1 = 2;
 const int numNOSItemsStage2 = 4;
 const int numNOSItemsStage3 = 6;
 
-// DRAG
-const int numDragHeat = 8;
-
-struct SpeedoStuff {
+struct SpeedoInfo {
 	std::string SpeedoName;
 
 	bool FPVHide;
@@ -87,89 +84,6 @@ struct SpeedoStuff {
 	std::array<float, numNOSItemsStage3> NOSStage3Xpos;
 	std::array<float, numNOSItemsStage3> NOSStage3Ypos;
 	std::array<float, numNOSItemsStage3> NOSStage3Size;
-	
-	// DRAG SPRITES
-	float DragRPMBgXpos;
-	float DragRPMBgYpos;
-	float DragRPMBgSize;
-
-	float DragLinesXpos;
-	float DragLinesYpos;
-	float DragLinesSize;
-
-	float DragNosLinesXpos;
-	float DragNosLinesYpos;
-	float DragNosLinesSize;
-	
-	float DragHeatLinesXpos;
-	float DragHeatLinesYpos;
-	float DragHeatLinesSize;
-
-	float DragRPMDialXpos;
-	float DragRPMDialYpos;
-	float DragRPMDialSize;
-
-	float DragRPMRedXpos;
-	float DragRPMRedYpos;
-	float DragRPMRedSize;
-
-	float DragHeatAlertXpos;
-	float DragHeatAlertYpos;
-	float DragHeatAlertSize;
-
-	float DragShiftLightXpos;
-	float DragShiftLightYpos;
-	float DragShiftLightSize;
-	
-	float DragRPMBoxXpos;
-	float DragRPMBoxYpos;
-	float DragRPMBoxSize;
-
-	float DragSpeedBoxXpos;
-	float DragSpeedBoxYpos;
-	float DragSpeedBoxSize;
-
-	float DragSpeedXpos;
-	float DragSpeedYpos;
-	float DragSpeedSize;
-
-	float DragUnitXpos;
-	float DragUnitYpos;
-	float DragUnitSize;
-
-	float DragGearXpos;
-	float DragGearYpos;
-	float DragGearSize;
-
-	float DragTurboXpos;
-	float DragTurboYpos;
-	float DragTurboSize;
-
-	float DragTurboDialXpos;
-	float DragTurboDialYpos;
-	float DragTurboDialSize;
-
-	float DragTurboRed1Xpos;
-	float DragTurboRed1Ypos;
-	float DragTurboRed2Xpos;
-	float DragTurboRed2Ypos;
-	float DragTurboRedSize;
-
-	std::array<float, numDragHeat> DragHeatXpos;
-	std::array<float, numDragHeat> DragHeatYpos;
-	std::array<float, numDragHeat> DragHeatSize;
-
-	std::array<float, numNOSItemsStage1> DragNOSStage1Xpos;
-	std::array<float, numNOSItemsStage1> DragNOSStage1Ypos;
-	std::array<float, numNOSItemsStage1> DragNOSStage1Size;
-
-	std::array<float, numNOSItemsStage2> DragNOSStage2Xpos;
-	std::array<float, numNOSItemsStage2> DragNOSStage2Ypos;
-	std::array<float, numNOSItemsStage2> DragNOSStage2Size;
-
-	std::array<float, numNOSItemsStage3> DragNOSStage3Xpos;
-	std::array<float, numNOSItemsStage3> DragNOSStage3Ypos;
-	std::array<float, numNOSItemsStage3> DragNOSStage3Size;
 };
 
 enum class UnitType {
@@ -183,9 +97,9 @@ public:
 	void SetFiles(const std::string &general);
 	void Read();
 	void SaveGeneral() const;
-	void Normalize(SpeedoStuff &coords);
+	void Normalize(SpeedoInfo &coords);
 	bool Enable;
-	SpeedoStuff SpeedoSettings;
+	SpeedoInfo SpeedoSettings;
 	UnitType Unit;
 	bool ShowPlacementMenu;
 private:
