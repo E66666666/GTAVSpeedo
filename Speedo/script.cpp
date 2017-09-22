@@ -157,7 +157,6 @@ void drawNOSBars(bool hasBoost, float boostVal, float nosVal, float screencorrec
 		settings.SpeedoSettings.NOSTextXpos + offsetX, settings.SpeedoSettings.NOSTextYpos + offsetY,
 		0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 1.0f * speedoAlpha);
 
-
 	int numNOSItems;
 	int nosStage = 3;
 
@@ -175,32 +174,33 @@ void drawNOSBars(bool hasBoost, float boostVal, float nosVal, float screencorrec
 	case 1: {
 		numNOSItems = numNOSItemsStage1;
 		nosSprites = spritesNOSStage1;
-		std::copy_n(nosBarSize.begin(), numNOSItems, settings.SpeedoSettings.NOSStage1Size.begin());
-		std::copy_n(nosBarXpos.begin(), numNOSItems, settings.SpeedoSettings.NOSStage1Xpos.begin());
-		std::copy_n(nosBarYpos.begin(), numNOSItems, settings.SpeedoSettings.NOSStage1Ypos.begin());
+		for (auto size : settings.SpeedoSettings.NOSStage1Size) { nosBarSize.push_back(size); }
+		for (auto xpos : settings.SpeedoSettings.NOSStage1Xpos) { nosBarXpos.push_back(xpos); }
+		for (auto ypos : settings.SpeedoSettings.NOSStage1Ypos) { nosBarYpos.push_back(ypos); }
 		break;
 	}
 	case 2: {
 		numNOSItems = numNOSItemsStage2;
 		nosSprites = spritesNOSStage2;
-		std::copy_n(nosBarSize.begin(), numNOSItems, settings.SpeedoSettings.NOSStage2Size.begin());
-		std::copy_n(nosBarXpos.begin(), numNOSItems, settings.SpeedoSettings.NOSStage2Xpos.begin());
-		std::copy_n(nosBarYpos.begin(), numNOSItems, settings.SpeedoSettings.NOSStage2Ypos.begin());
+		for (auto size : settings.SpeedoSettings.NOSStage2Size) { nosBarSize.push_back(size); }
+		for (auto xpos : settings.SpeedoSettings.NOSStage2Xpos) { nosBarXpos.push_back(xpos); }
+		for (auto ypos : settings.SpeedoSettings.NOSStage2Ypos) { nosBarYpos.push_back(ypos); }
 		break;
 	}
 	default:
 	case 3: {
 		numNOSItems = numNOSItemsStage3;
 		nosSprites = spritesNOSStage3;
-		std::copy_n(nosBarSize.begin(), numNOSItems, settings.SpeedoSettings.NOSStage3Size.begin());
-		std::copy_n(nosBarXpos.begin(), numNOSItems, settings.SpeedoSettings.NOSStage3Xpos.begin());
-		std::copy_n(nosBarYpos.begin(), numNOSItems, settings.SpeedoSettings.NOSStage3Ypos.begin());
+		for (auto size : settings.SpeedoSettings.NOSStage3Size) { nosBarSize.push_back(size); }
+		for (auto xpos : settings.SpeedoSettings.NOSStage3Xpos) { nosBarXpos.push_back(xpos); }
+		for (auto ypos : settings.SpeedoSettings.NOSStage3Ypos) { nosBarYpos.push_back(ypos); }
 		break;
 	}
 	}
 
 	float portion = maxVal / numNOSItems;
 	int i = 0;
+
 	for (auto sprite : nosSprites) {
 		float min = maxVal - portion * (i + 1);
 
