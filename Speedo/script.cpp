@@ -769,18 +769,23 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 	}
 
 	auto now = std::chrono::steady_clock::now().time_since_epoch();
-	auto displayTime = now - previousDisplayTime;
+	auto newDisplayTime = now - previousDisplayTime;
 	previousDisplayTime = now;
 	int charNum; // each sprite can be drawn multiple times so just assign incremental IDs to not clash
-
+	auto lastFrameTime = std::chrono::duration_cast<std::chrono::microseconds>(newDisplayTime).count(); // in microseconds!
+	auto nextFrameTime = lastFrameTime/1000;
+	if (lastFrameTime < 16666) { // cap refresh @ 60 fps
+		nextFrameTime = 16666/1000;
+	}
+	nextFrameTime *= 1.5;
 	if (useDragHUD) {
 		drawDragHUD(rpm, screencorrection, 0.0f, 0.0f);
 		drawDragEngineHeating(heatVal, screencorrection, 0.0f, 0.0f);
 		drawDragShiftLight(rpm, screencorrection, 0.0f, 0.0f);
 		drawDragTurbo(turbo, screencorrection, 0.0f, 0.0f);
 		drawDragSpeedUnit(type, speed, screencorrection, 0.0f, 0.0f);
-		drawDragSpeed(speed, charNum, screencorrection, 0.0f, 0.0f, 2 * std::chrono::duration_cast<std::chrono::milliseconds>(displayTime).count());
-		drawDragGear(gear, neutral, shift_indicator, charNum, screencorrection, 0.0f, 0.0f, 2 * std::chrono::duration_cast<std::chrono::milliseconds>(displayTime).count());
+		drawDragSpeed(speed, charNum, screencorrection, 0.0f, 0.0f, nextFrameTime);
+		drawDragGear(gear, neutral, shift_indicator, charNum, screencorrection, 0.0f, 0.0f, nextFrameTime);
 		if (heatVal >= 0.625f) {
 			drawDragHeatAlert(screencorrection, 0.0f, 0.0f);
 		}
@@ -793,8 +798,8 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		drawTurbo(turbo, screencorrection, offsetX, offsetY);
 		drawSpeedUnit(type, speed, screencorrection, offsetX, offsetY);
 
-		drawSpeed(speed, charNum, screencorrection, offsetX, offsetY, 2 * std::chrono::duration_cast<std::chrono::milliseconds>(displayTime).count());
-		drawGear(gear, neutral, shift_indicator, charNum, screencorrection, offsetX, offsetY, 2 * std::chrono::duration_cast<std::chrono::milliseconds>(displayTime).count());
+		drawSpeed(speed, charNum, screencorrection, offsetX, offsetY, nextFrameTime);
+		drawGear(gear, neutral, shift_indicator, charNum, screencorrection, offsetX, offsetY, nextFrameTime);
 
 		if (hasBoost || hasNOS) {
 			drawNOSBars(hasBoost, boostVal, nosVal, screencorrection, offsetX, offsetY);
