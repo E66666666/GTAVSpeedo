@@ -96,9 +96,6 @@
     <ClInclude Include="Util\MathExt.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Util\Versions.h">
-      <Filter>Util</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\NativeMemory.hpp">
       <Filter>Memory</Filter>
     </ClInclude>

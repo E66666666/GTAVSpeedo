@@ -18,8 +18,8 @@
 
 #include "ScriptSettings.hpp"
 #include "newNatives.h"
-#include "Util/Versions.h"
 #include <chrono>
+#include "../../GTAVManualTransmission/Gears/Memory/Versions.h"
 
 const char* decoriktSpeedoActive    = "ikt_speedo_active";
 const char* decorMTGear             = "mt_gear";

@@ -4,7 +4,6 @@
 #include "menu.h"
 
 #include "ScriptSettings.hpp"
-#include "Util/Versions.h"
 
 extern ScriptSettings settings;
 extern std::string settingsGeneralFile;

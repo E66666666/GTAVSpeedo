@@ -147,7 +147,6 @@
     <ClInclude Include="Util\Logger.hpp" />
     <ClInclude Include="Util\TimeHelper.hpp" />
     <ClInclude Include="Util\Util.hpp" />
-    <ClInclude Include="Util\Versions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
