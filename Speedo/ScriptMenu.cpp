@@ -45,9 +45,16 @@ void update_menu() {
 
 		menu.BoolOption("FPVHide", settings.SpeedoSettings.FPVHide);
 		menu.FloatOption("Fade speed", settings.SpeedoSettings.FadeSpeed, 0.0f, 1.0f, 0.005f);
+		
+		if (settings.ShowPlacementMenu) {
+			menu.MenuOption("Placements", "placementmenu");
+		}
+	}
+
+	if (menu.CurrentMenu("placementmenu")) {
 		menu.FloatOption("OffsetX", settings.SpeedoSettings.SpeedoXpos, -1.0f, 1.0f, 0.005f);
 		menu.FloatOption("OffsetY", settings.SpeedoSettings.SpeedoYpos, -1.0f, 1.0f, 0.005f);
-		
+
 		menu.MenuOption("RPM", "rpmposmenu");
 		menu.MenuOption("Turbo", "turboposmenu");
 		menu.MenuOption("Speed", "speedposmenu");
@@ -55,7 +62,7 @@ void update_menu() {
 		menu.MenuOption("NOS", "nosposmenu");
 		menu.MenuOption("Drag", "dragmenu");
 		menu.MenuOption("Drag Turbo", "dragturbomenu");
-		if (menu.Option("NORMALIZE!")) {
+		if (menu.Option("Normalize speedo")) {
 			settings.Normalize(settings.SpeedoSettings);
 		}
 	}

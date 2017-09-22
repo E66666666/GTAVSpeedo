@@ -430,7 +430,9 @@ void ScriptSettings::parseSettingsGeneral() {
 	CSimpleIniA settingsGeneral;
 	settingsGeneral.SetUnicode();
 	settingsGeneral.LoadFile(settingsGeneralFile.c_str());
-	Enable = settingsGeneral.GetValue("SPEEDO", "Enable");
+	Enable = settingsGeneral.GetBoolValue("SPEEDO", "Enable");
+
+	ShowPlacementMenu = settingsGeneral.GetBoolValue("SPEEDO", "ShowPlacementMenu", false);
 
 	SpeedoSettings.SpeedoName = settingsGeneral.GetValue("SPEEDO", "Name");
 	SpeedoSettings.FPVHide = static_cast<float>(settingsGeneral.GetBoolValue("SPEEDO", "FPVHide", false));
@@ -497,21 +499,21 @@ void ScriptSettings::parseSettingsGeneral() {
 	SpeedoSettings.NOSTextSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "NOSTextSize"));
 
 	for (int i = 0; i < numNOSItemsStage1; i++) {
-		SpeedoSettings.NOSStage1Xpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage1Xpos").c_str());
-		SpeedoSettings.NOSStage1Ypos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage1Ypos").c_str());
-		SpeedoSettings.NOSStage1Size[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage1Size").c_str());
+		SpeedoSettings.NOSStage1Xpos[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage1Xpos").c_str()));
+		SpeedoSettings.NOSStage1Ypos[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage1Ypos").c_str()));
+		SpeedoSettings.NOSStage1Size[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage1Size").c_str()));
 	}
 
 	for (int i = 0; i < numNOSItemsStage2; i++) {
-		SpeedoSettings.NOSStage2Xpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage2Xpos").c_str());
-		SpeedoSettings.NOSStage2Ypos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage2Ypos").c_str());
-		SpeedoSettings.NOSStage2Size[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage2Size").c_str());
+		SpeedoSettings.NOSStage2Xpos[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage2Xpos").c_str()));
+		SpeedoSettings.NOSStage2Ypos[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage2Ypos").c_str()));
+		SpeedoSettings.NOSStage2Size[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage2Size").c_str()));
 	}
 
 	for (int i = 0; i < numNOSItemsStage3; i++) {
-		SpeedoSettings.NOSStage3Xpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage3Xpos").c_str());
-		SpeedoSettings.NOSStage3Ypos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage3Ypos").c_str());
-		SpeedoSettings.NOSStage3Size[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage3Size").c_str());
+		SpeedoSettings.NOSStage3Xpos[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage3Xpos").c_str()));
+		SpeedoSettings.NOSStage3Ypos[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage3Ypos").c_str()));
+		SpeedoSettings.NOSStage3Size[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("NOS" + std::to_string(i) + "Stage3Size").c_str()));
 	}
 	
 	// DRAG
@@ -568,27 +570,27 @@ void ScriptSettings::parseSettingsGeneral() {
 	SpeedoSettings.DragGearSize = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragGearSize"));
 
 	for (int i = 0; i < numDragHeat; i++) {
-		SpeedoSettings.DragHeatXpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragHeat" + std::to_string(i) + "Xpos").c_str());
-		SpeedoSettings.DragHeatYpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragHeat" + std::to_string(i) + "Ypos").c_str());
-		SpeedoSettings.DragHeatSize[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragHeat" + std::to_string(i) + "Size").c_str());
+		SpeedoSettings.DragHeatXpos[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("DragHeat" + std::to_string(i) + "Xpos").c_str()));
+		SpeedoSettings.DragHeatYpos[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("DragHeat" + std::to_string(i) + "Ypos").c_str()));
+		SpeedoSettings.DragHeatSize[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("DragHeat" + std::to_string(i) + "Size").c_str()));
 	}
 
 	for (int i = 0; i < numNOSItemsStage1; i++) {
-		SpeedoSettings.DragNOSStage1Xpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage1Xpos").c_str());
-		SpeedoSettings.DragNOSStage1Ypos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage1Ypos").c_str());
-		SpeedoSettings.DragNOSStage1Size[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage1Size").c_str());
+		SpeedoSettings.DragNOSStage1Xpos[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage1Xpos").c_str()));
+		SpeedoSettings.DragNOSStage1Ypos[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage1Ypos").c_str()));
+		SpeedoSettings.DragNOSStage1Size[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage1Size").c_str()));
 	}
 
 	for (int i = 0; i < numNOSItemsStage2; i++) {
-		SpeedoSettings.DragNOSStage2Xpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage2Xpos").c_str());
-		SpeedoSettings.DragNOSStage2Ypos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage2Ypos").c_str());
-		SpeedoSettings.DragNOSStage2Size[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage2Size").c_str());
+		SpeedoSettings.DragNOSStage2Xpos[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage2Xpos").c_str()));
+		SpeedoSettings.DragNOSStage2Ypos[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage2Ypos").c_str()));
+		SpeedoSettings.DragNOSStage2Size[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage2Size").c_str()));
 	}
 
 	for (int i = 0; i < numNOSItemsStage3; i++) {
-		SpeedoSettings.DragNOSStage3Xpos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage3Xpos").c_str());
-		SpeedoSettings.DragNOSStage3Ypos[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage3Ypos").c_str());
-		SpeedoSettings.DragNOSStage3Size[i] = settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage3Size").c_str());
+		SpeedoSettings.DragNOSStage3Xpos[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage3Xpos").c_str()));
+		SpeedoSettings.DragNOSStage3Ypos[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage3Ypos").c_str()));
+		SpeedoSettings.DragNOSStage3Size[i] = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", ("DragNOS" + std::to_string(i) + "Stage3Size").c_str()));
 	}
 
 	SpeedoSettings.DragTurboXpos = static_cast<float>(settingsGeneral.GetDoubleValue("SPEEDO", "DragTurboXpos"));

@@ -187,6 +187,7 @@ public:
 	bool Enable;
 	SpeedoStuff SpeedoSettings;
 	UnitType Unit;
+	bool ShowPlacementMenu;
 private:
 	void parseSettingsGeneral();
 
