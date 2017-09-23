@@ -59,6 +59,7 @@ std::string settingsMenuFile;
 std::string skinDir;
 std::string absoluteModPath;
 
+// muh sprites
 SpriteInfo spriteRPMBg;
 SpriteInfo spriteRPMNum;
 SpriteInfo spriteRPMDial;
@@ -93,6 +94,16 @@ SpriteInfo spriteNOSText;
 std::vector<SpriteInfo> spritesNOSStage1;
 std::vector<SpriteInfo> spritesNOSStage2;
 std::vector<SpriteInfo> spritesNOSStage3;
+
+// Extra components
+SpriteInfo spriteGearBg;
+SpriteInfo spriteSpeedBg;
+SpriteInfo spriteHeatAlert;
+SpriteInfo spriteHeatNum;
+std::vector<SpriteInfo> spritesHeat;
+
+
+// globals yo idk why
 
 float displayRPM = 0.0f;
 
@@ -370,6 +381,49 @@ void drawGear(int gear, bool neutral, int shift_indicator, int charNum, float sc
 	}
 }
 
+void drawHeating(float heatVal, float screencorrection, float offsetX, float offsetY) {
+	float maxVal = 1.0f;
+	float val = heatVal;
+
+	float baseAlpha = 1.0f;
+
+	int i = 0;
+	float portion = maxVal / numDragHeat;
+	for (auto sprite : spritesHeat) {
+		float min = maxVal - portion * (i + 1);
+
+		float res = (val - min) / portion;
+		if (res > 1.0f) res = 1.0f;
+		if (res < 0.0f) res = 0.0f;
+
+		float finalAlpha = 0.0f;
+		if (res < 1.0f) finalAlpha = 0.0f;
+		if (res == 1.0f) finalAlpha = 1.0f;
+
+		drawTexture(sprite.Id, i, -9998, 100,
+			currentSpeedo.HeatSize[i], static_cast<float>(sprite.Height) * (currentSpeedo.HeatSize[i] / static_cast<float>(sprite.Width)),
+			0.5f, 0.5f,
+			currentSpeedo.HeatXpos[i] + offsetX, currentSpeedo.HeatYpos[i] + offsetY,
+			0.0f, screencorrection, 1.0f, 1.0f, 0.0f, finalAlpha * speedoAlpha);
+		i++;
+	}
+
+	drawTexture(spriteHeatNum.Id, i, -9998, 100,
+		currentSpeedo.HeatNumSize, static_cast<float>(spriteHeatNum.Height) * (currentSpeedo.HeatNumSize / static_cast<float>(spriteHeatNum.Width)),
+		0.5f, 0.5f,
+		currentSpeedo.HeatNumXpos + offsetX, currentSpeedo.HeatNumYpos + offsetY,
+		0.0f, screencorrection, 1.0f, 1.0f, 1.0f, speedoAlpha);
+}
+
+void drawHeatAlert(float screencorrection, float offsetX, float offsetY) {
+	drawTexture(spriteHeatAlert.Id, 0, -9999, 100,
+		currentSpeedo.HeatAlertSize, static_cast<float>(spriteHeatAlert.Height) * (currentSpeedo.HeatAlertSize / static_cast<float>(spriteHeatAlert.Width)),
+		0.5f, 0.5f,
+		currentSpeedo.HeatAlertXpos + offsetX, currentSpeedo.HeatAlertYpos + offsetY,
+		0.0f, screencorrection, 0.6f, 0.0f, 0.0f, 0.75f * speedoAlpha);
+}
+
+
 /*
  * Was it really necessary to distribute your speedometer sprites 
  * over multiple files and chop it up in multiple tiny bits?!
@@ -449,9 +503,35 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		drawNOSBars(hasBoost, boostVal, nosVal, screencorrection, offsetX, offsetY);
 	}
 
-	// Shift mode
-	// todo: mt shift mode integration?
-	
+	// yeah so this does the drag hud thingy
+	if (currentSpeedo.ExtraHUDComponents) {
+		float heatVal;
+		if (DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)decorDragHeat, DECOR_TYPE_FLOAT)) {
+			heatVal = DECORATOR::_DECOR_GET_FLOAT(vehicle, (char*)decorDragHeat);;
+		}
+		else {
+			heatVal = 0.0f;
+		}
+		heatVal = rpm;
+
+		drawHeating(heatVal, screencorrection, offsetX, offsetY);
+		
+		if (heatVal >= 0.625f) {
+			drawHeatAlert(screencorrection, offsetX, offsetY);
+		}
+
+		drawTexture(spriteGearBg.Id, 0, -9990, 100,
+			currentSpeedo.GearBgSize, static_cast<float>(spriteGearBg.Height) * (currentSpeedo.GearBgSize / static_cast<float>(spriteGearBg.Width)),
+			0.5f, 0.5f,
+			currentSpeedo.GearBgXpos + offsetX, currentSpeedo.GearBgYpos + offsetY,
+			0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 0.3f * speedoAlpha);
+
+		drawTexture(spriteSpeedBg.Id, 0, -9990, 100,
+			currentSpeedo.SpeedBgSize, static_cast<float>(spriteSpeedBg.Height) * (currentSpeedo.SpeedBgSize / static_cast<float>(spriteSpeedBg.Width)),
+			0.5f, 0.5f,
+			currentSpeedo.SpeedBgXpos + offsetX, currentSpeedo.SpeedBgYpos + offsetY,
+			0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 0.3f * speedoAlpha);
+	}
 }
 
 void update() {
@@ -504,6 +584,16 @@ void update() {
 	}
 	if (speedoAlpha > 0.0f) {		
 		drawSpeedo(settings.Unit, true, VEHICLE::GET_IS_VEHICLE_ENGINE_RUNNING(vehicle));
+	}
+
+	bool dragHUDRegistered = DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)decorDragShowHud, DECOR_TYPE_BOOL);
+	bool useDragHUD = false;
+	if (dragHUDRegistered) {
+		if (DECORATOR::DECOR_GET_BOOL(vehicle, (char*)decorDragShowHud))
+			useDragHUD = true;
+	}
+	if (useDragHUD && skins[currSkinIndex] != "default-drag") {
+		changeSkin("default-drag");
 	}
 }
 
@@ -611,6 +701,21 @@ void createTextures(std::string skin) {
 		spritesNOSStage3.push_back(sprite);
 	}
 	logger.Write("Finished loading resources for " + skin);
+
+	if (currentSpeedo.ExtraHUDComponents) {
+		spriteGearBg.Id = createTextureDefault(skinPath + "\\_GearBg.png", &spriteGearBg);
+		spriteSpeedBg.Id = createTextureDefault(skinPath + "\\_SpeedBg.png", &spriteSpeedBg);
+		spriteHeatAlert.Id = createTextureDefault(skinPath + "\\_HeatAlert.png", &spriteHeatAlert);
+		spriteHeatNum.Id = createTextureDefault(skinPath + "\\_HeatNum.png", &spriteHeatNum);
+
+		for (int i = numDragHeat-1; i >= 0; i--) {
+			SpriteInfo sprite;
+			sprite.Id = createTextureDefault(skinPath + "\\_Heat" + std::to_string(i) + ".png", &sprite);
+			spritesHeat.push_back(sprite);
+		}
+
+		logger.Write("Finished loading extra resources for " + skin);
+	}
 }
 
 void onMenuOpen() {

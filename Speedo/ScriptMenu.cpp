@@ -61,6 +61,40 @@ void update_menu() {
 		if (menu.StringArray("Skin", skins, currSkinIndex)) {
 			changeSkin(skins[currSkinIndex]);
 		}
+		if (currentSpeedo.ExtraHUDComponents) {
+			menu.Option("Extra components", {"This skin contains the extra components"});
+			menu.MenuOption("Extra components config", "extramenu");
+		}
+	}
+
+	if (menu.CurrentMenu("extramenu")) {
+		menu.Title("Drag");
+		menu.Subtitle(DISPLAY_VERSION);
+
+		menu.FloatOption("HeatNumXpos", currentSpeedo.HeatNumXpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("HeatNumYpos", currentSpeedo.HeatNumYpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("HeatNumSize", currentSpeedo.HeatNumSize, 0.0f, 1.0f, 0.001f);
+
+		menu.FloatOption("HeatAlertXpos", currentSpeedo.HeatAlertXpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("HeatAlertYpos", currentSpeedo.HeatAlertYpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("HeatAlertSize", currentSpeedo.HeatAlertSize, 0.0f, 1.0f, 0.001f);
+
+		menu.FloatOption("GearBgXpos", currentSpeedo.GearBgXpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("GearBgYpos", currentSpeedo.GearBgYpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("GearBgSize", currentSpeedo.GearBgSize, 0.0f, 1.0f, 0.001f);
+
+		menu.FloatOption("SpeedBgXpos", currentSpeedo.SpeedBgXpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("SpeedBgYpos", currentSpeedo.SpeedBgYpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("SpeedBgSize", currentSpeedo.SpeedBgSize, 0.0f, 1.0f, 0.001f);
+
+		menu.FloatOption("HeatSize", currentSpeedo.HeatSize[0], 0.0f, 1.0f, 0.001f);
+		for (int i = 1; i < numDragHeat; i++) {
+			currentSpeedo.HeatSize[i] = currentSpeedo.HeatSize[0];
+		}
+		for (int i = 0; i < numDragHeat; i++) {
+			menu.FloatOption("Heat" + std::to_string(i) + "Xpos", currentSpeedo.HeatXpos[i], 0.0f, 1.0f, 0.001f);
+			menu.FloatOption("Heat" + std::to_string(i) + "Ypos", currentSpeedo.HeatYpos[i], 0.0f, 1.0f, 0.001f);
+		}
 	}
 
 	if (menu.CurrentMenu("placementmenu")) {

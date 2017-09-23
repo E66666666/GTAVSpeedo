@@ -86,8 +86,6 @@ void ScriptSettings::SaveSkin(std::string path, SpeedoInfo &speedoInfo) {
 	skinSettings.SetUnicode();
 	skinSettings.LoadFile((path + ".ini").c_str());
 
-	skinSettings.SetValue("LAYOUT", "Name", speedoInfo.SpeedoName.c_str());
-
 	skinSettings.SetDoubleValue("LAYOUT", "SpeedoXpos", speedoInfo.SpeedoXpos);
 	skinSettings.SetDoubleValue("LAYOUT", "SpeedoYpos", speedoInfo.SpeedoYpos);
 	skinSettings.SetDoubleValue("LAYOUT", "SpeedoSize", speedoInfo.SpeedoSize);
@@ -190,8 +188,6 @@ SpeedoInfo ScriptSettings::ReadSkin(std::string path) {
 	skinSettings.SetUnicode();
 	skinSettings.LoadFile((path+ ".ini").c_str());
 
-	speedoInfo.SpeedoName = skinSettings.GetValue("LAYOUT", "Name");
-
 	speedoInfo.SpeedoXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "SpeedoXpos", 0.0));
 	speedoInfo.SpeedoYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "SpeedoYpos", 0.0));
 	speedoInfo.SpeedoSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "SpeedoSize", 1.0));
@@ -283,6 +279,36 @@ SpeedoInfo ScriptSettings::ReadSkin(std::string path) {
 	speedoInfo.TurboDialCenterY = static_cast<float>(skinSettings.GetDoubleValue("ROTATE", "TurboDialCenterY"));
 	speedoInfo.TurboDialZeroRot = static_cast<float>(skinSettings.GetDoubleValue("ROTATE", "TurboDialZeroRot"));
 	speedoInfo.TurboDialFullRot = static_cast<float>(skinSettings.GetDoubleValue("ROTATE", "TurboDialFullRot"));
+
+	// Drag-specific stuff but also allow others to use it if they provide the correct config lines
+	if (skinSettings.GetSectionSize("EXTRA") != -1) {
+		speedoInfo.ExtraHUDComponents = true;
+
+		speedoInfo.GearBgXpos = static_cast<float>(skinSettings.GetDoubleValue("EXTRA", "GearBgXpos"));
+		speedoInfo.GearBgYpos = static_cast<float>(skinSettings.GetDoubleValue("EXTRA", "GearBgYpos"));
+		speedoInfo.GearBgSize = static_cast<float>(skinSettings.GetDoubleValue("EXTRA", "GearBgSize"));
+
+		speedoInfo.SpeedBgXpos = static_cast<float>(skinSettings.GetDoubleValue("EXTRA", "SpeedBgXpos"));
+		speedoInfo.SpeedBgYpos = static_cast<float>(skinSettings.GetDoubleValue("EXTRA", "SpeedBgYpos"));
+		speedoInfo.SpeedBgSize = static_cast<float>(skinSettings.GetDoubleValue("EXTRA", "SpeedBgSize"));
+
+		speedoInfo.HeatAlertXpos = static_cast<float>(skinSettings.GetDoubleValue("EXTRA", "HeatAlertXpos"));
+		speedoInfo.HeatAlertYpos = static_cast<float>(skinSettings.GetDoubleValue("EXTRA", "HeatAlertYpos"));
+		speedoInfo.HeatAlertSize = static_cast<float>(skinSettings.GetDoubleValue("EXTRA", "HeatAlertSize"));
+
+		speedoInfo.HeatNumXpos = static_cast<float>(skinSettings.GetDoubleValue("EXTRA", "HeatNumXpos"));
+		speedoInfo.HeatNumYpos = static_cast<float>(skinSettings.GetDoubleValue("EXTRA", "HeatNumYpos"));
+		speedoInfo.HeatNumSize = static_cast<float>(skinSettings.GetDoubleValue("EXTRA", "HeatNumSize"));
+
+		for (int i = 0; i < numDragHeat; i++) {
+			speedoInfo.HeatXpos[i] = static_cast<float>(skinSettings.GetDoubleValue("EXTRA", ("Heat" + std::to_string(i) + "Xpos").c_str()));
+			speedoInfo.HeatYpos[i] = static_cast<float>(skinSettings.GetDoubleValue("EXTRA", ("Heat" + std::to_string(i) + "Ypos").c_str()));
+			speedoInfo.HeatSize[i] = static_cast<float>(skinSettings.GetDoubleValue("EXTRA", ("Heat" + std::to_string(i) + "Size").c_str()));
+		}
+	}
+	else {
+		speedoInfo.ExtraHUDComponents = false;
+	}
 
 	return speedoInfo;
 }

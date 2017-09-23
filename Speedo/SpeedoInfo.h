@@ -9,8 +9,6 @@ const int numNOSItemsStage3 = 6;
 const int numDragHeat = 8;
 
 struct SpeedoInfo {
-	std::string SpeedoName;
-
 	float SpeedoXpos;
 	float SpeedoYpos;
 	float SpeedoSize;
@@ -97,25 +95,24 @@ struct SpeedoInfo {
 	float TurboDialZeroRot;
 	float TurboDialFullRot;
 
-
-};
-
-struct DragSpeedoInfo : SpeedoInfo {
-	float HeatLinesXpos;
-	float HeatLinesYpos;
-	float HeatLinesSize;
+	// Drag-specific stuff
+	bool ExtraHUDComponents;
 
 	float HeatAlertXpos;
 	float HeatAlertYpos;
 	float HeatAlertSize;
 
-	float RPMBoxXpos;
-	float RPMBoxYpos;
-	float RPMBoxSize;
+	float GearBgXpos;
+	float GearBgYpos;
+	float GearBgSize;
 
-	float SpeedBoxXpos;
-	float SpeedBoxYpos;
-	float SpeedBoxSize;
+	float SpeedBgXpos;
+	float SpeedBgYpos;
+	float SpeedBgSize;
+	
+	float HeatNumXpos;
+	float HeatNumYpos;
+	float HeatNumSize;
 
 	std::array<float, numDragHeat> HeatXpos;
 	std::array<float, numDragHeat> HeatYpos;
