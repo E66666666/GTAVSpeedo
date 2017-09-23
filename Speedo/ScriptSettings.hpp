@@ -37,6 +37,7 @@ public:
 	UnitType Unit;
 	bool FPVHide;
 	float FadeSpeed;
+	std::string DefaultSkin;
 
 	bool ShowPlacementMenu;
 

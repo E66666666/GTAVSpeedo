@@ -559,17 +559,17 @@ int createTextureDefault(std::string resource, SpriteInfo *info) {
 void createTextures(std::string skin) {
 	std::string skinPath = Paths::GetModuleFolder(Paths::GetOurModuleHandle()) + modDir + skin;
 
-	spriteRPMBg.Id = createTextureDefault(skinPath + "\\bgRPM.png", &spriteRPMBg);
-	spriteRPMNum.Id = createTextureDefault(skinPath + "\\numRPM.png", &spriteRPMNum);
-	spriteRPMRed.Id = createTextureDefault(skinPath + "\\redRPM.png", &spriteRPMRed);
-	spriteRPMDial.Id = createTextureDefault(skinPath + "\\dialRPM.png", &spriteRPMDial);
+	spriteRPMBg.Id = createTextureDefault(skinPath + "\\RPMBg.png", &spriteRPMBg);
+	spriteRPMNum.Id = createTextureDefault(skinPath + "\\RPMNum.png", &spriteRPMNum);
+	spriteRPMRed.Id = createTextureDefault(skinPath + "\\RPMRed.png", &spriteRPMRed);
+	spriteRPMDial.Id = createTextureDefault(skinPath + "\\RPMDial.png", &spriteRPMDial);
 
-	spriteTurboBg.Id = createTextureDefault(skinPath + "\\bgTurbo.png", &spriteTurboBg);
-	spriteTurboNum.Id = createTextureDefault(skinPath + "\\numTurbo.png", &spriteTurboNum);
-	spriteTurboText.Id = createTextureDefault(skinPath + "\\textTurbo.png", &spriteTurboText);
-	spriteTurboRed0.Id = createTextureDefault(skinPath + "\\redTurbo0.png", &spriteTurboRed0);
-	spriteTurboRed1.Id = createTextureDefault(skinPath + "\\redTurbo1.png", &spriteTurboRed1);
-	spriteTurboDial.Id = createTextureDefault(skinPath + "\\dialTurbo.png", &spriteTurboDial);
+	spriteTurboBg.Id = createTextureDefault(skinPath + "\\TurboBg.png", &spriteTurboBg);
+	spriteTurboNum.Id = createTextureDefault(skinPath + "\\TurboNum.png", &spriteTurboNum);
+	spriteTurboText.Id = createTextureDefault(skinPath + "\\TurboText.png", &spriteTurboText);
+	spriteTurboRed0.Id = createTextureDefault(skinPath + "\\TurboRed0.png", &spriteTurboRed0);
+	spriteTurboRed1.Id = createTextureDefault(skinPath + "\\TurboRed1.png", &spriteTurboRed1);
+	spriteTurboDial.Id = createTextureDefault(skinPath + "\\TurboDial.png", &spriteTurboDial);
 
 	spriteN0.Id = createTextureDefault(skinPath + "\\N0.png", &spriteN0);
 	spriteN1.Id = createTextureDefault(skinPath + "\\N1.png", &spriteN1);
@@ -585,29 +585,29 @@ void createTextures(std::string skin) {
 	spriteNR.Id = createTextureDefault(skinPath + "\\NR.png", &spriteNR);
 	spriteNE.Id = createTextureDefault(skinPath + "\\NE.png", &spriteNE);
 
-	spriteKMH.Id = createTextureDefault(skinPath + "\\kmh.png", &spriteKMH);
-	spriteMPH.Id = createTextureDefault(skinPath + "\\mph.png", &spriteMPH);
+	spriteKMH.Id = createTextureDefault(skinPath + "\\UnitKmh.png", &spriteKMH);
+	spriteMPH.Id = createTextureDefault(skinPath + "\\UnitMph.png", &spriteMPH);
 
-	spriteShiftLight.Id = createTextureDefault(skinPath + "\\shiftLight.png", &spriteShiftLight);
+	spriteShiftLight.Id = createTextureDefault(skinPath + "\\ShiftLight.png", &spriteShiftLight);
 
-	spriteNOSText.Id = createTextureDefault(skinPath + "\\nosText.png", &spriteNOSText);
+	spriteNOSText.Id = createTextureDefault(skinPath + "\\NOSText.png", &spriteNOSText);
 
 	spritesNOSStage1.clear();
 	spritesNOSStage2.clear();
 	spritesNOSStage3.clear();
 	for (int i = 0; i < numNOSItemsStage1; i++) {
 		SpriteInfo sprite;
-		sprite.Id = createTextureDefault(skinPath + "\\nos0_" + std::to_string(i) + ".png", &sprite);
+		sprite.Id = createTextureDefault(skinPath + "\\NOSL0_" + std::to_string(i) + ".png", &sprite);
 		spritesNOSStage1.push_back(sprite);
 	}
 	for (int i = 0; i < numNOSItemsStage2; i++) {
 		SpriteInfo sprite;
-		sprite.Id = createTextureDefault(skinPath + "\\nos1_" + std::to_string(i) + ".png", &sprite);
+		sprite.Id = createTextureDefault(skinPath + "\\NOSL1_" + std::to_string(i) + ".png", &sprite);
 		spritesNOSStage2.push_back(sprite);
 	}
 	for (int i = 0; i < numNOSItemsStage3; i++) {
 		SpriteInfo sprite;
-		sprite.Id = createTextureDefault(skinPath + "\\nos2_" + std::to_string(i) + ".png", &sprite);
+		sprite.Id = createTextureDefault(skinPath + "\\NOSL2_" + std::to_string(i) + ".png", &sprite);
 		spritesNOSStage3.push_back(sprite);
 	}
 	logger.Write("Finished loading resources for " + skin);
@@ -659,16 +659,16 @@ void main() {
 		logger.Write("Found skin: " + skin);
 	}
 
-	if (skins.size() == 0 || std::find(skins.begin(), skins.end(), "default") == skins.end()) {
-		logger.Write("FATAL: No \"default\" skin, quitting...");
+	if (skins.size() == 0 || std::find(skins.begin(), skins.end(), settings.DefaultSkin) == skins.end()) {
+		logger.Write("FATAL: No \"" + settings.DefaultSkin + "\" skin, quitting...");
 		return;
 	}
 	int i = 0;
 	for (auto skin : skins) {
-		if (skin == "default") currSkinIndex = i;
+		if (skin == settings.DefaultSkin) currSkinIndex = i;
 		i++;
 	}
-	changeSkin("default");
+	changeSkin(settings.DefaultSkin);
 
 	previousDisplayTime = std::chrono::steady_clock::now().time_since_epoch();
 	while (true) {

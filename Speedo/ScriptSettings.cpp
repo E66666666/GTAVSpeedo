@@ -63,6 +63,7 @@ void ScriptSettings::parseSettingsGeneral() {
 	Enable = settingsGeneral.GetBoolValue("SETTINGS", "Enable");
 	FPVHide = static_cast<float>(settingsGeneral.GetBoolValue("SETTINGS", "FPVHide", false));
 	FadeSpeed = static_cast<float>(settingsGeneral.GetDoubleValue("SETTINGS", "FadeSpeed", 0.05));
+	DefaultSkin = settingsGeneral.GetValue("SETTINGS", "Default", "default");
 
 	ShowPlacementMenu = settingsGeneral.GetBoolValue("DEV", "ShowPlacementMenu", false);
 
