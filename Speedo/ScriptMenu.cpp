@@ -10,6 +10,8 @@
 extern ScriptSettings settings;
 extern std::string settingsGeneralFile;
 extern std::string skinDir;
+extern std::vector<std::string> skins;
+extern int currSkinIndex;
 
 extern NativeMenu::Menu menu;
 
@@ -22,7 +24,7 @@ extern SpeedoInfo currentSpeedo;
 //                             Menu stuff
 ///////////////////////////////////////////////////////////////////////////////
 void menuInit() {
-	settings.Read();
+	onMenuOpen();
 }
 
 void menuClose() {
@@ -55,6 +57,10 @@ void update_menu() {
 		if (settings.ShowPlacementMenu) {
 			menu.MenuOption("Placements", "placementmenu");
 		}
+
+		if (menu.StringArray("Skin", skins, currSkinIndex)) {
+			changeSkin(skins[currSkinIndex]);
+		}
 	}
 
 	if (menu.CurrentMenu("placementmenu")) {
@@ -69,9 +75,11 @@ void update_menu() {
 		menu.MenuOption("Speed", "speedposmenu");
 		menu.MenuOption("Gear", "gearposmenu");
 		menu.MenuOption("NOS", "nosposmenu");
-		if (menu.Option("Normalize speedo")) {
-			settings.Normalize(currentSpeedo);
-		}
+		menu.MenuOption("Rotations", "rotationsmenu");
+
+		//if (menu.Option("Normalize speedo")) {
+		//	settings.Normalize(currentSpeedo);
+		//}
 	}
 
 	if (menu.CurrentMenu("rpmposmenu")) {
@@ -138,7 +146,6 @@ void update_menu() {
 		menu.FloatOption("ShiftLightSize", currentSpeedo.ShiftLightSize, 0.0f, 1.0f, 0.001f);
 	}
 
-	// fuck me
 	if (menu.CurrentMenu("nosposmenu")) {
 		menu.Title("NOS");
 		menu.Subtitle(DISPLAY_VERSION);
@@ -172,6 +179,21 @@ void update_menu() {
 			menu.FloatOption("NOS"+std::to_string(i)+"Xpos", currentSpeedo.NOSStage3Xpos[i], 0.0f, 1.0f, 0.001f);
 			menu.FloatOption("NOS"+std::to_string(i)+"Ypos", currentSpeedo.NOSStage3Ypos[i], 0.0f, 1.0f, 0.001f);
 		}
+	}
+
+	if (menu.CurrentMenu("rotationsmenu")) {
+		menu.Title("Rotate");
+		menu.Subtitle(DISPLAY_VERSION);
+		menu.FloatOption("RPMDialCenterX", currentSpeedo.RPMDialCenterX, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("RPMDialCenterY", currentSpeedo.RPMDialCenterY, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("RPMDialZeroRot", currentSpeedo.RPMDialZeroRot, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("RPMDialFullRot", currentSpeedo.RPMDialFullRot, 0.0f, 1.0f, 0.001f);
+		
+		menu.FloatOption("TurboDialCenterX", currentSpeedo.TurboDialCenterX, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("TurboDialCenterY", currentSpeedo.TurboDialCenterY, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("TurboDialZeroRot", currentSpeedo.TurboDialZeroRot, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("TurboDialFullRot", currentSpeedo.TurboDialFullRot, 0.0f, 1.0f, 0.001f);
+
 	}
 	
 	menu.EndMenu();

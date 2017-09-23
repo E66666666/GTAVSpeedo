@@ -86,6 +86,18 @@ struct SpeedoInfo {
 	std::array<float, numNOSItemsStage3> NOSStage3Xpos;
 	std::array<float, numNOSItemsStage3> NOSStage3Ypos;
 	std::array<float, numNOSItemsStage3> NOSStage3Size;
+
+	float RPMDialCenterX;
+	float RPMDialCenterY;
+	float RPMDialZeroRot;
+	float RPMDialFullRot;
+
+	float TurboDialCenterX;
+	float TurboDialCenterY;
+	float TurboDialZeroRot;
+	float TurboDialFullRot;
+
+
 };
 
 struct DragSpeedoInfo : SpeedoInfo {

@@ -57,6 +57,7 @@ struct SpriteInfo {
 std::string settingsGeneralFile;
 std::string settingsMenuFile;
 std::string skinDir;
+std::string absoluteModPath;
 
 SpriteInfo spriteRPMBg;
 SpriteInfo spriteRPMNum;
@@ -113,6 +114,9 @@ float turboalpha = 0.0f;
 std::chrono::steady_clock::duration previousDisplayTime;
 
 SpeedoInfo currentSpeedo;
+
+std::vector<std::string> skins;
+int currSkinIndex;
 
 enum class ShiftMode {
 	Default,
@@ -202,7 +206,7 @@ void drawNOSBars(bool hasBoost, float boostVal, float nosVal, float screencorrec
 
 void drawRPM(float rpm, float screencorrection, float offsetX, float offsetY) {
 	displayRPM = lerp(displayRPM, rpm, 15.0f * GAMEPLAY::GET_FRAME_TIME());
-	float rpmRot = displayRPM / 2.0f + 0.125f;
+	float rpmRot = displayRPM * currentSpeedo.RPMDialFullRot + currentSpeedo.RPMDialZeroRot;
 
 	drawTexture(spriteRPMBg.Id, 0, -9999, 100, 
 	            currentSpeedo.RPMBgSize, static_cast<float>(spriteRPMBg.Height) * (currentSpeedo.RPMBgSize / static_cast<float>(spriteRPMBg.Width)),
@@ -216,7 +220,7 @@ void drawRPM(float rpm, float screencorrection, float offsetX, float offsetY) {
 	            0.0f, screencorrection, 80.0f / 255.0f, 175.0f / 255.0f, 255.0f / 255.0f, 1.0f * speedoAlpha);
 	drawTexture(spriteRPMDial.Id, 0, -9990, 100, 
 	            currentSpeedo.RPMDialSize, static_cast<float>(spriteRPMDial.Height) * (currentSpeedo.RPMDialSize / static_cast<float>(spriteRPMDial.Width)),
-	            0.5f, 0.5f,
+	            currentSpeedo.RPMDialCenterX, currentSpeedo.RPMDialCenterY,
 	            currentSpeedo.RPMDialXpos + offsetX, currentSpeedo.RPMDialYpos + offsetY,
 	            rpmRot, screencorrection, 1.0f, 1.0f, 1.0f, 0.9f * speedoAlpha);
 	drawTexture(spriteRPMRed.Id, 0, -9997, 100,
@@ -238,7 +242,7 @@ void drawTurbo(float turbo, float screencorrection, float offsetX, float offsetY
 		displayTurboRot = map(turbo, 0.9f, 1.0f, 0.75f, 1.0f);
 	}
 
-	float turboRot = displayTurboRot / 4.0f + 0.320f;
+	float turboRot = displayTurboRot * currentSpeedo.TurboDialFullRot + currentSpeedo.TurboDialZeroRot;
 
 	drawTexture(spriteTurboBg.Id, 0, -9999, 100,
 	            currentSpeedo.TurboBgSize, static_cast<float>(spriteTurboBg.Height) * (currentSpeedo.TurboBgSize / static_cast<float>(spriteTurboBg.Width)),
@@ -252,7 +256,7 @@ void drawTurbo(float turbo, float screencorrection, float offsetX, float offsetY
 	            0.0f, screencorrection, 80.0f / 255.0f, 175.0f / 255.0f, 255.0f / 255.0f, 1.0f * turboalpha* speedoAlpha);
 	drawTexture(spriteTurboDial.Id, 0, -9990, 100,
 	            currentSpeedo.TurboDialSize, static_cast<float>(spriteTurboDial.Height) * (currentSpeedo.TurboDialSize / static_cast<float>(spriteTurboDial.Width)),
-	            0.5f, 0.5f,
+	            currentSpeedo.TurboDialCenterX, currentSpeedo.TurboDialCenterY,
 	            currentSpeedo.TurboDialXpos + offsetX, currentSpeedo.TurboDialYpos + offsetY,
 	            turboRot, screencorrection, 1.0f, 1.0f, 1.0f, 0.9f * turboalpha* speedoAlpha);
 
@@ -609,6 +613,25 @@ void createTextures(std::string skin) {
 	logger.Write("Finished loading resources for " + skin);
 }
 
+void onMenuOpen() {
+	settings.Read();
+
+	skins = settings.EnumerateSkins();
+	for (auto skin : skins) {
+		logger.Write("Found skin: " + skin);
+	}
+}
+
+void changeSkin(std::string skinTemp) {
+	skinDir = "\\" + skinTemp;
+
+	logger.Write("Loading " + absoluteModPath + skinDir);
+	currentSpeedo = settings.ReadSkin(absoluteModPath + skinDir);
+	logger.Write("Finished loading " + skinTemp);
+
+	createTextures(skinDir);
+}
+
 void main() {
 	logger.Write("Script started");
 	mem::init();
@@ -617,7 +640,7 @@ void main() {
 		logger.Write("Global setup failed!");
 	}
 
-	std::string absoluteModPath = Paths::GetModuleFolder(Paths::GetOurModuleHandle()) + modDir;
+	absoluteModPath = Paths::GetModuleFolder(Paths::GetOurModuleHandle()) + modDir;
 	settingsGeneralFile = absoluteModPath + "\\settings_general.ini";
 	settingsMenuFile = absoluteModPath + "\\settings_menu.ini";
 
@@ -631,20 +654,21 @@ void main() {
 	settings.Read();
 	menu.ReadSettings();
 
-	auto skins = settings.EnumerateSkins();
+	skins = settings.EnumerateSkins();
 	for (auto skin : skins) {
 		logger.Write("Found skin: " + skin);
 	}
 
-	std::string skinTemp = "default";
-
-	skinDir = "\\"+ skinTemp;
-
-	logger.Write("Loading " + absoluteModPath + skinDir);
-	currentSpeedo = settings.ReadSkin(absoluteModPath + skinDir);
-	logger.Write("Finished loading " + skinTemp);
-
-	createTextures(skinDir);
+	if (skins.size() == 0 || std::find(skins.begin(), skins.end(), "default") == skins.end()) {
+		logger.Write("FATAL: No \"default\" skin, quitting...");
+		return;
+	}
+	int i = 0;
+	for (auto skin : skins) {
+		if (skin == "default") currSkinIndex = i;
+		i++;
+	}
+	changeSkin("default");
 
 	previousDisplayTime = std::chrono::steady_clock::now().time_since_epoch();
 	while (true) {

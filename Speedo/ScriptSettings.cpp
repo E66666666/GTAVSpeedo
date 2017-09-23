@@ -80,94 +80,104 @@ void ScriptSettings::SaveGeneral() const {
 	settingsGeneral.SaveFile(settingsGeneralFile.c_str());
 }
 
-void ScriptSettings::SaveSkin(std::string path, SpeedoInfo &info) {
+void ScriptSettings::SaveSkin(std::string path, SpeedoInfo &speedoInfo) {
 	CSimpleIniA skinSettings;
 	skinSettings.SetUnicode();
 	skinSettings.LoadFile((path + ".ini").c_str());
 
-	skinSettings.SetValue("LAYOUT", "Name", info.SpeedoName.c_str());
+	skinSettings.SetValue("LAYOUT", "Name", speedoInfo.SpeedoName.c_str());
 
-	skinSettings.SetDoubleValue("LAYOUT", "SpeedoXpos", info.SpeedoXpos);
-	skinSettings.SetDoubleValue("LAYOUT", "SpeedoYpos", info.SpeedoYpos);
-	skinSettings.SetDoubleValue("LAYOUT", "SpeedoSize", info.SpeedoSize);
+	skinSettings.SetDoubleValue("LAYOUT", "SpeedoXpos", speedoInfo.SpeedoXpos);
+	skinSettings.SetDoubleValue("LAYOUT", "SpeedoYpos", speedoInfo.SpeedoYpos);
+	skinSettings.SetDoubleValue("LAYOUT", "SpeedoSize", speedoInfo.SpeedoSize);
 
-	skinSettings.SetDoubleValue("LAYOUT", "RPMBgXpos", info.RPMBgXpos);
-	skinSettings.SetDoubleValue("LAYOUT", "RPMBgYpos", info.RPMBgYpos);
-	skinSettings.SetDoubleValue("LAYOUT", "RPMBgSize", info.RPMBgSize);
+	skinSettings.SetDoubleValue("LAYOUT", "RPMBgXpos", speedoInfo.RPMBgXpos);
+	skinSettings.SetDoubleValue("LAYOUT", "RPMBgYpos", speedoInfo.RPMBgYpos);
+	skinSettings.SetDoubleValue("LAYOUT", "RPMBgSize", speedoInfo.RPMBgSize);
 
-	skinSettings.SetDoubleValue("LAYOUT", "RPMNumXpos", info.RPMNumXpos);
-	skinSettings.SetDoubleValue("LAYOUT", "RPMNumYpos", info.RPMNumYpos);
-	skinSettings.SetDoubleValue("LAYOUT", "RPMNumSize", info.RPMNumSize);
+	skinSettings.SetDoubleValue("LAYOUT", "RPMNumXpos", speedoInfo.RPMNumXpos);
+	skinSettings.SetDoubleValue("LAYOUT", "RPMNumYpos", speedoInfo.RPMNumYpos);
+	skinSettings.SetDoubleValue("LAYOUT", "RPMNumSize", speedoInfo.RPMNumSize);
 
-	skinSettings.SetDoubleValue("LAYOUT", "RPMDialXpos", info.RPMDialXpos);
-	skinSettings.SetDoubleValue("LAYOUT", "RPMDialYpos", info.RPMDialYpos);
-	skinSettings.SetDoubleValue("LAYOUT", "RPMDialSize", info.RPMDialSize);
+	skinSettings.SetDoubleValue("LAYOUT", "RPMDialXpos", speedoInfo.RPMDialXpos);
+	skinSettings.SetDoubleValue("LAYOUT", "RPMDialYpos", speedoInfo.RPMDialYpos);
+	skinSettings.SetDoubleValue("LAYOUT", "RPMDialSize", speedoInfo.RPMDialSize);
 
-	skinSettings.SetDoubleValue("LAYOUT", "RPMRedXpos", info.RPMRedXpos);
-	skinSettings.SetDoubleValue("LAYOUT", "RPMRedYpos", info.RPMRedYpos);
-	skinSettings.SetDoubleValue("LAYOUT", "RPMRedSize", info.RPMRedSize);
+	skinSettings.SetDoubleValue("LAYOUT", "RPMRedXpos", speedoInfo.RPMRedXpos);
+	skinSettings.SetDoubleValue("LAYOUT", "RPMRedYpos", speedoInfo.RPMRedYpos);
+	skinSettings.SetDoubleValue("LAYOUT", "RPMRedSize", speedoInfo.RPMRedSize);
 
-	skinSettings.SetDoubleValue("LAYOUT", "TurboBgXpos", info.TurboBgXpos);
-	skinSettings.SetDoubleValue("LAYOUT", "TurboBgYpos", info.TurboBgYpos);
-	skinSettings.SetDoubleValue("LAYOUT", "TurboBgSize", info.TurboBgSize);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboBgXpos", speedoInfo.TurboBgXpos);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboBgYpos", speedoInfo.TurboBgYpos);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboBgSize", speedoInfo.TurboBgSize);
 	
-	skinSettings.SetDoubleValue("LAYOUT", "TurboNumXpos", info.TurboNumXpos);
-	skinSettings.SetDoubleValue("LAYOUT", "TurboNumYpos", info.TurboNumYpos);
-	skinSettings.SetDoubleValue("LAYOUT", "TurboNumSize", info.TurboNumSize);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboNumXpos", speedoInfo.TurboNumXpos);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboNumYpos", speedoInfo.TurboNumYpos);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboNumSize", speedoInfo.TurboNumSize);
 
-	skinSettings.SetDoubleValue("LAYOUT", "TurboTextXpos", info.TurboTextXpos);
-	skinSettings.SetDoubleValue("LAYOUT", "TurboTextYpos", info.TurboTextYpos);
-	skinSettings.SetDoubleValue("LAYOUT", "TurboTextSize", info.TurboTextSize);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboTextXpos", speedoInfo.TurboTextXpos);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboTextYpos", speedoInfo.TurboTextYpos);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboTextSize", speedoInfo.TurboTextSize);
 
-	skinSettings.SetDoubleValue("LAYOUT", "TurboDialXpos", info.TurboDialXpos);
-	skinSettings.SetDoubleValue("LAYOUT", "TurboDialYpos", info.TurboDialYpos);
-	skinSettings.SetDoubleValue("LAYOUT", "TurboDialSize", info.TurboDialSize);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboDialXpos", speedoInfo.TurboDialXpos);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboDialYpos", speedoInfo.TurboDialYpos);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboDialSize", speedoInfo.TurboDialSize);
 
-	skinSettings.SetDoubleValue("LAYOUT", "TurboRed0Xpos", info.TurboRed0Xpos);
-	skinSettings.SetDoubleValue("LAYOUT", "TurboRed0Ypos", info.TurboRed0Ypos);
-	skinSettings.SetDoubleValue("LAYOUT", "TurboRed0Size", info.TurboRed0Size);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboRed0Xpos", speedoInfo.TurboRed0Xpos);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboRed0Ypos", speedoInfo.TurboRed0Ypos);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboRed0Size", speedoInfo.TurboRed0Size);
 
-	skinSettings.SetDoubleValue("LAYOUT", "TurboRed1Xpos", info.TurboRed1Xpos);
-	skinSettings.SetDoubleValue("LAYOUT", "TurboRed1Ypos", info.TurboRed1Ypos);
-	skinSettings.SetDoubleValue("LAYOUT", "TurboRed1Size", info.TurboRed1Size);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboRed1Xpos", speedoInfo.TurboRed1Xpos);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboRed1Ypos", speedoInfo.TurboRed1Ypos);
+	skinSettings.SetDoubleValue("LAYOUT", "TurboRed1Size", speedoInfo.TurboRed1Size);
 
-	skinSettings.SetDoubleValue("LAYOUT", "SpeedXpos", info.SpeedXpos);
-	skinSettings.SetDoubleValue("LAYOUT", "SpeedYpos", info.SpeedYpos);
-	skinSettings.SetDoubleValue("LAYOUT", "SpeedSize", info.SpeedSize);
+	skinSettings.SetDoubleValue("LAYOUT", "SpeedXpos", speedoInfo.SpeedXpos);
+	skinSettings.SetDoubleValue("LAYOUT", "SpeedYpos", speedoInfo.SpeedYpos);
+	skinSettings.SetDoubleValue("LAYOUT", "SpeedSize", speedoInfo.SpeedSize);
 
-	skinSettings.SetDoubleValue("LAYOUT", "UnitXpos", info.UnitXpos);
-	skinSettings.SetDoubleValue("LAYOUT", "UnitYpos", info.UnitYpos);
-	skinSettings.SetDoubleValue("LAYOUT", "UnitSize", info.UnitSize);
+	skinSettings.SetDoubleValue("LAYOUT", "UnitXpos", speedoInfo.UnitXpos);
+	skinSettings.SetDoubleValue("LAYOUT", "UnitYpos", speedoInfo.UnitYpos);
+	skinSettings.SetDoubleValue("LAYOUT", "UnitSize", speedoInfo.UnitSize);
 
-	skinSettings.SetDoubleValue("LAYOUT", "GearXpos", info.GearXpos);
-	skinSettings.SetDoubleValue("LAYOUT", "GearYpos", info.GearYpos);
-	skinSettings.SetDoubleValue("LAYOUT", "GearSize", info.GearSize);
+	skinSettings.SetDoubleValue("LAYOUT", "GearXpos", speedoInfo.GearXpos);
+	skinSettings.SetDoubleValue("LAYOUT", "GearYpos", speedoInfo.GearYpos);
+	skinSettings.SetDoubleValue("LAYOUT", "GearSize", speedoInfo.GearSize);
 
-	skinSettings.SetDoubleValue("LAYOUT", "NOSTextXpos", info.NOSTextXpos);
-	skinSettings.SetDoubleValue("LAYOUT", "NOSTextYpos", info.NOSTextYpos);
-	skinSettings.SetDoubleValue("LAYOUT", "NOSTextSize", info.NOSTextSize);
+	skinSettings.SetDoubleValue("LAYOUT", "NOSTextXpos", speedoInfo.NOSTextXpos);
+	skinSettings.SetDoubleValue("LAYOUT", "NOSTextYpos", speedoInfo.NOSTextYpos);
+	skinSettings.SetDoubleValue("LAYOUT", "NOSTextSize", speedoInfo.NOSTextSize);
 
-	skinSettings.SetDoubleValue("LAYOUT", "ShiftLightXpos", info.ShiftLightXpos);
-	skinSettings.SetDoubleValue("LAYOUT", "ShiftLightYpos", info.ShiftLightYpos);
-	skinSettings.SetDoubleValue("LAYOUT", "ShiftLightSize", info.ShiftLightSize);
+	skinSettings.SetDoubleValue("LAYOUT", "ShiftLightXpos", speedoInfo.ShiftLightXpos);
+	skinSettings.SetDoubleValue("LAYOUT", "ShiftLightYpos", speedoInfo.ShiftLightYpos);
+	skinSettings.SetDoubleValue("LAYOUT", "ShiftLightSize", speedoInfo.ShiftLightSize);
 
 	for (int i = 0; i < numNOSItemsStage1; i++) {
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Xpos").c_str(), info.NOSStage1Xpos[i]);
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Ypos").c_str(), info.NOSStage1Ypos[i]);
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Size").c_str(), info.NOSStage1Size[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Xpos").c_str(), speedoInfo.NOSStage1Xpos[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Ypos").c_str(), speedoInfo.NOSStage1Ypos[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Size").c_str(), speedoInfo.NOSStage1Size[i]);
 	}
 
 	for (int i = 0; i < numNOSItemsStage2; i++) {
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Xpos").c_str(), info.NOSStage2Xpos[i]);
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Ypos").c_str(), info.NOSStage2Ypos[i]);
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Size").c_str(), info.NOSStage2Size[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Xpos").c_str(), speedoInfo.NOSStage2Xpos[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Ypos").c_str(), speedoInfo.NOSStage2Ypos[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Size").c_str(), speedoInfo.NOSStage2Size[i]);
 	}
 
 	for (int i = 0; i < numNOSItemsStage3; i++) {
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS"+std::to_string(i)+"Stage3Xpos").c_str(), info.NOSStage3Xpos[i]);
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS"+std::to_string(i)+"Stage3Ypos").c_str(), info.NOSStage3Ypos[i]);
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS"+std::to_string(i)+"Stage3Size").c_str(), info.NOSStage3Size[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOS"+std::to_string(i)+"Stage3Xpos").c_str(), speedoInfo.NOSStage3Xpos[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOS"+std::to_string(i)+"Stage3Ypos").c_str(), speedoInfo.NOSStage3Ypos[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOS"+std::to_string(i)+"Stage3Size").c_str(), speedoInfo.NOSStage3Size[i]);
 	}
+
+	skinSettings.SetDoubleValue("ROTATE", "RPMDialCenterX", speedoInfo.RPMDialCenterX);
+	skinSettings.SetDoubleValue("ROTATE", "RPMDialCenterY", speedoInfo.RPMDialCenterY);
+	skinSettings.SetDoubleValue("ROTATE", "RPMDialZeroRot", speedoInfo.RPMDialZeroRot);
+	skinSettings.SetDoubleValue("ROTATE", "RPMDialFullRot", speedoInfo.RPMDialFullRot);
+	
+	skinSettings.SetDoubleValue("ROTATE", "TurboDialCenterX", speedoInfo.TurboDialCenterX);
+	skinSettings.SetDoubleValue("ROTATE", "TurboDialCenterY", speedoInfo.TurboDialCenterY);
+	skinSettings.SetDoubleValue("ROTATE", "TurboDialZeroRot", speedoInfo.TurboDialZeroRot);
+	skinSettings.SetDoubleValue("ROTATE", "TurboDialFullRot", speedoInfo.TurboDialFullRot);
 
 	skinSettings.SaveFile((path + ".ini").c_str());
 }
@@ -262,6 +272,16 @@ SpeedoInfo ScriptSettings::ReadSkin(std::string path) {
 		speedoInfo.NOSStage3Ypos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage3Ypos").c_str()));
 		speedoInfo.NOSStage3Size[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage3Size").c_str()));
 	}
+
+	speedoInfo.RPMDialCenterX = static_cast<float>(skinSettings.GetDoubleValue("ROTATE", "RPMDialCenterX"));
+	speedoInfo.RPMDialCenterY = static_cast<float>(skinSettings.GetDoubleValue("ROTATE", "RPMDialCenterY"));
+	speedoInfo.RPMDialZeroRot = static_cast<float>(skinSettings.GetDoubleValue("ROTATE", "RPMDialZeroRot"));
+	speedoInfo.RPMDialFullRot = static_cast<float>(skinSettings.GetDoubleValue("ROTATE", "RPMDialFullRot"));
+
+	speedoInfo.TurboDialCenterX = static_cast<float>(skinSettings.GetDoubleValue("ROTATE", "TurboDialCenterX"));
+	speedoInfo.TurboDialCenterY = static_cast<float>(skinSettings.GetDoubleValue("ROTATE", "TurboDialCenterY"));
+	speedoInfo.TurboDialZeroRot = static_cast<float>(skinSettings.GetDoubleValue("ROTATE", "TurboDialZeroRot"));
+	speedoInfo.TurboDialFullRot = static_cast<float>(skinSettings.GetDoubleValue("ROTATE", "TurboDialFullRot"));
 
 	return speedoInfo;
 }
