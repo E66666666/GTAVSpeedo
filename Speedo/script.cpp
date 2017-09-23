@@ -512,7 +512,6 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		else {
 			heatVal = 0.0f;
 		}
-		heatVal = rpm;
 
 		drawHeating(heatVal, screencorrection, offsetX, offsetY);
 		
