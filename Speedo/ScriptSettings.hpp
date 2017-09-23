@@ -17,22 +17,33 @@ public:
 	void Read();
 	std::vector<std::string> EnumerateSkins();
 	void SaveGeneral() const;
-	void SaveSkin(std::string name);
+	
 	void Normalize(SpeedoInfo &coords);
 	void SetModPath(const std::string & cs);
-	SpeedoInfo ReadSkin(std::string name);
-	bool Enable;
-	//SpeedoInfo SpeedoSettings;
-	UnitType Unit;
-	bool ShowPlacementMenu;
 
+	/*
+	 * full path to the directory with your files
+	 */
+	SpeedoInfo ReadSkin(std::string path);
+
+	/*
+	 * full path to the directory with your files
+	 */
+	void SaveSkin(std::string path, SpeedoInfo &info);
+
+
+	// global settings
+	bool Enable;
+	UnitType Unit;
 	bool FPVHide;
 	float FadeSpeed;
-	std::string modPath;
+
+	bool ShowPlacementMenu;
 
 private:
 	void parseSettingsGeneral();
 
 	std::string settingsGeneralFile;
 	std::string settingsMenuFile;
+	std::string modPath;
 };

@@ -25,6 +25,7 @@ void menuInit() {
 
 void menuClose() {
 	settings.SaveGeneral();
+	//settings.SaveSkin();
 }
 
 void update_menu() {
