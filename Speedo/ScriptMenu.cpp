@@ -5,9 +5,11 @@
 
 #include "ScriptSettings.hpp"
 #include "SpeedoInfo.h"
+#include "Util/Paths.h"
 
 extern ScriptSettings settings;
 extern std::string settingsGeneralFile;
+extern std::string skinDir;
 
 extern NativeMenu::Menu menu;
 
@@ -20,12 +22,12 @@ extern SpeedoInfo currentSpeedo;
 //                             Menu stuff
 ///////////////////////////////////////////////////////////////////////////////
 void menuInit() {
-
+	settings.Read();
 }
 
 void menuClose() {
 	settings.SaveGeneral();
-	//settings.SaveSkin();
+	settings.SaveSkin(Paths::GetModuleFolder(Paths::GetOurModuleHandle()) + modDir + skinDir, currentSpeedo);
 }
 
 void update_menu() {
@@ -56,6 +58,9 @@ void update_menu() {
 	}
 
 	if (menu.CurrentMenu("placementmenu")) {
+		menu.Title("Placements");
+		menu.Subtitle(DISPLAY_VERSION);
+
 		menu.FloatOption("OffsetX", currentSpeedo.SpeedoXpos, -1.0f, 1.0f, 0.005f);
 		menu.FloatOption("OffsetY", currentSpeedo.SpeedoYpos, -1.0f, 1.0f, 0.005f);
 
@@ -127,6 +132,10 @@ void update_menu() {
 		menu.FloatOption("GearXpos", currentSpeedo.GearXpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("GearYpos", currentSpeedo.GearYpos, 0.0f, 1.0f, 0.001f);
 		menu.FloatOption("GearSize", currentSpeedo.GearSize, 0.0f, 1.0f, 0.001f);
+
+		menu.FloatOption("ShiftLightXpos", currentSpeedo.ShiftLightXpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("ShiftLightYpos", currentSpeedo.ShiftLightYpos, 0.0f, 1.0f, 0.001f);
+		menu.FloatOption("ShiftLightSize", currentSpeedo.ShiftLightSize, 0.0f, 1.0f, 0.001f);
 	}
 
 	// fuck me

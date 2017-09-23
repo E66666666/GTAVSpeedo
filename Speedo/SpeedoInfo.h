@@ -71,6 +71,10 @@ struct SpeedoInfo {
 	float NOSTextYpos;
 	float NOSTextSize;
 
+	float ShiftLightXpos;
+	float ShiftLightYpos;
+	float ShiftLightSize;
+
 	std::array<float, numNOSItemsStage1> NOSStage1Xpos;
 	std::array<float, numNOSItemsStage1> NOSStage1Ypos;
 	std::array<float, numNOSItemsStage1> NOSStage1Size;
@@ -85,27 +89,23 @@ struct SpeedoInfo {
 };
 
 struct DragSpeedoInfo : SpeedoInfo {
-	float DragHeatLinesXpos;
-	float DragHeatLinesYpos;
-	float DragHeatLinesSize;
+	float HeatLinesXpos;
+	float HeatLinesYpos;
+	float HeatLinesSize;
 
-	float DragHeatAlertXpos;
-	float DragHeatAlertYpos;
-	float DragHeatAlertSize;
+	float HeatAlertXpos;
+	float HeatAlertYpos;
+	float HeatAlertSize;
 
-	float DragShiftLightXpos;
-	float DragShiftLightYpos;
-	float DragShiftLightSize;
+	float RPMBoxXpos;
+	float RPMBoxYpos;
+	float RPMBoxSize;
 
-	float DragRPMBoxXpos;
-	float DragRPMBoxYpos;
-	float DragRPMBoxSize;
+	float SpeedBoxXpos;
+	float SpeedBoxYpos;
+	float SpeedBoxSize;
 
-	float DragSpeedBoxXpos;
-	float DragSpeedBoxYpos;
-	float DragSpeedBoxSize;
-
-	std::array<float, numDragHeat> DragHeatXpos;
-	std::array<float, numDragHeat> DragHeatYpos;
-	std::array<float, numDragHeat> DragHeatSize;
+	std::array<float, numDragHeat> HeatXpos;
+	std::array<float, numDragHeat> HeatYpos;
+	std::array<float, numDragHeat> HeatSize;
 };

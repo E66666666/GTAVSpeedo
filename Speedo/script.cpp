@@ -86,6 +86,7 @@ SpriteInfo spriteNE;
 
 SpriteInfo spriteKMH;
 SpriteInfo spriteMPH;
+SpriteInfo spriteShiftLight;
 
 SpriteInfo spriteNOSText;
 std::vector<SpriteInfo> spritesNOSStage1;
@@ -348,6 +349,14 @@ void drawGear(int gear, bool neutral, bool shift_indicator, int charNum, float s
 	            0.5f, 0.5f,
 	            currentSpeedo.GearXpos + offsetX, currentSpeedo.GearYpos + offsetY,
 	            0.0f, screencorrection, c.r, c.g, c.b, c.a * speedoAlpha);
+
+	if (shift_indicator || true) {
+		drawTexture(spriteShiftLight.Id, charNum, level, (int)displayTime,
+			currentSpeedo.ShiftLightSize, static_cast<float>(spriteShiftLight.Height) * (currentSpeedo.ShiftLightSize / static_cast<float>(spriteShiftLight.Width)),
+			0.5f, 0.5f,
+			currentSpeedo.ShiftLightXpos + offsetX, currentSpeedo.ShiftLightYpos + offsetY,
+			0.0f, screencorrection, c.r, c.g, c.b, c.a * speedoAlpha);
+	}
 }
 
 /*
@@ -567,6 +576,8 @@ void createTextures(std::string skin) {
 
 	spriteKMH.Id = createTextureDefault(skinPath + "\\kmh.png", &spriteKMH);
 	spriteMPH.Id = createTextureDefault(skinPath + "\\mph.png", &spriteMPH);
+
+	spriteShiftLight.Id = createTextureDefault(skinPath + "\\shiftLight.png", &spriteShiftLight);
 
 	spriteNOSText.Id = createTextureDefault(skinPath + "\\nosText.png", &spriteNOSText);
 

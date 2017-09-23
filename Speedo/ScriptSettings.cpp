@@ -147,6 +147,10 @@ void ScriptSettings::SaveSkin(std::string path, SpeedoInfo &info) {
 	skinSettings.SetDoubleValue("LAYOUT", "NOSTextYpos", info.NOSTextYpos);
 	skinSettings.SetDoubleValue("LAYOUT", "NOSTextSize", info.NOSTextSize);
 
+	skinSettings.SetDoubleValue("LAYOUT", "ShiftLightXpos", info.ShiftLightXpos);
+	skinSettings.SetDoubleValue("LAYOUT", "ShiftLightYpos", info.ShiftLightYpos);
+	skinSettings.SetDoubleValue("LAYOUT", "ShiftLightSize", info.ShiftLightSize);
+
 	for (int i = 0; i < numNOSItemsStage1; i++) {
 		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Xpos").c_str(), info.NOSStage1Xpos[i]);
 		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Ypos").c_str(), info.NOSStage1Ypos[i]);
@@ -165,7 +169,7 @@ void ScriptSettings::SaveSkin(std::string path, SpeedoInfo &info) {
 		skinSettings.SetDoubleValue("LAYOUT", ("NOS"+std::to_string(i)+"Stage3Size").c_str(), info.NOSStage3Size[i]);
 	}
 
-	skinSettings.SaveFile(settingsGeneralFile.c_str());
+	skinSettings.SaveFile((path + ".ini").c_str());
 }
 
 SpeedoInfo ScriptSettings::ReadSkin(std::string path) {
@@ -236,6 +240,10 @@ SpeedoInfo ScriptSettings::ReadSkin(std::string path) {
 	speedoInfo.NOSTextXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "NOSTextXpos"));
 	speedoInfo.NOSTextYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "NOSTextYpos"));
 	speedoInfo.NOSTextSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "NOSTextSize"));
+
+	speedoInfo.ShiftLightXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "ShiftLightXpos"));
+	speedoInfo.ShiftLightYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "ShiftLightYpos"));
+	speedoInfo.ShiftLightSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "ShiftLightSize"));
 
 	for (int i = 0; i < numNOSItemsStage1; i++) {
 		speedoInfo.NOSStage1Xpos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Xpos").c_str()));
