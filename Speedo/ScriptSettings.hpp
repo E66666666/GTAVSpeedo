@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <array>
+#include <vector>
 
 const int numNOSItemsStage1 = 2;
 const int numNOSItemsStage2 = 4;
@@ -8,9 +9,6 @@ const int numNOSItemsStage3 = 6;
 
 struct SpeedoInfo {
 	std::string SpeedoName;
-
-	bool FPVHide;
-	float FadeSpeed;
 
 	float SpeedoXpos;
 	float SpeedoYpos;
@@ -72,7 +70,6 @@ struct SpeedoInfo {
 	float NOSTextYpos;
 	float NOSTextSize;
 
-	// TODO - Group them together and translate by size???
 	std::array<float, numNOSItemsStage1> NOSStage1Xpos;
 	std::array<float, numNOSItemsStage1> NOSStage1Ypos;
 	std::array<float, numNOSItemsStage1> NOSStage1Size;
@@ -96,12 +93,21 @@ public:
 	ScriptSettings();
 	void SetFiles(const std::string &general);
 	void Read();
+	std::vector<std::string> EnumerateSkins();
 	void SaveGeneral() const;
+	void SaveSkin(std::string name);
 	void Normalize(SpeedoInfo &coords);
+	void SetModPath(const std::string & cs);
+	void ReadSkin(std::string name);
 	bool Enable;
 	SpeedoInfo SpeedoSettings;
 	UnitType Unit;
 	bool ShowPlacementMenu;
+
+	bool FPVHide;
+	float FadeSpeed;
+	std::string modPath;
+
 private:
 	void parseSettingsGeneral();
 

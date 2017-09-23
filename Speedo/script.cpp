@@ -450,13 +450,13 @@ void update() {
 	if (!settings.Enable || !vehicle || !ENTITY::DOES_ENTITY_EXIST(vehicle) || 
 		playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1) ||
 		PED::IS_PED_RUNNING_MOBILE_PHONE_TASK(playerPed) ||
-		settings.SpeedoSettings.FPVHide && CAM::GET_FOLLOW_VEHICLE_CAM_VIEW_MODE() == 4) {
+		settings.FPVHide && CAM::GET_FOLLOW_VEHICLE_CAM_VIEW_MODE() == 4) {
 		if (speedoAlpha > 0.0f) {
-			speedoAlpha -= settings.SpeedoSettings.FadeSpeed;
+			speedoAlpha -= settings.FadeSpeed;
 		}
 	}
 	else if (speedoAlpha < 1.0f) {
-			speedoAlpha += settings.SpeedoSettings.FadeSpeed;
+			speedoAlpha += settings.FadeSpeed;
 	}
 
 	if (speedoAlpha > 0.01f) {
@@ -467,10 +467,10 @@ void update() {
 	}
 
 	if (VEHICLE::IS_TOGGLE_MOD_ON(vehicle, VehicleToggleModTurbo) && turboalpha < 1.0f) {
-		turboalpha += settings.SpeedoSettings.FadeSpeed;
+		turboalpha += settings.FadeSpeed;
 	}
 	if (!VEHICLE::IS_TOGGLE_MOD_ON(vehicle, VehicleToggleModTurbo) && turboalpha > 0.0f) {
-		turboalpha -= settings.SpeedoSettings.FadeSpeed;
+		turboalpha -= settings.FadeSpeed;
 	}
 	if (turboalpha > 1.0f) {
 		turboalpha = 1.0f;
@@ -524,7 +524,6 @@ bool setupGlobals() {
 
 int createTextureDefault(std::string resource, SpriteInfo *info) {
 	if (FileExists(resource)) {
-		//GetPNGDimensions(resource, &info->Width, &info->Height);
 		std::vector<unsigned char> image;
 		unsigned error = lodepng::decode(image, info->Width, info->Height, resource);
 		return createTexture(resource.c_str());
@@ -585,6 +584,7 @@ void createTextures(std::string skin) {
 		sprite.Id = createTextureDefault(skinPath + "\\nos2_" + std::to_string(i) + ".png", &sprite);
 		spritesNOSStage3.push_back(sprite);
 	}
+	logger.Write("Finished loading resources for " + skin);
 }
 
 void main() {
@@ -600,6 +600,7 @@ void main() {
 	settingsMenuFile = absoluteModPath + "\\settings_menu.ini";
 
 	settings.SetFiles(settingsGeneralFile);
+	settings.SetModPath(absoluteModPath);
 
 	menu.RegisterOnMain(std::bind(menuInit));
 	menu.RegisterOnExit(std::bind(menuClose));
@@ -608,9 +609,22 @@ void main() {
 	settings.Read();
 	menu.ReadSettings();
 
-	skinDir = "\\default";
+	auto skins = settings.EnumerateSkins();
+	for (auto skin : skins) {
+		logger.Write("Found skin: " + skin);
+	}
+
+	std::string skinTemp = "default";
+
+	skinDir = "\\"+ skinTemp;
+
+	logger.Write("Loading " + absoluteModPath + skinDir);
+	settings.ReadSkin(absoluteModPath + skinDir);
+	logger.Write("Finished loading " + skinTemp);
+
 	createTextures(skinDir);
 
+	previousDisplayTime = std::chrono::steady_clock::now().time_since_epoch();
 	while (true) {
 		update();
 		update_menu();
@@ -620,6 +634,5 @@ void main() {
 
 void ScriptMain() {
 	srand(GetTickCount());
-	previousDisplayTime = std::chrono::steady_clock::now().time_since_epoch();
 	main();
 }
