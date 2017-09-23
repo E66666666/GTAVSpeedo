@@ -153,21 +153,21 @@ void ScriptSettings::SaveSkin(std::string path, SpeedoInfo &speedoInfo) {
 	skinSettings.SetDoubleValue("LAYOUT", "ShiftLightSize", speedoInfo.ShiftLightSize);
 
 	for (int i = 0; i < numNOSItemsStage1; i++) {
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Xpos").c_str(), speedoInfo.NOSStage1Xpos[i]);
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Ypos").c_str(), speedoInfo.NOSStage1Ypos[i]);
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Size").c_str(), speedoInfo.NOSStage1Size[i]);
-	}
-
-	for (int i = 0; i < numNOSItemsStage2; i++) {
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Xpos").c_str(), speedoInfo.NOSStage2Xpos[i]);
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Ypos").c_str(), speedoInfo.NOSStage2Ypos[i]);
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Size").c_str(), speedoInfo.NOSStage2Size[i]);
-	}
-
-	for (int i = 0; i < numNOSItemsStage3; i++) {
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS"+std::to_string(i)+"Stage3Xpos").c_str(), speedoInfo.NOSStage3Xpos[i]);
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS"+std::to_string(i)+"Stage3Ypos").c_str(), speedoInfo.NOSStage3Ypos[i]);
-		skinSettings.SetDoubleValue("LAYOUT", ("NOS"+std::to_string(i)+"Stage3Size").c_str(), speedoInfo.NOSStage3Size[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOSStage1_" + std::to_string(i) + "Xpos").c_str(), speedoInfo.NOSStage1Xpos[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOSStage1_" + std::to_string(i) + "Ypos").c_str(), speedoInfo.NOSStage1Ypos[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOSStage1_" + std::to_string(i) + "Size").c_str(), speedoInfo.NOSStage1Size[i]);
+	}											      		    					   
+												      		    					   
+	for (int i = 0; i < numNOSItemsStage2; i++) {     		    					   
+		skinSettings.SetDoubleValue("LAYOUT", ("NOSStage2_" + std::to_string(i) + "Xpos").c_str(), speedoInfo.NOSStage2Xpos[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOSStage2_" + std::to_string(i) + "Ypos").c_str(), speedoInfo.NOSStage2Ypos[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOSStage2_" + std::to_string(i) + "Size").c_str(), speedoInfo.NOSStage2Size[i]);
+	}											      		  					   
+												      		  					   
+	for (int i = 0; i < numNOSItemsStage3; i++) {     		  					   
+		skinSettings.SetDoubleValue("LAYOUT", ("NOSStage3_" + std::to_string(i) + "Xpos").c_str(), speedoInfo.NOSStage3Xpos[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOSStage3_" + std::to_string(i) + "Ypos").c_str(), speedoInfo.NOSStage3Ypos[i]);
+		skinSettings.SetDoubleValue("LAYOUT", ("NOSStage3_" + std::to_string(i) + "Size").c_str(), speedoInfo.NOSStage3Size[i]);
 	}
 
 	skinSettings.SetDoubleValue("ROTATE", "RPMDialCenterX", speedoInfo.RPMDialCenterX);
@@ -257,21 +257,21 @@ SpeedoInfo ScriptSettings::ReadSkin(std::string path) {
 	speedoInfo.ShiftLightSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "ShiftLightSize"));
 
 	for (int i = 0; i < numNOSItemsStage1; i++) {
-		speedoInfo.NOSStage1Xpos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Xpos").c_str()));
-		speedoInfo.NOSStage1Ypos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Ypos").c_str()));
-		speedoInfo.NOSStage1Size[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Size").c_str()));
-	}
-
-	for (int i = 0; i < numNOSItemsStage2; i++) {
-		speedoInfo.NOSStage2Xpos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Xpos").c_str()));
-		speedoInfo.NOSStage2Ypos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Ypos").c_str()));
-		speedoInfo.NOSStage2Size[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Size").c_str()));
-	}
-
-	for (int i = 0; i < numNOSItemsStage3; i++) {
-		speedoInfo.NOSStage3Xpos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage3Xpos").c_str()));
-		speedoInfo.NOSStage3Ypos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage3Ypos").c_str()));
-		speedoInfo.NOSStage3Size[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage3Size").c_str()));
+		speedoInfo.NOSStage1Xpos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOSStage1_" + std::to_string(i) + "Xpos").c_str()));
+		speedoInfo.NOSStage1Ypos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOSStage1_" + std::to_string(i) + "Ypos").c_str()));
+		speedoInfo.NOSStage1Size[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOSStage1_" + std::to_string(i) + "Size").c_str()));
+	}																							   		    					   
+																								   		    					   
+	for (int i = 0; i < numNOSItemsStage2; i++) {												   		    					   
+		speedoInfo.NOSStage2Xpos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOSStage2_" + std::to_string(i) + "Xpos").c_str()));
+		speedoInfo.NOSStage2Ypos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOSStage2_" + std::to_string(i) + "Ypos").c_str()));
+		speedoInfo.NOSStage2Size[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOSStage2_" + std::to_string(i) + "Size").c_str()));
+	}																							   		  					   
+																								   		  					   
+	for (int i = 0; i < numNOSItemsStage3; i++) {												   		  					   
+		speedoInfo.NOSStage3Xpos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOSStage3_" + std::to_string(i) + "Xpos").c_str()));
+		speedoInfo.NOSStage3Ypos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOSStage3_" + std::to_string(i) + "Ypos").c_str()));
+		speedoInfo.NOSStage3Size[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOSStage3_" + std::to_string(i) + "Size").c_str()));
 	}
 
 	speedoInfo.RPMDialCenterX = static_cast<float>(skinSettings.GetDoubleValue("ROTATE", "RPMDialCenterX"));
