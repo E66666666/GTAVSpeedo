@@ -33,6 +33,14 @@ const char* decorNOSStage           = "nfsnitro_stage";
 const char* decorDragHeat           = "nfsdrag_heat";
 const char* decorDragShowHud        = "nfsdrag_showhud";
 
+enum eDecorType {
+	DECOR_TYPE_FLOAT = 1,
+	DECOR_TYPE_BOOL,
+	DECOR_TYPE_INT,
+	DECOR_TYPE_UNK,
+	DECOR_TYPE_TIME
+};
+
 struct Colorf {
 	float r;
 	float g;
@@ -44,14 +52,6 @@ struct SpriteInfo {
 	int Id;
 	unsigned Width;
 	unsigned Height;
-};
-
-enum eDecorType {
-	DECOR_TYPE_FLOAT = 1,
-	DECOR_TYPE_BOOL,
-	DECOR_TYPE_INT,
-	DECOR_TYPE_UNK,
-	DECOR_TYPE_TIME
 };
 
 std::string settingsGeneralFile;
@@ -335,13 +335,15 @@ void drawGear(int gear, bool neutral, bool shift_indicator, int charNum, float s
 	else if (gear == 7) spriteGear = spriteN7;
 	else spriteGear = spriteN9;
 
+	int level = -9990;
 	if (neutral || shift_indicator || ext.GetHandbrake(vehicle)) {
 		c.r = 0.99f;
 		c.g = 0.5f;
 		c.b = 0.25f;
+		level = -9989;
 	}
 
-	drawTexture(spriteGear.Id, charNum, -9990, (int)displayTime,
+	drawTexture(spriteGear.Id, charNum, level, (int)displayTime,
 	            currentSpeedo.GearSize, static_cast<float>(spriteGear.Height) * (currentSpeedo.GearSize / static_cast<float>(spriteGear.Width)),
 	            0.5f, 0.5f,
 	            currentSpeedo.GearXpos + offsetX, currentSpeedo.GearYpos + offsetY,
@@ -364,7 +366,6 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 	bool hasBoost = false;
 	float boostVal = 0.0f;
 	float nosVal = 0.0f;
-	float heatVal = 0.0f;
 	ShiftMode shiftMode;
 	if (!vehicle || !ENTITY::DOES_ENTITY_EXIST(vehicle) ||
 		playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1)) {
@@ -409,18 +410,18 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 	auto now = std::chrono::steady_clock::now().time_since_epoch();
 	auto newDisplayTime = now - previousDisplayTime;
 	previousDisplayTime = now;
-	int charNum; // each sprite can be drawn multiple times so just assign incremental IDs to not clash
 	auto lastFrameTime = std::chrono::duration_cast<std::chrono::microseconds>(newDisplayTime).count(); // in microseconds!
 	auto nextFrameTime = lastFrameTime/1000;
 	if (lastFrameTime < 16666) { // cap refresh @ 60 fps
 		nextFrameTime = 16666/1000;
 	}
-	nextFrameTime *= 1.5;
+	nextFrameTime = static_cast<long long>(nextFrameTime * 1.5);
 	
 	drawRPM(rpm, screencorrection, offsetX, offsetY);
 	drawTurbo(turbo, screencorrection, offsetX, offsetY);
 	drawSpeedUnit(type, speed, screencorrection, offsetX, offsetY);
 
+	int charNum; // each sprite can be drawn multiple times so just assign incremental IDs to not clash
 	drawSpeed(speed, charNum, screencorrection, offsetX, offsetY, nextFrameTime);
 	drawGear(gear, neutral, shift_indicator, charNum, screencorrection, offsetX, offsetY, nextFrameTime);
 
