@@ -321,7 +321,7 @@ void drawSpeed(float speed, int &charNum, float screencorrection, float offsetX,
 	}
 }
 
-void drawGear(int gear, bool neutral, bool shift_indicator, int charNum, float screencorrection, float offsetX, float offsetY, long long displayTime) {
+void drawGear(int gear, bool neutral, int shift_indicator, int charNum, float screencorrection, float offsetX, float offsetY, long long displayTime) {
 	SpriteInfo spriteGear;
 	Colorf c = { 0.0f, 0.5f, 0.74f, 1.0f };
 
@@ -350,12 +350,19 @@ void drawGear(int gear, bool neutral, bool shift_indicator, int charNum, float s
 	            currentSpeedo.GearXpos + offsetX, currentSpeedo.GearYpos + offsetY,
 	            0.0f, screencorrection, c.r, c.g, c.b, c.a * speedoAlpha);
 
-	if (shift_indicator || true) {
+	if (shift_indicator != 0) {
+		Colorf indicatorColor = { 0.0f, 0.5f, 0.74f, 1.0f };
+		if (shift_indicator == 1) {
+			indicatorColor.r = 0.99f;
+			indicatorColor.g = 0.5f;
+			indicatorColor.b = 0.25f;
+		}
+
 		drawTexture(spriteShiftLight.Id, charNum, level, (int)displayTime,
 			currentSpeedo.ShiftLightSize, static_cast<float>(spriteShiftLight.Height) * (currentSpeedo.ShiftLightSize / static_cast<float>(spriteShiftLight.Width)),
 			0.5f, 0.5f,
 			currentSpeedo.ShiftLightXpos + offsetX, currentSpeedo.ShiftLightYpos + offsetY,
-			0.0f, screencorrection, c.r, c.g, c.b, c.a * speedoAlpha);
+			0.0f, screencorrection, indicatorColor.r, indicatorColor.g, indicatorColor.b, indicatorColor.a * speedoAlpha);
 	}
 }
 
@@ -370,7 +377,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 	float rpm = 0.0f;
 	int gear = 1;
 	bool neutral = true;
-	bool shift_indicator = false;
+	int shift_indicator = 0;
 	bool hasNOS = false;
 	bool hasBoost = false;
 	float boostVal = 0.0f;
@@ -394,7 +401,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		rpm = ext.GetCurrentRPM(vehicle);
 		gear = ext.GetGearCurr(vehicle);
 		neutral = DECORATOR::DECOR_GET_INT(vehicle, (char*)decorMTNeutral);
-		shift_indicator = DECORATOR::DECOR_GET_INT(vehicle, (char*)decorMTShiftIndicator) > 0;
+		shift_indicator = DECORATOR::DECOR_GET_INT(vehicle, (char*)decorMTShiftIndicator);
 		if (getGameVersion() >= G_VER_1_0_944_2_STEAM) {
 			hasBoost = VEHICLE::_HAS_VEHICLE_ROCKET_BOOST(vehicle);
 			boostVal = ext.GetRocketBoostCharge(vehicle);
