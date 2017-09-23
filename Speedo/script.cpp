@@ -20,6 +20,7 @@
 #include "newNatives.h"
 #include <chrono>
 #include "../../GTAVManualTransmission/Gears/Memory/Versions.h"
+#include "SpeedoInfo.h"
 
 const char* decoriktSpeedoActive    = "ikt_speedo_active";
 const char* decorMTGear             = "mt_gear";
@@ -110,6 +111,8 @@ float turboalpha = 0.0f;
 
 std::chrono::steady_clock::duration previousDisplayTime;
 
+SpeedoInfo currentSpeedo;
+
 enum class ShiftMode {
 	Default,
 	Sequential,
@@ -131,9 +134,9 @@ void drawNOSBars(bool hasBoost, float boostVal, float nosVal, float screencorrec
 
 	float baseAlpha = 1.0f;
 	drawTexture(spriteNOSText.Id, 0, -9998, 100,
-		settings.SpeedoSettings.NOSTextSize, static_cast<float>(spriteNOSText.Height) * (settings.SpeedoSettings.NOSTextSize / static_cast<float>(spriteNOSText.Width)),
+		currentSpeedo.NOSTextSize, static_cast<float>(spriteNOSText.Height) * (currentSpeedo.NOSTextSize / static_cast<float>(spriteNOSText.Width)),
 		0.5f, 0.5f,
-		settings.SpeedoSettings.NOSTextXpos + offsetX, settings.SpeedoSettings.NOSTextYpos + offsetY,
+		currentSpeedo.NOSTextXpos + offsetX, currentSpeedo.NOSTextYpos + offsetY,
 		0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 1.0f * speedoAlpha);
 
 	int numNOSItems;
@@ -153,26 +156,26 @@ void drawNOSBars(bool hasBoost, float boostVal, float nosVal, float screencorrec
 	case 1: {
 		numNOSItems = numNOSItemsStage1;
 		nosSprites = spritesNOSStage1;
-		for (auto size : settings.SpeedoSettings.NOSStage1Size) { nosBarSize.push_back(size); }
-		for (auto xpos : settings.SpeedoSettings.NOSStage1Xpos) { nosBarXpos.push_back(xpos); }
-		for (auto ypos : settings.SpeedoSettings.NOSStage1Ypos) { nosBarYpos.push_back(ypos); }
+		for (auto size : currentSpeedo.NOSStage1Size) { nosBarSize.push_back(size); }
+		for (auto xpos : currentSpeedo.NOSStage1Xpos) { nosBarXpos.push_back(xpos); }
+		for (auto ypos : currentSpeedo.NOSStage1Ypos) { nosBarYpos.push_back(ypos); }
 		break;
 	}
 	case 2: {
 		numNOSItems = numNOSItemsStage2;
 		nosSprites = spritesNOSStage2;
-		for (auto size : settings.SpeedoSettings.NOSStage2Size) { nosBarSize.push_back(size); }
-		for (auto xpos : settings.SpeedoSettings.NOSStage2Xpos) { nosBarXpos.push_back(xpos); }
-		for (auto ypos : settings.SpeedoSettings.NOSStage2Ypos) { nosBarYpos.push_back(ypos); }
+		for (auto size : currentSpeedo.NOSStage2Size) { nosBarSize.push_back(size); }
+		for (auto xpos : currentSpeedo.NOSStage2Xpos) { nosBarXpos.push_back(xpos); }
+		for (auto ypos : currentSpeedo.NOSStage2Ypos) { nosBarYpos.push_back(ypos); }
 		break;
 	}
 	default:
 	case 3: {
 		numNOSItems = numNOSItemsStage3;
 		nosSprites = spritesNOSStage3;
-		for (auto size : settings.SpeedoSettings.NOSStage3Size) { nosBarSize.push_back(size); }
-		for (auto xpos : settings.SpeedoSettings.NOSStage3Xpos) { nosBarXpos.push_back(xpos); }
-		for (auto ypos : settings.SpeedoSettings.NOSStage3Ypos) { nosBarYpos.push_back(ypos); }
+		for (auto size : currentSpeedo.NOSStage3Size) { nosBarSize.push_back(size); }
+		for (auto xpos : currentSpeedo.NOSStage3Xpos) { nosBarXpos.push_back(xpos); }
+		for (auto ypos : currentSpeedo.NOSStage3Ypos) { nosBarYpos.push_back(ypos); }
 		break;
 	}
 	}
@@ -201,24 +204,24 @@ void drawRPM(float rpm, float screencorrection, float offsetX, float offsetY) {
 	float rpmRot = displayRPM / 2.0f + 0.125f;
 
 	drawTexture(spriteRPMBg.Id, 0, -9999, 100, 
-	            settings.SpeedoSettings.RPMBgSize, static_cast<float>(spriteRPMBg.Height) * (settings.SpeedoSettings.RPMBgSize / static_cast<float>(spriteRPMBg.Width)),
+	            currentSpeedo.RPMBgSize, static_cast<float>(spriteRPMBg.Height) * (currentSpeedo.RPMBgSize / static_cast<float>(spriteRPMBg.Width)),
 	            0.5f, 0.5f, 
-	            settings.SpeedoSettings.RPMBgXpos + offsetX, settings.SpeedoSettings.RPMBgYpos + offsetY,
+	            currentSpeedo.RPMBgXpos + offsetX, currentSpeedo.RPMBgYpos + offsetY,
 	            0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 0.75f * speedoAlpha);
 	drawTexture(spriteRPMNum.Id, 0, -9998, 100,
-	            settings.SpeedoSettings.RPMNumSize, static_cast<float>(spriteRPMNum.Height) * (settings.SpeedoSettings.RPMNumSize / static_cast<float>(spriteRPMNum.Width)),
+	            currentSpeedo.RPMNumSize, static_cast<float>(spriteRPMNum.Height) * (currentSpeedo.RPMNumSize / static_cast<float>(spriteRPMNum.Width)),
 	            0.5f, 0.5f,
-	            settings.SpeedoSettings.RPMNumXpos + offsetX, settings.SpeedoSettings.RPMNumYpos + offsetY,
+	            currentSpeedo.RPMNumXpos + offsetX, currentSpeedo.RPMNumYpos + offsetY,
 	            0.0f, screencorrection, 80.0f / 255.0f, 175.0f / 255.0f, 255.0f / 255.0f, 1.0f * speedoAlpha);
 	drawTexture(spriteRPMDial.Id, 0, -9990, 100, 
-	            settings.SpeedoSettings.RPMDialSize, static_cast<float>(spriteRPMDial.Height) * (settings.SpeedoSettings.RPMDialSize / static_cast<float>(spriteRPMDial.Width)),
+	            currentSpeedo.RPMDialSize, static_cast<float>(spriteRPMDial.Height) * (currentSpeedo.RPMDialSize / static_cast<float>(spriteRPMDial.Width)),
 	            0.5f, 0.5f,
-	            settings.SpeedoSettings.RPMDialXpos + offsetX, settings.SpeedoSettings.RPMDialYpos + offsetY,
+	            currentSpeedo.RPMDialXpos + offsetX, currentSpeedo.RPMDialYpos + offsetY,
 	            rpmRot, screencorrection, 1.0f, 1.0f, 1.0f, 0.9f * speedoAlpha);
 	drawTexture(spriteRPMRed.Id, 0, -9997, 100,
-	            settings.SpeedoSettings.RPMRedSize, static_cast<float>(spriteRPMRed.Height) * (settings.SpeedoSettings.RPMRedSize / static_cast<float>(spriteRPMRed.Width)),
+	            currentSpeedo.RPMRedSize, static_cast<float>(spriteRPMRed.Height) * (currentSpeedo.RPMRedSize / static_cast<float>(spriteRPMRed.Width)),
 	            0.5f, 0.5f,
-	            settings.SpeedoSettings.RPMRedXpos + offsetX, settings.SpeedoSettings.RPMRedYpos + offsetY,
+	            currentSpeedo.RPMRedXpos + offsetX, currentSpeedo.RPMRedYpos + offsetY,
 	            0.0f, screencorrection, 1.0f, 0.0f, 0.0f, 0.6f* speedoAlpha);
 }
 
@@ -237,35 +240,35 @@ void drawTurbo(float turbo, float screencorrection, float offsetX, float offsetY
 	float turboRot = displayTurboRot / 4.0f + 0.320f;
 
 	drawTexture(spriteTurboBg.Id, 0, -9999, 100,
-	            settings.SpeedoSettings.TurboBgSize, static_cast<float>(spriteTurboBg.Height) * (settings.SpeedoSettings.TurboBgSize / static_cast<float>(spriteTurboBg.Width)),
+	            currentSpeedo.TurboBgSize, static_cast<float>(spriteTurboBg.Height) * (currentSpeedo.TurboBgSize / static_cast<float>(spriteTurboBg.Width)),
 	            0.5f, 0.5f,
-	            settings.SpeedoSettings.TurboBgXpos + offsetX, settings.SpeedoSettings.TurboBgYpos + offsetY,
+	            currentSpeedo.TurboBgXpos + offsetX, currentSpeedo.TurboBgYpos + offsetY,
 	            0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 0.75f*turboalpha * speedoAlpha);
 	drawTexture(spriteTurboNum.Id, 0, -9998, 100,
-	            settings.SpeedoSettings.TurboNumSize, static_cast<float>(spriteTurboNum.Height) * (settings.SpeedoSettings.TurboNumSize / static_cast<float>(spriteTurboNum.Width)),
+	            currentSpeedo.TurboNumSize, static_cast<float>(spriteTurboNum.Height) * (currentSpeedo.TurboNumSize / static_cast<float>(spriteTurboNum.Width)),
 	            0.5f, 0.5f,
-	            settings.SpeedoSettings.TurboNumXpos + offsetX, settings.SpeedoSettings.TurboNumYpos + offsetY,
+	            currentSpeedo.TurboNumXpos + offsetX, currentSpeedo.TurboNumYpos + offsetY,
 	            0.0f, screencorrection, 80.0f / 255.0f, 175.0f / 255.0f, 255.0f / 255.0f, 1.0f * turboalpha* speedoAlpha);
 	drawTexture(spriteTurboDial.Id, 0, -9990, 100,
-	            settings.SpeedoSettings.TurboDialSize, static_cast<float>(spriteTurboDial.Height) * (settings.SpeedoSettings.TurboDialSize / static_cast<float>(spriteTurboDial.Width)),
+	            currentSpeedo.TurboDialSize, static_cast<float>(spriteTurboDial.Height) * (currentSpeedo.TurboDialSize / static_cast<float>(spriteTurboDial.Width)),
 	            0.5f, 0.5f,
-	            settings.SpeedoSettings.TurboDialXpos + offsetX, settings.SpeedoSettings.TurboDialYpos + offsetY,
+	            currentSpeedo.TurboDialXpos + offsetX, currentSpeedo.TurboDialYpos + offsetY,
 	            turboRot, screencorrection, 1.0f, 1.0f, 1.0f, 0.9f * turboalpha* speedoAlpha);
 
 	drawTexture(spriteTurboText.Id, 0, -9990, 100,
-	            settings.SpeedoSettings.TurboTextSize, static_cast<float>(spriteTurboText.Height) * (settings.SpeedoSettings.TurboTextSize / static_cast<float>(spriteTurboText.Width)),
+	            currentSpeedo.TurboTextSize, static_cast<float>(spriteTurboText.Height) * (currentSpeedo.TurboTextSize / static_cast<float>(spriteTurboText.Width)),
 	            0.5f, 0.5f,
-	            settings.SpeedoSettings.TurboTextXpos + offsetX, settings.SpeedoSettings.TurboTextYpos + offsetY,
+	            currentSpeedo.TurboTextXpos + offsetX, currentSpeedo.TurboTextYpos + offsetY,
 	            0.0f, screencorrection, 0.54f, 0.69f, 0.93f, 1.0f*turboalpha* speedoAlpha);
 	drawTexture(spriteTurboRed0.Id, 0, -9997, 100,
-	            settings.SpeedoSettings.TurboRed0Size, static_cast<float>(spriteTurboRed0.Height) * (settings.SpeedoSettings.TurboRed0Size / static_cast<float>(spriteTurboRed0.Width)),
+	            currentSpeedo.TurboRed0Size, static_cast<float>(spriteTurboRed0.Height) * (currentSpeedo.TurboRed0Size / static_cast<float>(spriteTurboRed0.Width)),
 	            0.5f, 0.5f,
-	            settings.SpeedoSettings.TurboRed0Xpos + offsetX, settings.SpeedoSettings.TurboRed0Ypos + offsetY,
+	            currentSpeedo.TurboRed0Xpos + offsetX, currentSpeedo.TurboRed0Ypos + offsetY,
 	            0.0f, screencorrection, 1.0f, 0.0f, 0.0f, 0.6f*turboalpha* speedoAlpha);
 	drawTexture(spriteTurboRed1.Id, 0, -9997, 100,
-	            settings.SpeedoSettings.TurboRed1Size, static_cast<float>(spriteTurboRed1.Height) * (settings.SpeedoSettings.TurboRed1Size / static_cast<float>(spriteTurboRed1.Width)),
+	            currentSpeedo.TurboRed1Size, static_cast<float>(spriteTurboRed1.Height) * (currentSpeedo.TurboRed1Size / static_cast<float>(spriteTurboRed1.Width)),
 	            0.5f, 0.5f,
-	            settings.SpeedoSettings.TurboRed1Xpos + offsetX, settings.SpeedoSettings.TurboRed1Ypos + offsetY,
+	            currentSpeedo.TurboRed1Xpos + offsetX, currentSpeedo.TurboRed1Ypos + offsetY,
 	            0.0f, screencorrection, 1.0f, 0.0f, 0.0f, 0.6f*turboalpha* speedoAlpha);
 }
 
@@ -280,9 +283,9 @@ void drawSpeedUnit(UnitType type, float &speed, float screencorrection, float of
 		spriteUnit = spriteKMH;
 	}
 	drawTexture(spriteUnit.Id, 0, -9990, 100,
-	            settings.SpeedoSettings.UnitSize, static_cast<float>(spriteUnit.Height) * (settings.SpeedoSettings.UnitSize / static_cast<float>(spriteUnit.Width)),
+	            currentSpeedo.UnitSize, static_cast<float>(spriteUnit.Height) * (currentSpeedo.UnitSize / static_cast<float>(spriteUnit.Width)),
 	            0.5f, 0.5f,
-	            settings.SpeedoSettings.UnitXpos + offsetX, settings.SpeedoSettings.UnitYpos + offsetY,
+	            currentSpeedo.UnitXpos + offsetX, currentSpeedo.UnitYpos + offsetY,
 	            0.0f, screencorrection, 0.54f, 0.69f, 0.93f, 1.0f* speedoAlpha);
 }
 
@@ -309,9 +312,9 @@ void drawSpeed(float speed, int &charNum, float screencorrection, float offsetX,
 		}
 
 		drawTexture(si.Id, charNum, -9990, (int)displayTime,
-		            settings.SpeedoSettings.SpeedSize, static_cast<float>(si.Height) * (settings.SpeedoSettings.SpeedSize / static_cast<float>(si.Width)),
+		            currentSpeedo.SpeedSize, static_cast<float>(si.Height) * (currentSpeedo.SpeedSize / static_cast<float>(si.Width)),
 		            0.5f, 0.5f,
-		            settings.SpeedoSettings.SpeedXpos + offsetX + settings.SpeedoSettings.SpeedSize * charNum, settings.SpeedoSettings.SpeedYpos + offsetY,
+		            currentSpeedo.SpeedXpos + offsetX + currentSpeedo.SpeedSize * charNum, currentSpeedo.SpeedYpos + offsetY,
 		            0.0f, screencorrection, 0.0f, 0.5f, 0.74f, 1.0f * speedoAlpha);
 		charNum++;
 	}
@@ -339,9 +342,9 @@ void drawGear(int gear, bool neutral, bool shift_indicator, int charNum, float s
 	}
 
 	drawTexture(spriteGear.Id, charNum, -9990, (int)displayTime,
-	            settings.SpeedoSettings.GearSize, static_cast<float>(spriteGear.Height) * (settings.SpeedoSettings.GearSize / static_cast<float>(spriteGear.Width)),
+	            currentSpeedo.GearSize, static_cast<float>(spriteGear.Height) * (currentSpeedo.GearSize / static_cast<float>(spriteGear.Width)),
 	            0.5f, 0.5f,
-	            settings.SpeedoSettings.GearXpos + offsetX, settings.SpeedoSettings.GearYpos + offsetY,
+	            currentSpeedo.GearXpos + offsetX, currentSpeedo.GearYpos + offsetY,
 	            0.0f, screencorrection, c.r, c.g, c.b, c.a * speedoAlpha);
 }
 
@@ -400,8 +403,8 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 	if (!engineOn) rpm = 0.0f;
 
 	float screencorrection = invoke<float>(0xF1307EF624A80D87, FALSE);
-	float offsetX = settings.SpeedoSettings.SpeedoXpos;
-	float offsetY = settings.SpeedoSettings.SpeedoYpos;
+	float offsetX = currentSpeedo.SpeedoXpos;
+	float offsetY = currentSpeedo.SpeedoYpos;
 
 	auto now = std::chrono::steady_clock::now().time_since_epoch();
 	auto newDisplayTime = now - previousDisplayTime;
@@ -619,7 +622,7 @@ void main() {
 	skinDir = "\\"+ skinTemp;
 
 	logger.Write("Loading " + absoluteModPath + skinDir);
-	settings.ReadSkin(absoluteModPath + skinDir);
+	currentSpeedo = settings.ReadSkin(absoluteModPath + skinDir);
 	logger.Write("Finished loading " + skinTemp);
 
 	createTextures(skinDir);

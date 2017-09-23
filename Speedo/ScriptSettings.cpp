@@ -5,6 +5,7 @@
 
 #include "Util/Util.hpp"
 #include <experimental/filesystem>
+#include "SpeedoInfo.h"
 
 
 ScriptSettings::ScriptSettings() { }
@@ -168,90 +169,94 @@ void ScriptSettings::SaveSkin(std::string name) {
 	*/
 }
 
-void ScriptSettings::ReadSkin(std::string skinName) {
+SpeedoInfo ScriptSettings::ReadSkin(std::string skinName) {
+	SpeedoInfo speedoInfo;
+
 	CSimpleIniA skinSettings;
 	skinSettings.SetUnicode();
 	skinSettings.LoadFile((skinName+ ".ini").c_str());
 
-	SpeedoSettings.SpeedoName = skinSettings.GetValue("LAYOUT", "Name");
+	speedoInfo.SpeedoName = skinSettings.GetValue("LAYOUT", "Name");
 
-	SpeedoSettings.SpeedoXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "SpeedoXpos", 0.0));
-	SpeedoSettings.SpeedoYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "SpeedoYpos", 0.0));
-	SpeedoSettings.SpeedoSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "SpeedoSize", 1.0));
+	speedoInfo.SpeedoXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "SpeedoXpos", 0.0));
+	speedoInfo.SpeedoYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "SpeedoYpos", 0.0));
+	speedoInfo.SpeedoSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "SpeedoSize", 1.0));
 
-	SpeedoSettings.RPMBgXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMBgXpos"));
-	SpeedoSettings.RPMBgYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMBgYpos"));
-	SpeedoSettings.RPMBgSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMBgSize"));
+	speedoInfo.RPMBgXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMBgXpos"));
+	speedoInfo.RPMBgYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMBgYpos"));
+	speedoInfo.RPMBgSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMBgSize"));
 
-	SpeedoSettings.RPMNumXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMNumXpos"));
-	SpeedoSettings.RPMNumYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMNumYpos"));
-	SpeedoSettings.RPMNumSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMNumSize"));
+	speedoInfo.RPMNumXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMNumXpos"));
+	speedoInfo.RPMNumYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMNumYpos"));
+	speedoInfo.RPMNumSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMNumSize"));
 
-	SpeedoSettings.RPMDialXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMDialXpos"));
-	SpeedoSettings.RPMDialYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMDialYpos"));
-	SpeedoSettings.RPMDialSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMDialSize"));
+	speedoInfo.RPMDialXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMDialXpos"));
+	speedoInfo.RPMDialYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMDialYpos"));
+	speedoInfo.RPMDialSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMDialSize"));
 
-	SpeedoSettings.RPMRedXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMRedXpos"));
-	SpeedoSettings.RPMRedYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMRedYpos"));
-	SpeedoSettings.RPMRedSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMRedSize"));
+	speedoInfo.RPMRedXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMRedXpos"));
+	speedoInfo.RPMRedYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMRedYpos"));
+	speedoInfo.RPMRedSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "RPMRedSize"));
 
-	SpeedoSettings.TurboBgXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboBgXpos"));
-	SpeedoSettings.TurboBgYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboBgYpos"));
-	SpeedoSettings.TurboBgSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboBgSize"));
+	speedoInfo.TurboBgXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboBgXpos"));
+	speedoInfo.TurboBgYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboBgYpos"));
+	speedoInfo.TurboBgSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboBgSize"));
 	
-	SpeedoSettings.TurboNumXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboNumXpos"));
-	SpeedoSettings.TurboNumYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboNumYpos"));
-	SpeedoSettings.TurboNumSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboNumSize"));
+	speedoInfo.TurboNumXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboNumXpos"));
+	speedoInfo.TurboNumYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboNumYpos"));
+	speedoInfo.TurboNumSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboNumSize"));
 
-	SpeedoSettings.TurboTextXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboTextXpos"));
-	SpeedoSettings.TurboTextYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboTextYpos"));
-	SpeedoSettings.TurboTextSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboTextSize"));
+	speedoInfo.TurboTextXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboTextXpos"));
+	speedoInfo.TurboTextYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboTextYpos"));
+	speedoInfo.TurboTextSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboTextSize"));
 
-	SpeedoSettings.TurboDialXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboDialXpos"));
-	SpeedoSettings.TurboDialYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboDialYpos"));
-	SpeedoSettings.TurboDialSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboDialSize"));
+	speedoInfo.TurboDialXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboDialXpos"));
+	speedoInfo.TurboDialYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboDialYpos"));
+	speedoInfo.TurboDialSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboDialSize"));
 
-	SpeedoSettings.TurboRed0Xpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboRed0Xpos"));
-	SpeedoSettings.TurboRed0Ypos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboRed0Ypos"));
-	SpeedoSettings.TurboRed0Size = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboRed0Size"));
+	speedoInfo.TurboRed0Xpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboRed0Xpos"));
+	speedoInfo.TurboRed0Ypos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboRed0Ypos"));
+	speedoInfo.TurboRed0Size = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboRed0Size"));
 
-	SpeedoSettings.TurboRed1Xpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboRed1Xpos"));
-	SpeedoSettings.TurboRed1Ypos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboRed1Ypos"));
-	SpeedoSettings.TurboRed1Size = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboRed1Size"));
+	speedoInfo.TurboRed1Xpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboRed1Xpos"));
+	speedoInfo.TurboRed1Ypos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboRed1Ypos"));
+	speedoInfo.TurboRed1Size = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "TurboRed1Size"));
 
-	SpeedoSettings.SpeedXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "SpeedXpos"));
-	SpeedoSettings.SpeedYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "SpeedYpos"));
-	SpeedoSettings.SpeedSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "SpeedSize"));
+	speedoInfo.SpeedXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "SpeedXpos"));
+	speedoInfo.SpeedYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "SpeedYpos"));
+	speedoInfo.SpeedSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "SpeedSize"));
 
-	SpeedoSettings.UnitXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "UnitXpos"));
-	SpeedoSettings.UnitYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "UnitYpos"));
-	SpeedoSettings.UnitSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "UnitSize"));
+	speedoInfo.UnitXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "UnitXpos"));
+	speedoInfo.UnitYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "UnitYpos"));
+	speedoInfo.UnitSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "UnitSize"));
 
-	SpeedoSettings.GearXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "GearXpos"));
-	SpeedoSettings.GearYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "GearYpos"));
-	SpeedoSettings.GearSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "GearSize"));
+	speedoInfo.GearXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "GearXpos"));
+	speedoInfo.GearYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "GearYpos"));
+	speedoInfo.GearSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "GearSize"));
 
-	SpeedoSettings.NOSTextXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "NOSTextXpos"));
-	SpeedoSettings.NOSTextYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "NOSTextYpos"));
-	SpeedoSettings.NOSTextSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "NOSTextSize"));
+	speedoInfo.NOSTextXpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "NOSTextXpos"));
+	speedoInfo.NOSTextYpos = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "NOSTextYpos"));
+	speedoInfo.NOSTextSize = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", "NOSTextSize"));
 
 	for (int i = 0; i < numNOSItemsStage1; i++) {
-		SpeedoSettings.NOSStage1Xpos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Xpos").c_str()));
-		SpeedoSettings.NOSStage1Ypos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Ypos").c_str()));
-		SpeedoSettings.NOSStage1Size[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Size").c_str()));
+		speedoInfo.NOSStage1Xpos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Xpos").c_str()));
+		speedoInfo.NOSStage1Ypos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Ypos").c_str()));
+		speedoInfo.NOSStage1Size[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage1Size").c_str()));
 	}
 
 	for (int i = 0; i < numNOSItemsStage2; i++) {
-		SpeedoSettings.NOSStage2Xpos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Xpos").c_str()));
-		SpeedoSettings.NOSStage2Ypos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Ypos").c_str()));
-		SpeedoSettings.NOSStage2Size[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Size").c_str()));
+		speedoInfo.NOSStage2Xpos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Xpos").c_str()));
+		speedoInfo.NOSStage2Ypos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Ypos").c_str()));
+		speedoInfo.NOSStage2Size[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage2Size").c_str()));
 	}
 
 	for (int i = 0; i < numNOSItemsStage3; i++) {
-		SpeedoSettings.NOSStage3Xpos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage3Xpos").c_str()));
-		SpeedoSettings.NOSStage3Ypos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage3Ypos").c_str()));
-		SpeedoSettings.NOSStage3Size[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage3Size").c_str()));
+		speedoInfo.NOSStage3Xpos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage3Xpos").c_str()));
+		speedoInfo.NOSStage3Ypos[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage3Ypos").c_str()));
+		speedoInfo.NOSStage3Size[i] = static_cast<float>(skinSettings.GetDoubleValue("LAYOUT", ("NOS" + std::to_string(i) + "Stage3Size").c_str()));
 	}
+
+	return speedoInfo;
 }
 
 void ScriptSettings::Normalize(SpeedoInfo &coords) {

@@ -111,6 +111,7 @@
     <ClInclude Include="newNatives.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="SpeedoInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
