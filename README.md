@@ -5,7 +5,7 @@ GTA V Speedometer
 
 [![Build status](https://ci.appveyor.com/api/projects/status/97b6m5xup9onnben?svg=true)](https://ci.appveyor.com/project/E66666666/gtavspeedo)
 
-*Yet another* speedometer! Since other speedo devs have been either unresponsive or unwilling to add stuff, and I myself want to have some stuff added, well, time for my own speedo.
+*Yet another* speedometer! NFSU-style, with support for NOS and Turbo.
 
 ![Preview](./preview.jpg)
 
@@ -15,7 +15,7 @@ GTA V Speedometer
 
 ## Downloads
 
-* None yet
+* [GTA5-Mods.com](https://www.gta5-mods.com/scripts/need-for-speed-underground-speedometer)
 
 ## Building
 
@@ -40,6 +40,9 @@ This script reads the following decorators:
 * `int` - `mt_shift_indicator`: Shift indicator, from the Manual Transmission mod
 * `int` - `ikt_speedo_nos`: Presence of a nitrous mod
 * `float` - `ikt_speedo_nos_level`: Nitrous level, between 0.0f and 1.0f
+* `int` - `nfsnitro_stage`: Nitrous kit upgrade level
+* `float` - `nfsdrag_heat`: Drag HUD heat
+* `bool` - `nfsdrag_showhud`: Drag HUD toggle
 
 To make the green N2O bars appear in the speedometer, your mod has to set `ikt_speedo_nos` to 1 on the currently used vehicle, set it to 0 to remove.
 
