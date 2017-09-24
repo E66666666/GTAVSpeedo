@@ -21,3 +21,5 @@ void ScriptMain();
 void update_menu();
 void menuInit();
 void menuClose();
+void onMenuOpen();
+void changeSkin(std::string skinTemp);
