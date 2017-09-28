@@ -38,7 +38,7 @@ void update_menu() {
 	/* Yes hello I am root */
 	if (menu.CurrentMenu("mainmenu")) {
 		menu.Title("Speedometer");
-		menu.Subtitle(DISPLAY_VERSION);
+		menu.Subtitle("~b~" + std::string(DISPLAY_VERSION) + "~w~");
 		menu.BoolOption("Enable", settings.Enable);
 
 		if (menu.Option("Reload pos") ) {
