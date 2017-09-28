@@ -51,7 +51,7 @@ void update_menu() {
 			}
 		}
 
-		menu.BoolOption("FPVHide", settings.FPVHide);
+		menu.BoolOption("Hide in first person", settings.FPVHide);
 		menu.FloatOption("Fade speed", settings.FadeSpeed, 0.0f, 1.0f, 0.005f);
 		
 		if (settings.ShowPlacementMenu) {
