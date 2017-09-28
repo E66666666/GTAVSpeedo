@@ -127,6 +127,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\NativeMemory.hpp" />
     <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\VehicleExtensions.hpp" />
+    <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\Versions.h" />
     <ClInclude Include="..\..\GTAVMenuBase\menu.h" />
     <ClInclude Include="..\..\GTAVMenuBase\menucontrols.h" />
     <ClInclude Include="..\..\GTAVMenuBase\menukeyboard.h" />

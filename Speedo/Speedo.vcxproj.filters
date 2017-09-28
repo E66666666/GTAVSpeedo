@@ -112,6 +112,9 @@
       <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="SpeedoInfo.h" />
+    <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\Versions.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">

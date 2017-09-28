@@ -290,7 +290,7 @@ void drawTurbo(float turbo, float screencorrection, float offsetX, float offsetY
 
 void drawSpeedUnit(UnitType type, float &speed, float screencorrection, float offsetX, float offsetY) {
 	SpriteInfo spriteUnit;
-	if (type == UnitType::Imperial) {
+	if (type == UnitType::MPH) {
 		speed = speed / 0.44704f;
 		spriteUnit = spriteMPH;
 	}

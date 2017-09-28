@@ -65,8 +65,12 @@ void ScriptSettings::parseSettingsGeneral() {
 	FadeSpeed = static_cast<float>(settingsGeneral.GetDoubleValue("SETTINGS", "FadeSpeed", 0.05));
 	DefaultSkin = settingsGeneral.GetValue("SETTINGS", "Default", "default");
 
-	ShowPlacementMenu = settingsGeneral.GetBoolValue("DEV", "ShowPlacementMenu", false);
+	std::string unit = "kph";
+	unit = settingsGeneral.GetValue("SETTINGS", "Unit", "kph");
+	if (unit == "kph") Unit = UnitType::KPH;
+	if (unit == "mph") Unit = UnitType::MPH;
 
+	ShowPlacementMenu = settingsGeneral.GetBoolValue("DEV", "ShowPlacementMenu", false);
 }
 
 
@@ -77,6 +81,11 @@ void ScriptSettings::SaveGeneral() const {
 	settingsGeneral.SetBoolValue("SETTINGS", "Enable", Enable);
 	settingsGeneral.SetBoolValue("SETTINGS", "FPVHide", FPVHide);
 	settingsGeneral.SetDoubleValue("SETTINGS", "FadeSpeed", FadeSpeed);
+
+	std::string unit = "kph";
+	if (Unit == UnitType::KPH) unit = "kph";
+	if (Unit == UnitType::MPH) unit = "mph";
+	settingsGeneral.SetValue("SETTINGS", "Unit", unit.c_str());
 
 	settingsGeneral.SaveFile(settingsGeneralFile.c_str());
 }

@@ -6,8 +6,8 @@
 struct SpeedoInfo;
 
 enum class UnitType {
-	Metric = 0,
-	Imperial = 1,
+	KPH = 0,
+	MPH = 1,
 };
 
 class ScriptSettings {
