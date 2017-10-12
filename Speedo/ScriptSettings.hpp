@@ -1,6 +1,4 @@
 #pragma once
-#include <string>
-#include <array>
 #include <vector>
 
 struct SpeedoInfo;
@@ -35,7 +33,10 @@ public:
 	// global settings
 	bool Enable;
 	UnitType Unit;
-	bool FPVHide;
+	bool HideInFPV;
+	bool HideOnVehicleName;
+	bool HideOnAreaName;
+
 	float FadeSpeed;
 	std::string DefaultSkin;
 

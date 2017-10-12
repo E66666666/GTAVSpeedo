@@ -51,7 +51,10 @@ void update_menu() {
 			}
 		}
 
-		menu.BoolOption("Hide in first person", settings.FPVHide);
+		menu.BoolOption("Hide in first person view", settings.HideInFPV);
+		menu.BoolOption("Hide on vehicle name", settings.HideOnVehicleName);
+		menu.BoolOption("Hide on area name", settings.HideOnAreaName);
+
 		menu.FloatOption("Fade speed", settings.FadeSpeed, 0.0f, 1.0f, 0.005f);
 		
 		if (settings.ShowPlacementMenu) {

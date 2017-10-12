@@ -553,7 +553,9 @@ void update() {
 	if (!settings.Enable || !vehicle || !ENTITY::DOES_ENTITY_EXIST(vehicle) || 
 		playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1) ||
 		PED::IS_PED_RUNNING_MOBILE_PHONE_TASK(playerPed) ||
-		settings.FPVHide && CAM::GET_FOLLOW_VEHICLE_CAM_VIEW_MODE() == 4) {
+		settings.HideInFPV && CAM::GET_FOLLOW_VEHICLE_CAM_VIEW_MODE() == 4 ||
+		settings.HideOnVehicleName && UI::IS_HUD_COMPONENT_ACTIVE(HudComponentVehicleName) ||
+		settings.HideOnAreaName && UI::IS_HUD_COMPONENT_ACTIVE(HudComponentAreaName)) {
 		if (speedoAlpha > 0.0f) {
 			speedoAlpha -= settings.FadeSpeed;
 		}
