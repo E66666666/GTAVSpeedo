@@ -52,8 +52,8 @@ void update_menu() {
 		}
 
 		menu.BoolOption("Hide in first person view", settings.HideInFPV);
-		menu.BoolOption("Hide on vehicle name", settings.HideOnVehicleName);
-		menu.BoolOption("Hide on area name", settings.HideOnAreaName);
+		menu.BoolOption("Hide on vehicle name", settings.HideOnVehicleName, { "Hides speedometer when vehicle name is on HUD." });
+		menu.BoolOption("Hide area name", settings.HideAreaName, { "Hides area and street name when speedometer is visible." });
 
 		menu.FloatOption("Fade speed", settings.FadeSpeed, 0.0f, 1.0f, 0.005f);
 		

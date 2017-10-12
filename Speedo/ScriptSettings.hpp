@@ -35,7 +35,7 @@ public:
 	UnitType Unit;
 	bool HideInFPV;
 	bool HideOnVehicleName;
-	bool HideOnAreaName;
+	bool HideAreaName;
 
 	float FadeSpeed;
 	std::string DefaultSkin;

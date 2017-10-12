@@ -63,7 +63,7 @@ void ScriptSettings::parseSettingsGeneral() {
 	Enable = settingsGeneral.GetBoolValue("SETTINGS", "Enable");
 	HideInFPV = settingsGeneral.GetBoolValue("SETTINGS", "HideInFPV", false);
 	HideOnVehicleName = settingsGeneral.GetBoolValue("SETTINGS", "HideOnVehicleName", false);
-	HideOnAreaName = settingsGeneral.GetBoolValue("SETTINGS", "HideOnAreaName", false);
+	HideAreaName = settingsGeneral.GetBoolValue("SETTINGS", "HideAreaName", false);
 	FadeSpeed = static_cast<float>(settingsGeneral.GetDoubleValue("SETTINGS", "FadeSpeed", 0.05));
 	DefaultSkin = settingsGeneral.GetValue("SETTINGS", "Default", "default");
 
@@ -83,7 +83,7 @@ void ScriptSettings::SaveGeneral() const {
 	settingsGeneral.SetBoolValue("SETTINGS", "Enable", Enable);
 	settingsGeneral.SetBoolValue("SETTINGS", "HideInFPV", HideInFPV);
 	settingsGeneral.SetBoolValue("SETTINGS", "HideOnVehicleName", HideOnVehicleName);
-	settingsGeneral.SetBoolValue("SETTINGS", "HideOnAreaName", HideOnAreaName);
+	settingsGeneral.SetBoolValue("SETTINGS", "HideAreaName", HideAreaName);
 	settingsGeneral.SetDoubleValue("SETTINGS", "FadeSpeed", FadeSpeed);
 
 	std::string unit = "kph";
