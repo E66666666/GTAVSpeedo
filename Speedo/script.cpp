@@ -485,9 +485,9 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 	auto newDisplayTime = now - previousDisplayTime;
 	previousDisplayTime = now;
 	auto lastFrameTime = std::chrono::duration_cast<std::chrono::microseconds>(newDisplayTime).count(); // in microseconds!
-	auto nextFrameTime = lastFrameTime/1000;
+	auto nextFrameTime = lastFrameTime/800; // in milliseconds!
 	if (lastFrameTime < 16666) { // cap refresh @ 60 fps
-		nextFrameTime = 16666/1000;
+		nextFrameTime = 16666/800;
 	}
 	nextFrameTime = static_cast<long long>(nextFrameTime * 1.5);
 	
