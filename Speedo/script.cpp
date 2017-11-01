@@ -549,9 +549,17 @@ void update() {
 		hasDashSpeedo = false;
 		prevVehicle = vehicle;
 	}
+    
+    Hash model = ENTITY::GET_ENTITY_MODEL(vehicle);
 
-	if (!settings.Enable || !vehicle || !ENTITY::DOES_ENTITY_EXIST(vehicle) || 
+	if (!settings.Enable || !vehicle || !ENTITY::DOES_ENTITY_EXIST(vehicle) ||
 		playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1) ||
+		VEHICLE::IS_THIS_MODEL_A_PLANE(model) ||
+		VEHICLE::IS_THIS_MODEL_A_HELI(model) ||
+		VEHICLE::IS_THIS_MODEL_A_BOAT(model) ||
+		VEHICLE::_IS_THIS_MODEL_A_JETSKI(model) ||
+		VEHICLE::IS_THIS_MODEL_A_BICYCLE(model) ||
+		VEHICLE::IS_THIS_MODEL_A_TRAIN(model) ||
 		PED::IS_PED_RUNNING_MOBILE_PHONE_TASK(playerPed) ||
 		settings.HideInFPV && CAM::GET_FOLLOW_VEHICLE_CAM_VIEW_MODE() == 4 ||
 		settings.HideOnVehicleName && UI::IS_HUD_COMPONENT_ACTIVE(HudComponentVehicleName)) {
@@ -568,27 +576,19 @@ void update() {
 		UI::HIDE_HUD_COMPONENT_THIS_FRAME(HudComponentStreetName);
 	}
 
-	if (speedoAlpha > 0.01f) {
+	if (speedoAlpha > 0.0f) {
 		DECORATOR::DECOR_SET_BOOL(vehicle, (char*)decoriktSpeedoActive, true);
+
+        if (VEHICLE::IS_TOGGLE_MOD_ON(vehicle, VehicleToggleModTurbo) && turboalpha < 1.0f) {
+            turboalpha += settings.FadeSpeed;
+        }
+        if (!VEHICLE::IS_TOGGLE_MOD_ON(vehicle, VehicleToggleModTurbo) && turboalpha > 0.0f) {
+            turboalpha -= settings.FadeSpeed;
+        }
+        drawSpeedo(settings.Unit, true, VEHICLE::GET_IS_VEHICLE_ENGINE_RUNNING(vehicle));
 	}
 	else {
 		DECORATOR::DECOR_SET_BOOL(vehicle, (char*)decoriktSpeedoActive, false);
-	}
-
-	if (VEHICLE::IS_TOGGLE_MOD_ON(vehicle, VehicleToggleModTurbo) && turboalpha < 1.0f) {
-		turboalpha += settings.FadeSpeed;
-	}
-	if (!VEHICLE::IS_TOGGLE_MOD_ON(vehicle, VehicleToggleModTurbo) && turboalpha > 0.0f) {
-		turboalpha -= settings.FadeSpeed;
-	}
-	if (turboalpha > 1.0f) {
-		turboalpha = 1.0f;
-	}
-	if (turboalpha < 0.0f) {
-		turboalpha = 0.0f;
-	}
-	if (speedoAlpha > 0.0f) {		
-		drawSpeedo(settings.Unit, true, VEHICLE::GET_IS_VEHICLE_ENGINE_RUNNING(vehicle));
 	}
 
 	bool dragHUDRegistered = DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)decorDragShowHud, DECOR_TYPE_BOOL);
