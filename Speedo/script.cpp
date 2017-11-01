@@ -736,6 +736,7 @@ void createTextures(std::string skin) {
 
 void onMenuOpen() {
 	settings.Read();
+    menu.ReadSettings();
 
 	skins = settings.EnumerateSkins();
 	for (auto skin : skins) {
@@ -756,6 +757,7 @@ void changeSkin(std::string skinTemp) {
 void main() {
 	logger.Write("Script started");
 	mem::init();
+    ext.initOffsets();
 	logger.Write("Setting up globals");
 	if (!setupGlobals()) {
 		logger.Write("Global setup failed!");
