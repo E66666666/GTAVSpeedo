@@ -533,6 +533,24 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 	}
 }
 
+
+enum eVehicleDomain { VD_ROAD, VD_AIR, VD_VELO, VD_WATER, VD_RAIL, VD_UNKNOWN, numVEHDOMAIN };
+
+bool isRoadDomain(eVehicleClass vehicleClass) {
+    eVehicleDomain vDomain = VD_UNKNOWN;
+
+    switch (vehicleClass) {
+        case VehicleClassCycles:	vDomain = VD_VELO; break;
+        case VehicleClassBoats:		vDomain = VD_WATER; break;
+        case VehicleClassHelicopters:
+        case VehicleClassPlanes:	vDomain = VD_AIR; break;
+        case VehicleClassTrains:	vDomain = VD_RAIL; break;
+        default:			        vDomain = VD_ROAD; break;
+    }
+
+    return vDomain == VD_ROAD;
+}
+
 void update() {
 	player = PLAYER::PLAYER_ID();
 	playerPed = PLAYER::PLAYER_PED_ID();
@@ -550,16 +568,9 @@ void update() {
 		prevVehicle = vehicle;
 	}
     
-    Hash model = ENTITY::GET_ENTITY_MODEL(vehicle);
-
-	if (!settings.Enable || !vehicle || !ENTITY::DOES_ENTITY_EXIST(vehicle) ||
-		playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1) ||
-		VEHICLE::IS_THIS_MODEL_A_PLANE(model) ||
-		VEHICLE::IS_THIS_MODEL_A_HELI(model) ||
-		VEHICLE::IS_THIS_MODEL_A_BOAT(model) ||
-		VEHICLE::_IS_THIS_MODEL_A_JETSKI(model) ||
-		VEHICLE::IS_THIS_MODEL_A_BICYCLE(model) ||
-		VEHICLE::IS_THIS_MODEL_A_TRAIN(model) ||
+    if (!settings.Enable || !vehicle || !ENTITY::DOES_ENTITY_EXIST(vehicle) ||
+        playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1) ||
+        !isRoadDomain((eVehicleClass)VEHICLE::GET_VEHICLE_CLASS(vehicle)) ||
 		PED::IS_PED_RUNNING_MOBILE_PHONE_TASK(playerPed) ||
 		settings.HideInFPV && CAM::GET_FOLLOW_VEHICLE_CAM_VIEW_MODE() == 4 ||
 		settings.HideOnVehicleName && UI::IS_HUD_COMPONENT_ACTIVE(HudComponentVehicleName)) {
