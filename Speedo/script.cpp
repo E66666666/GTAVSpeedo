@@ -628,7 +628,7 @@ void registerDecorator(const char *thing, eDecorType type) {
 
 	if (!DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)thing, type)) {
 		DECORATOR::DECOR_REGISTER((char*)thing, type);
-		logger.Write("DECOR: Registered \""+ std::string(thing)+"\" as " + strType);
+		logger.Write(INFO, "DECOR: Registered \""+ std::string(thing)+"\" as " + strType);
 	}
 }
 
@@ -658,7 +658,7 @@ int createTextureDefault(std::string resource, SpriteInfo *info) {
 		unsigned error = lodepng::decode(image, info->Width, info->Height, resource);
 		return createTexture(resource.c_str());
 	}
-	logger.Write("ERROR: " + resource + " does not exist.");
+	logger.Write(ERROR, resource + " does not exist.");
 	return -1;
 }
 
@@ -716,7 +716,7 @@ void createTextures(std::string skin) {
 		sprite.Id = createTextureDefault(skinPath + "\\NOSL2_" + std::to_string(i) + ".png", &sprite);
 		spritesNOSStage3.push_back(sprite);
 	}
-	logger.Write("Finished loading resources for " + skin);
+	logger.Write(INFO, "Finished loading resources for " + skin);
 
 	if (currentSpeedo.ExtraHUDComponents) {
 		spriteGearBg.Id = createTextureDefault(skinPath + "\\_GearBg.png", &spriteGearBg);
@@ -730,7 +730,7 @@ void createTextures(std::string skin) {
 			spritesHeat.push_back(sprite);
 		}
 
-		logger.Write("Finished loading extra resources for " + skin);
+		logger.Write(INFO, "Finished loading extra resources for " + skin);
 	}
 }
 
@@ -740,27 +740,27 @@ void onMenuOpen() {
 
 	skins = settings.EnumerateSkins();
 	for (auto skin : skins) {
-		logger.Write("Found skin: " + skin);
+		logger.Write(INFO, "Found skin: " + skin);
 	}
 }
 
 void changeSkin(std::string skinTemp) {
 	skinDir = "\\" + skinTemp;
 
-	logger.Write("Loading " + absoluteModPath + skinDir);
+	logger.Write(INFO, "Loading " + absoluteModPath + skinDir);
 	currentSpeedo = settings.ReadSkin(absoluteModPath + skinDir);
-	logger.Write("Finished loading " + skinTemp);
+	logger.Write(INFO, "Finished loading " + skinTemp);
 
 	createTextures(skinDir);
 }
 
 void main() {
-	logger.Write("Script started");
+	logger.Write(INFO, "Script started");
 	mem::init();
     ext.initOffsets();
-	logger.Write("Setting up globals");
+	logger.Write(INFO, "Setting up globals");
 	if (!setupGlobals()) {
-		logger.Write("Global setup failed!");
+		logger.Write(INFO, "Global setup failed!");
 	}
 
 	absoluteModPath = Paths::GetModuleFolder(Paths::GetOurModuleHandle()) + modDir;
@@ -779,11 +779,11 @@ void main() {
 
 	skins = settings.EnumerateSkins();
 	for (auto skin : skins) {
-		logger.Write("Found skin: " + skin);
+		logger.Write(INFO, "Found skin: " + skin);
 	}
 
 	if (skins.size() == 0 || std::find(skins.begin(), skins.end(), settings.DefaultSkin) == skins.end()) {
-		logger.Write("FATAL: No \"" + settings.DefaultSkin + "\" skin, quitting...");
+		logger.Write(FATAL, "No \"" + settings.DefaultSkin + "\" skin, quitting...");
 		return;
 	}
 	int i = 0;

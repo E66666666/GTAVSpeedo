@@ -19,13 +19,13 @@ BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved) {
 		case DLL_PROCESS_ATTACH: {
 			scriptRegister(hInstance, ScriptMain);
 			logger.Clear();
-			logger.Write("GTAVSpeedo " + std::string(DISPLAY_VERSION));
-			logger.Write("Game version " + eGameVersionToString(getGameVersion()));
-			logger.Write("Script registered");
+			logger.Write(INFO, "GTAVSpeedo " + std::string(DISPLAY_VERSION));
+			logger.Write(INFO, "Game version " + eGameVersionToString(getGameVersion()));
+			logger.Write(INFO, "Script registered");
 			break;
 		}
 		case DLL_PROCESS_DETACH: {
-			logger.Write("Init shutdown");
+			logger.Write(INFO, "Init shutdown");
 			scriptUnregister(hInstance);
 			break;
 		}
