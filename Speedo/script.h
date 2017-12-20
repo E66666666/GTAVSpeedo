@@ -6,7 +6,7 @@ http://dev-c.com
 
 #pragma once
 
-#define DISPLAY_VERSION "v0.0.4"
+#define DISPLAY_VERSION "v0.0.5"
 
 #include "../../ScriptHookV_SDK/inc/natives.h"
 #include "../../ScriptHookV_SDK/inc/main.h"
