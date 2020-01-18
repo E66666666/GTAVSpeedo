@@ -191,6 +191,62 @@ void ScriptSettings::SaveSkin(std::string path, SpeedoInfo &speedoInfo) {
 	skinSettings.SetDoubleValue("ROTATE", "TurboDialZeroRot", speedoInfo.TurboDialZeroRot);
 	skinSettings.SetDoubleValue("ROTATE", "TurboDialFullRot", speedoInfo.TurboDialFullRot);
 
+    skinSettings.SetDoubleValue("COLOR", "RPMBgRed"       , speedoInfo.RPMBgColor.R);
+    skinSettings.SetDoubleValue("COLOR", "RPMBgGreen"     , speedoInfo.RPMBgColor.G);
+    skinSettings.SetDoubleValue("COLOR", "RPMBgBlue"      , speedoInfo.RPMBgColor.B);
+    skinSettings.SetDoubleValue("COLOR", "RPMNumRed"      , speedoInfo.RPMNumColor.R);
+    skinSettings.SetDoubleValue("COLOR", "RPMNumGreen"    , speedoInfo.RPMNumColor.G);
+    skinSettings.SetDoubleValue("COLOR", "RPMNumBlue"     , speedoInfo.RPMNumColor.B);
+    skinSettings.SetDoubleValue("COLOR", "RPMDialRed"     , speedoInfo.RPMDialColor.R);
+    skinSettings.SetDoubleValue("COLOR", "RPMDialGreen"   , speedoInfo.RPMDialColor.G);
+    skinSettings.SetDoubleValue("COLOR", "RPMDialBlue"    , speedoInfo.RPMDialColor.B);
+    skinSettings.SetDoubleValue("COLOR", "RPMRedRed"      , speedoInfo.RPMRedColor.R);
+    skinSettings.SetDoubleValue("COLOR", "RPMRedGreen"    , speedoInfo.RPMRedColor.G);
+    skinSettings.SetDoubleValue("COLOR", "RPMRedBlue"     , speedoInfo.RPMRedColor.B);
+    skinSettings.SetDoubleValue("COLOR", "TurboBgRed"     , speedoInfo.TurboBgColor.R);
+    skinSettings.SetDoubleValue("COLOR", "TurboBgGreen"   , speedoInfo.TurboBgColor.G);
+    skinSettings.SetDoubleValue("COLOR", "TurboBgBlue"    , speedoInfo.TurboBgColor.B);
+    skinSettings.SetDoubleValue("COLOR", "TurboNumRed"    , speedoInfo.TurboNumColor.R);
+    skinSettings.SetDoubleValue("COLOR", "TurboNumGreen"  , speedoInfo.TurboNumColor.G);
+    skinSettings.SetDoubleValue("COLOR", "TurboNumBlue"   , speedoInfo.TurboNumColor.B);
+    skinSettings.SetDoubleValue("COLOR", "TurboDialRed"   , speedoInfo.TurboDialColor.R);
+    skinSettings.SetDoubleValue("COLOR", "TurboDialGreen" , speedoInfo.TurboDialColor.G);
+    skinSettings.SetDoubleValue("COLOR", "TurboDialBlue"  , speedoInfo.TurboDialColor.B);
+    skinSettings.SetDoubleValue("COLOR", "TurboRedRed"    , speedoInfo.TurboRedColor.R);
+    skinSettings.SetDoubleValue("COLOR", "TurboRedGreen"  , speedoInfo.TurboRedColor.G);
+    skinSettings.SetDoubleValue("COLOR", "TurboRedBlue"   , speedoInfo.TurboRedColor.B);
+    skinSettings.SetDoubleValue("COLOR", "TurboTextRed"   , speedoInfo.TurboTextColor.R);
+    skinSettings.SetDoubleValue("COLOR", "TurboTextGreen" , speedoInfo.TurboTextColor.G);
+    skinSettings.SetDoubleValue("COLOR", "TurboTextBlue"  , speedoInfo.TurboTextColor.B);
+    skinSettings.SetDoubleValue("COLOR", "SpeedUnitRed"   , speedoInfo.SpeedUnitColor.R);
+    skinSettings.SetDoubleValue("COLOR", "SpeedUnitGreen" , speedoInfo.SpeedUnitColor.G);
+    skinSettings.SetDoubleValue("COLOR", "SpeedUnitBlue"  , speedoInfo.SpeedUnitColor.B);
+    skinSettings.SetDoubleValue("COLOR", "SpeedCharRed"   , speedoInfo.SpeedCharColor.R);
+    skinSettings.SetDoubleValue("COLOR", "SpeedCharGreen" , speedoInfo.SpeedCharColor.G);
+    skinSettings.SetDoubleValue("COLOR", "SpeedCharBlue"  , speedoInfo.SpeedCharColor.B);
+    skinSettings.SetDoubleValue("COLOR", "GearNormRed"    , speedoInfo.GearNormalColor.R);
+    skinSettings.SetDoubleValue("COLOR", "GearNormGreen"  , speedoInfo.GearNormalColor.G);
+    skinSettings.SetDoubleValue("COLOR", "GearNormBlue"   , speedoInfo.GearNormalColor.B);
+    skinSettings.SetDoubleValue("COLOR", "GearAltRed"     , speedoInfo.GearAltColor.R);
+    skinSettings.SetDoubleValue("COLOR", "GearAltGreen"   , speedoInfo.GearAltColor.G);
+    skinSettings.SetDoubleValue("COLOR", "GearAltBlue"    , speedoInfo.GearAltColor.B);
+    skinSettings.SetDoubleValue("COLOR", "ShiftLightRed"  , speedoInfo.ShiftLightColor.R);
+    skinSettings.SetDoubleValue("COLOR", "ShiftLightGreen", speedoInfo.ShiftLightColor.G);
+    skinSettings.SetDoubleValue("COLOR", "ShiftLightBlue" , speedoInfo.ShiftLightColor.B);
+    skinSettings.SetDoubleValue("COLOR", "HeatNumRed"     , speedoInfo.HeatNumColor.R);
+    skinSettings.SetDoubleValue("COLOR", "HeatNumGreen"   , speedoInfo.HeatNumColor.G);
+    skinSettings.SetDoubleValue("COLOR", "HeatNumBlue"    , speedoInfo.HeatNumColor.B);
+    skinSettings.SetDoubleValue("COLOR", "HeatDialRed"    , speedoInfo.HeatDialColor.R);
+    skinSettings.SetDoubleValue("COLOR", "HeatDialGreen"  , speedoInfo.HeatDialColor.G);
+    skinSettings.SetDoubleValue("COLOR", "HeatDialBlue"   , speedoInfo.HeatDialColor.B);
+    skinSettings.SetDoubleValue("COLOR", "NOSDialRed"     , speedoInfo.NOSDialColor.R);
+    skinSettings.SetDoubleValue("COLOR", "NOSDialGreen"   , speedoInfo.NOSDialColor.G);
+    skinSettings.SetDoubleValue("COLOR", "NOSDialBlue"    , speedoInfo.NOSDialColor.B);
+    skinSettings.SetDoubleValue("COLOR", "NOSTextRed"     , speedoInfo.NOSTextColor.R);
+    skinSettings.SetDoubleValue("COLOR", "NOSTextGreen"   , speedoInfo.NOSTextColor.G);
+    skinSettings.SetDoubleValue("COLOR", "NOSTextBlue"    , speedoInfo.NOSTextColor.B);
+
+
 	skinSettings.SaveFile((path + ".ini").c_str());
 }
 
@@ -292,6 +348,78 @@ SpeedoInfo ScriptSettings::ReadSkin(std::string path) {
 	speedoInfo.TurboDialCenterY = static_cast<float>(skinSettings.GetDoubleValue("ROTATE", "TurboDialCenterY"));
 	speedoInfo.TurboDialZeroRot = static_cast<float>(skinSettings.GetDoubleValue("ROTATE", "TurboDialZeroRot"));
 	speedoInfo.TurboDialFullRot = static_cast<float>(skinSettings.GetDoubleValue("ROTATE", "TurboDialFullRot"));
+
+    speedoInfo.RPMBgColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",       "RPMBgRed"));
+    speedoInfo.RPMBgColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",       "RPMBgGreen"));
+    speedoInfo.RPMBgColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",       "RPMBgBlue"));
+
+    speedoInfo.RPMNumColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",      "RPMNumRed"));
+    speedoInfo.RPMNumColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",      "RPMNumGreen"));
+    speedoInfo.RPMNumColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",      "RPMNumBlue"));
+
+    speedoInfo.RPMDialColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "RPMDialRed"));
+    speedoInfo.RPMDialColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "RPMDialGreen"));
+    speedoInfo.RPMDialColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "RPMDialBlue"));
+
+    speedoInfo.RPMRedColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",      "RPMRedRed"));
+    speedoInfo.RPMRedColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",      "RPMRedGreen"));
+    speedoInfo.RPMRedColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",      "RPMRedBlue"));
+
+    speedoInfo.TurboBgColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "TurboBgRed"));
+    speedoInfo.TurboBgColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "TurboBgGreen"));
+    speedoInfo.TurboBgColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "TurboBgBlue"));
+
+    speedoInfo.TurboNumColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",    "TurboNumRed"));
+    speedoInfo.TurboNumColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",    "TurboNumGreen"));
+    speedoInfo.TurboNumColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",    "TurboNumBlue"));
+
+    speedoInfo.TurboDialColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",   "TurboDialRed"));
+    speedoInfo.TurboDialColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",   "TurboDialGreen"));
+    speedoInfo.TurboDialColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",   "TurboDialBlue"));
+
+    speedoInfo.TurboRedColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",    "TurboRedRed"));
+    speedoInfo.TurboRedColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",    "TurboRedGreen"));
+    speedoInfo.TurboRedColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",    "TurboRedBlue"));
+
+    speedoInfo.TurboTextColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",   "TurboTextRed"));
+    speedoInfo.TurboTextColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",   "TurboTextGreen"));
+    speedoInfo.TurboTextColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",   "TurboTextBlue"));
+
+    speedoInfo.SpeedUnitColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",   "SpeedUnitRed"));
+    speedoInfo.SpeedUnitColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",   "SpeedUnitGreen"));
+    speedoInfo.SpeedUnitColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",   "SpeedUnitBlue"));
+
+    speedoInfo.SpeedCharColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",   "SpeedCharRed"));
+    speedoInfo.SpeedCharColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",   "SpeedCharGreen"));
+    speedoInfo.SpeedCharColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",   "SpeedCharBlue"));
+
+    speedoInfo.GearNormalColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",  "GearNormRed"));
+    speedoInfo.GearNormalColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",  "GearNormGreen"));
+    speedoInfo.GearNormalColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",  "GearNormBlue"));
+
+    speedoInfo.GearAltColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "GearAltRed"));
+    speedoInfo.GearAltColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "GearAltGreen"));
+    speedoInfo.GearAltColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "GearAltBlue"));
+
+    speedoInfo.ShiftLightColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",  "ShiftLightRed"));
+    speedoInfo.ShiftLightColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",  "ShiftLightGreen"));
+    speedoInfo.ShiftLightColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",  "ShiftLightBlue"));
+
+    speedoInfo.HeatNumColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "HeatNumRed"));
+    speedoInfo.HeatNumColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "HeatNumGreen"));
+    speedoInfo.HeatNumColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "HeatNumBlue"));
+
+    speedoInfo.HeatDialColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",    "HeatDialRed"));
+    speedoInfo.HeatDialColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",    "HeatDialGreen"));
+    speedoInfo.HeatDialColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",    "HeatDialBlue"));
+
+    speedoInfo.NOSDialColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "NOSDialRed"));
+    speedoInfo.NOSDialColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "NOSDialGreen"));
+    speedoInfo.NOSDialColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "NOSDialBlue"));
+
+    speedoInfo.NOSTextColor.R = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "NOSTextRed"));
+    speedoInfo.NOSTextColor.G = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "NOSTextGreen"));
+    speedoInfo.NOSTextColor.B = static_cast<float>(skinSettings.GetDoubleValue("COLOR",     "NOSTextBlue"));
 
 	// Drag-specific stuff but also allow others to use it if they provide the correct config lines
 	if (skinSettings.GetSectionSize("EXTRA") != -1) {

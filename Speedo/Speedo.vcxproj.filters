@@ -47,6 +47,9 @@
     <ClCompile Include="..\thirdparty\lodepng\lodepng_util.cpp">
       <Filter>Thirdparty</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\GTAVMenuBase\menumemutils.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="script.h" />
@@ -114,6 +117,9 @@
     <ClInclude Include="SpeedoInfo.h" />
     <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\Versions.h">
       <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\GTAVMenuBase\menumemutils.hpp">
+      <Filter>Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,13 @@ const int numNOSItemsStage3 = 6;
 
 const int numDragHeat = 8;
 
+struct SpeedoColor {
+    float R;
+    float G;
+    float B;
+    float A;
+};
+
 struct SpeedoInfo {
 	float SpeedoXpos;
 	float SpeedoYpos;
@@ -94,6 +101,31 @@ struct SpeedoInfo {
 	float TurboDialCenterY;
 	float TurboDialZeroRot;
 	float TurboDialFullRot;
+
+    SpeedoColor RPMBgColor;
+    SpeedoColor RPMNumColor;
+    SpeedoColor RPMDialColor;
+    SpeedoColor RPMRedColor;
+
+    SpeedoColor TurboBgColor;
+    SpeedoColor TurboNumColor;
+    SpeedoColor TurboDialColor;
+    SpeedoColor TurboRedColor;
+    SpeedoColor TurboTextColor;
+
+    SpeedoColor SpeedUnitColor;
+    SpeedoColor SpeedCharColor;
+
+    SpeedoColor GearNormalColor;
+    SpeedoColor GearAltColor;
+
+    SpeedoColor ShiftLightColor;
+
+    SpeedoColor NOSDialColor;
+    SpeedoColor NOSTextColor;
+
+    SpeedoColor HeatNumColor;
+    SpeedoColor HeatDialColor;
 
 	// Drag-specific stuff
 	bool ExtraHUDComponents;

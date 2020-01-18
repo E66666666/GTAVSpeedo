@@ -153,7 +153,11 @@ void drawNOSBars(bool hasBoost, float boostVal, float nosVal, float screencorrec
 		currentSpeedo.NOSTextSize, static_cast<float>(spriteNOSText.Height) * (currentSpeedo.NOSTextSize / static_cast<float>(spriteNOSText.Width)),
 		0.5f, 0.5f,
 		currentSpeedo.NOSTextXpos + offsetX, currentSpeedo.NOSTextYpos + offsetY,
-		0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 1.0f * speedoAlpha);
+		0.0f, screencorrection, 
+        currentSpeedo.NOSTextColor.R, 
+        currentSpeedo.NOSTextColor.G, 
+        currentSpeedo.NOSTextColor.B, 
+        1.0f * speedoAlpha);
 
 	int numNOSItems;
 	int nosStage = 3;
@@ -210,7 +214,11 @@ void drawNOSBars(bool hasBoost, float boostVal, float nosVal, float screencorrec
 			nosBarSize[i], static_cast<float>(sprite.Height) * (nosBarSize[i] / static_cast<float>(sprite.Width)),
 			0.5f, 0.5f,
 			nosBarXpos[i] + offsetX, nosBarYpos[i] + offsetY,
-			0.0f, screencorrection, 0.0f, 1.0f, 0.0f, baseAlpha * res * speedoAlpha);
+			0.0f, screencorrection, 
+            currentSpeedo.NOSDialColor.R, 
+            currentSpeedo.NOSDialColor.G, 
+            currentSpeedo.NOSDialColor.B, 
+            baseAlpha * res * speedoAlpha);
 		i++;
 	}
 }
@@ -223,7 +231,11 @@ void drawRPM(float rpm, float screencorrection, float offsetX, float offsetY) {
 	            currentSpeedo.RPMBgSize, static_cast<float>(spriteRPMBg.Height) * (currentSpeedo.RPMBgSize / static_cast<float>(spriteRPMBg.Width)),
 	            0.5f, 0.5f, 
 	            currentSpeedo.RPMBgXpos + offsetX, currentSpeedo.RPMBgYpos + offsetY,
-	            0.0f, screencorrection, 1.0f, 1.0f, 1.0f, 0.75f * speedoAlpha);
+	            0.0f, screencorrection, 
+                currentSpeedo.RPMBgColor.R,
+                currentSpeedo.RPMBgColor.G,
+                currentSpeedo.RPMBgColor.B, 
+                currentSpeedo.RPMBgColor.A * speedoAlpha);
 	drawTexture(spriteRPMNum.Id, 0, -9998, 100,
 	            currentSpeedo.RPMNumSize, static_cast<float>(spriteRPMNum.Height) * (currentSpeedo.RPMNumSize / static_cast<float>(spriteRPMNum.Width)),
 	            0.5f, 0.5f,
@@ -475,8 +487,10 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 			default: shiftMode = ShiftMode::Default;
 		}
 	}
-	if (!engineOn) rpm = 0.0f;
-
+    if (!engineOn) {
+        rpm = 0.0f;
+        turbo = -1.0f;
+    }
 	float screencorrection = invoke<float>(0xF1307EF624A80D87, FALSE);
 	float offsetX = currentSpeedo.SpeedoXpos;
 	float offsetY = currentSpeedo.SpeedoYpos;
@@ -769,13 +783,13 @@ void main() {
 
 	settings.SetFiles(settingsGeneralFile);
 	settings.SetModPath(absoluteModPath);
+    settings.Read();
 
 	menu.RegisterOnMain(std::bind(menuInit));
 	menu.RegisterOnExit(std::bind(menuClose));
 	menu.SetFiles(settingsMenuFile);
-	
-	settings.Read();
-	menu.ReadSettings();
+    menu.ReadSettings();
+    menu.Initialize();
 
 	skins = settings.EnumerateSkins();
 	for (auto skin : skins) {
