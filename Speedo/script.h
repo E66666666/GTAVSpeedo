@@ -8,9 +8,9 @@ http://dev-c.com
 
 #define DISPLAY_VERSION "v0.0.5"
 
-#include "../../ScriptHookV_SDK/inc/natives.h"
-#include "../../ScriptHookV_SDK/inc/main.h"
-#include "../../ScriptHookV_SDK/inc/types.h"
+#include <inc/natives.h>
+#include <inc/main.h>
+#include <inc/types.h>
 
 #include <string>
 const std::string modDir = "\\iktSpeedo";

@@ -13,22 +13,7 @@
     <ClCompile Include="Util\Util.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\GTAVMenuBase\menu.cpp">
-      <Filter>Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\GTAVMenuBase\menucontrols.cpp">
-      <Filter>Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\GTAVMenuBase\menukeyboard.cpp">
-      <Filter>Menu</Filter>
-    </ClCompile>
     <ClCompile Include="ScriptMenu.cpp" />
-    <ClCompile Include="..\..\GTAVMenuBase\menuutils.cpp">
-      <Filter>Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\GTAVMenuBase\menusettings.cpp">
-      <Filter>Menu</Filter>
-    </ClCompile>
     <ClCompile Include="Util\Paths.cpp">
       <Filter>Util</Filter>
     </ClCompile>
@@ -46,6 +31,24 @@
     </ClCompile>
     <ClCompile Include="..\thirdparty\lodepng\lodepng_util.cpp">
       <Filter>Thirdparty</Filter>
+    </ClCompile>
+    <ClCompile Include="..\thirdparty\GTAVMenuBase\menu.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\thirdparty\GTAVMenuBase\menucontrols.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\thirdparty\GTAVMenuBase\menukeyboard.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\thirdparty\GTAVMenuBase\menumemutils.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\thirdparty\GTAVMenuBase\menusettings.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\thirdparty\GTAVMenuBase\menuutils.cpp">
+      <Filter>Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,23 +75,8 @@
     <ClInclude Include="Util\TimeHelper.hpp">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\GTAVMenuBase\menu.h">
-      <Filter>Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\GTAVMenuBase\menucontrols.h">
-      <Filter>Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\GTAVMenuBase\menukeyboard.h">
-      <Filter>Menu</Filter>
-    </ClInclude>
     <ClInclude Include="..\thirdparty\simpleini\SimpleIni.h">
       <Filter>Thirdparty</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\GTAVMenuBase\menuutils.h">
-      <Filter>Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\GTAVMenuBase\menusettings.h">
-      <Filter>Menu</Filter>
     </ClInclude>
     <ClInclude Include="Util\Paths.h">
       <Filter>Util</Filter>

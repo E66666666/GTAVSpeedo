@@ -14,20 +14,20 @@
     <ProjectGuid>{71D4C2A8-9E78-47A8-A2B7-3FB2DE014D27}</ProjectGuid>
     <RootNamespace>Speedo</RootNamespace>
     <ProjectName>iktSpeedo</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
@@ -64,11 +64,11 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <AdditionalIncludeDirectories>$(SolutionDir)thirdparty;$(ProjectDir);..\..\ScriptHookV_SDK;..\..\GTAVMenuBase;$(IncludePath)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)thirdparty\ScriptHookV_SDK;$(SolutionDir)thirdparty\GTAVMenuBase;$(SolutionDir)thirdparty</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalOptions>..\..\ScriptHookV_SDK\lib\ScriptHookV.lib</AdditionalOptions>
+      <AdditionalOptions>..\thirdparty\ScriptHookV_SDK\lib\ScriptHookV.lib</AdditionalOptions>
       <GenerateDebugInformation>No</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -108,11 +108,12 @@
   <ItemGroup>
     <ClCompile Include="..\..\GTAVManualTransmission\Gears\Memory\NativeMemory.cpp" />
     <ClCompile Include="..\..\GTAVManualTransmission\Gears\Memory\VehicleExtensions.cpp" />
-    <ClCompile Include="..\..\GTAVMenuBase\menu.cpp" />
-    <ClCompile Include="..\..\GTAVMenuBase\menucontrols.cpp" />
-    <ClCompile Include="..\..\GTAVMenuBase\menukeyboard.cpp" />
-    <ClCompile Include="..\..\GTAVMenuBase\menusettings.cpp" />
-    <ClCompile Include="..\..\GTAVMenuBase\menuutils.cpp" />
+    <ClCompile Include="..\thirdparty\GTAVMenuBase\menu.cpp" />
+    <ClCompile Include="..\thirdparty\GTAVMenuBase\menucontrols.cpp" />
+    <ClCompile Include="..\thirdparty\GTAVMenuBase\menukeyboard.cpp" />
+    <ClCompile Include="..\thirdparty\GTAVMenuBase\menumemutils.cpp" />
+    <ClCompile Include="..\thirdparty\GTAVMenuBase\menusettings.cpp" />
+    <ClCompile Include="..\thirdparty\GTAVMenuBase\menuutils.cpp" />
     <ClCompile Include="..\thirdparty\lodepng\lodepng.cpp" />
     <ClCompile Include="..\thirdparty\lodepng\lodepng_util.cpp" />
     <ClCompile Include="Util\MathExt.cpp" />
@@ -129,11 +130,6 @@
     <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\NativeMemory.hpp" />
     <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\VehicleExtensions.hpp" />
     <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\Versions.h" />
-    <ClInclude Include="..\..\GTAVMenuBase\menu.h" />
-    <ClInclude Include="..\..\GTAVMenuBase\menucontrols.h" />
-    <ClInclude Include="..\..\GTAVMenuBase\menukeyboard.h" />
-    <ClInclude Include="..\..\GTAVMenuBase\menusettings.h" />
-    <ClInclude Include="..\..\GTAVMenuBase\menuutils.h" />
     <ClInclude Include="..\..\ScriptHookV_SDK\inc\enums.h" />
     <ClInclude Include="..\..\ScriptHookV_SDK\inc\main.h" />
     <ClInclude Include="..\..\ScriptHookV_SDK\inc\natives.h" />

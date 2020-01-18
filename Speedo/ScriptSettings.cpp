@@ -4,7 +4,7 @@
 #include <simpleini/SimpleIni.h>
 
 #include "Util/Util.hpp"
-#include <experimental/filesystem>
+#include <filesystem>
 #include "SpeedoInfo.h"
 
 
@@ -29,7 +29,7 @@ void ScriptSettings::Read() {
  * and that skin_name skin is then added to list of choosable skins
  */
 std::vector<std::string> ScriptSettings::EnumerateSkins() {
-	namespace fs = std::experimental::filesystem;
+	namespace fs = std::filesystem;
 	std::vector<std::string> foundSkins;
 
 	std::vector<std::string> folders;

@@ -1,6 +1,6 @@
 #define NOMINMAX
-#include "../../../ScriptHookV_SDK/inc/natives.h"
 #include "Util.hpp"
+#include <inc/natives.h>
 #include <algorithm>
 
 float getStringWidth(const std::string &text, float scale, int font) {
