@@ -253,15 +253,17 @@ void drawRPM(float rpm, float screencorrection, float offsetX, float offsetY) {
 }
 
 void drawTurbo(float turbo, float screencorrection, float offsetX, float offsetY) {
-    float displayTurboRot;
-    if (turbo < -0.5f) {
-        displayTurboRot = map(turbo, -1.0f, -0.5f, -1.0f, 0.25f);
-    }
-    else if (turbo <= 0.9f) {
-        displayTurboRot = map(turbo, -0.5f, 0.9f, 0.25f, 0.75f);
-    }
-    else {
-        displayTurboRot = map(turbo, 0.9f, 1.0f, 0.75f, 1.0f);
+    float displayTurboRot = turbo;
+    if (settings.TurboScaling) {
+        if (turbo < -0.5f) {
+            displayTurboRot = map(turbo, -1.0f, -0.5f, -1.0f, 0.25f);
+        }
+        else if (turbo <= 0.9f) {
+            displayTurboRot = map(turbo, -0.5f, 0.9f, 0.25f, 0.75f);
+        }
+        else {
+            displayTurboRot = map(turbo, 0.9f, 1.0f, 0.75f, 1.0f);
+        }
     }
 
     float turboRot = displayTurboRot * currentSpeedo.TurboDialFullRot + currentSpeedo.TurboDialZeroRot;

@@ -56,7 +56,8 @@ void update_menu() {
                         {"Hides area and street name when speedometer is visible."});
 
         menu.FloatOption("Fade speed", settings.FadeSpeed, 0.0f, 1.0f, 0.005f);
-
+        menu.BoolOption("Scale turbo gauge", settings.TurboScaling,
+                        {"Instead of showing raw boost value, make it appear to spool up faster."});
         if (settings.ShowPlacementMenu) {
             menu.MenuOption("Placements", "placementmenu");
         }
