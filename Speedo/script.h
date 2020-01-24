@@ -6,7 +6,7 @@
 
 #include <string>
 
-#define DISPLAY_VERSION "v0.0.5"
+#define DISPLAY_VERSION "v0.0.6"
 const std::string modDir = "\\iktSpeedo";
 
 class ScriptSettings;
