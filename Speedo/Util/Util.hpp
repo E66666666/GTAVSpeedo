@@ -1,8 +1,9 @@
 #pragma once
 
+#include <inc/types.h>
+
 #include <string>
 #include <vector>
-#include "inc/types.h"
 
 struct Color {
 	int R;

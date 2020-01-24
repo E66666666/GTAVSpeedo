@@ -1,4 +1,3 @@
-#define NOMINMAX
 #include "Util.hpp"
 #include <inc/natives.h>
 #include <algorithm>

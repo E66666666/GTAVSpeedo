@@ -1,12 +1,11 @@
 #include "ScriptSettings.hpp"
 
-#include <vector>
-#include <simpleini/SimpleIni.h>
-
-#include "Util/Util.hpp"
-#include <filesystem>
 #include "SpeedoInfo.h"
+#include "Util/Util.hpp"
 
+#include <simpleini/SimpleIni.h>
+#include <filesystem>
+#include <vector>
 
 ScriptSettings::ScriptSettings() { }
 

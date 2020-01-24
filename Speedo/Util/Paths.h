@@ -1,6 +1,6 @@
 #pragma once
-#include <string>
 #include <Windows.h>
+#include <string>
 
 namespace Paths {
 	const std::string	GetRunningExecutableFolder();
