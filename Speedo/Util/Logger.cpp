@@ -10,7 +10,7 @@ Logger::Logger() {
 #endif
 }
 
-void Logger::SetFile(const std::string &fileName) {
+void Logger::SetFile(const std::string& fileName) {
     file = fileName;
 }
 
@@ -27,7 +27,8 @@ void Logger::Clear() const {
 }
 
 void Logger::Write(LogLevel level, const std::string& text) const {
-    if (level < minLevel) return;
+    if (level < minLevel)
+        return;
     std::ofstream logFile(file, std::ios_base::out | std::ios_base::app);
     SYSTEMTIME currTimeLog;
     GetLocalTime(&currTimeLog);
@@ -40,8 +41,9 @@ void Logger::Write(LogLevel level, const std::string& text) const {
         text << "\n";
 }
 
-void Logger::Write(LogLevel level, const char *fmt, ...) const {
-    if (level < minLevel) return;
+void Logger::Write(LogLevel level, const char* fmt, ...) const {
+    if (level < minLevel)
+        return;
     const int size = 1024;
     char buff[size];
     va_list args;

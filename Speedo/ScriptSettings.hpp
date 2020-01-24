@@ -5,48 +5,48 @@
 struct SpeedoInfo;
 
 enum class UnitType {
-	KPH = 0,
-	MPH = 1,
+    KPH = 0,
+    MPH = 1,
 };
 
 class ScriptSettings {
 public:
-	ScriptSettings();
-	void SetFiles(const std::string &general);
-	void Read();
-	std::vector<std::string> EnumerateSkins();
-	void SaveGeneral() const;
-	
-	void Normalize(SpeedoInfo &coords);
-	void SetModPath(const std::string & cs);
+    ScriptSettings();
+    void SetFiles(const std::string& general);
+    void Read();
+    std::vector<std::string> EnumerateSkins();
+    void SaveGeneral() const;
 
-	/*
-	 * full path to the directory with your files
-	 */
-	SpeedoInfo ReadSkin(std::string path);
+    void Normalize(SpeedoInfo& coords);
+    void SetModPath(const std::string& cs);
 
-	/*
-	 * full path to the directory with your files
-	 */
-	void SaveSkin(std::string path, SpeedoInfo &info);
+    /*
+     * full path to the directory with your files
+     */
+    SpeedoInfo ReadSkin(std::string path);
+
+    /*
+     * full path to the directory with your files
+     */
+    void SaveSkin(std::string path, SpeedoInfo& info);
 
 
-	// global settings
-	bool Enable;
-	UnitType Unit;
-	bool HideInFPV;
-	bool HideOnVehicleName;
-	bool HideAreaName;
+    // global settings
+    bool Enable;
+    UnitType Unit;
+    bool HideInFPV;
+    bool HideOnVehicleName;
+    bool HideAreaName;
 
-	float FadeSpeed;
-	std::string DefaultSkin;
+    float FadeSpeed;
+    std::string DefaultSkin;
 
-	bool ShowPlacementMenu;
+    bool ShowPlacementMenu;
 
 private:
-	void parseSettingsGeneral();
+    void parseSettingsGeneral();
 
-	std::string settingsGeneralFile;
-	std::string settingsMenuFile;
-	std::string modPath;
+    std::string settingsGeneralFile;
+    std::string settingsMenuFile;
+    std::string modPath;
 };
