@@ -351,7 +351,7 @@ void drawGear(int gear, bool neutral, int shift_indicator, int charNum, float sc
 	else spriteGear = spriteN9;
 
 	int level = -9990;
-	if (neutral || shift_indicator || ext.GetHandbrake(vehicle)) {
+	if (neutral || ext.GetHandbrake(vehicle)) {
 		c.r = 0.99f;
 		c.g = 0.5f;
 		c.b = 0.25f;
