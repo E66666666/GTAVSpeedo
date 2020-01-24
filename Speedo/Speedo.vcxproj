@@ -116,6 +116,7 @@
     <ClCompile Include="..\thirdparty\GTAVMenuBase\menuutils.cpp" />
     <ClCompile Include="..\thirdparty\lodepng\lodepng.cpp" />
     <ClCompile Include="..\thirdparty\lodepng\lodepng_util.cpp" />
+    <ClCompile Include="Compatibility.cpp" />
     <ClCompile Include="Util\MathExt.cpp" />
     <ClCompile Include="ScriptMenu.cpp" />
     <ClCompile Include="Util\Paths.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="..\thirdparty\lodepng\lodepng.h" />
     <ClInclude Include="..\thirdparty\lodepng\lodepng_util.h" />
     <ClInclude Include="..\thirdparty\simpleini\SimpleIni.h" />
+    <ClInclude Include="Compatibility.h" />
     <ClInclude Include="newNatives.h" />
     <ClInclude Include="SpeedoInfo.h" />
     <ClInclude Include="Util\MathExt.h" />

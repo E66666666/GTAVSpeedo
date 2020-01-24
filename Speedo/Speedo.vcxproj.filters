@@ -50,6 +50,9 @@
     <ClCompile Include="..\thirdparty\GTAVMenuBase\menuutils.cpp">
       <Filter>Menu</Filter>
     </ClCompile>
+    <ClCompile Include="Compatibility.cpp">
+      <Filter>MTLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="script.h" />
@@ -103,6 +106,9 @@
     <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\Versions.h">
       <Filter>Memory</Filter>
     </ClInclude>
+    <ClInclude Include="Compatibility.h">
+      <Filter>MTLib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -114,11 +120,14 @@
     <Filter Include="Util">
       <UniqueIdentifier>{6656e964-569c-448b-ac00-d586f48acb8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Thirdparty">
+      <UniqueIdentifier>{d0a967a3-e709-4563-beec-8bb1bc9d1711}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Menu">
       <UniqueIdentifier>{d318979d-d544-4b16-9e26-6bec9234be3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Thirdparty">
-      <UniqueIdentifier>{d0a967a3-e709-4563-beec-8bb1bc9d1711}</UniqueIdentifier>
+    <Filter Include="MTLib">
+      <UniqueIdentifier>{d734a0d7-4c72-4bea-abfa-83d460a42aca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

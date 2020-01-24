@@ -21,12 +21,11 @@
 #include <chrono>
 #include "../../GTAVManualTransmission/Gears/Memory/Versions.h"
 #include "SpeedoInfo.h"
+#include "Compatibility.h"
+
+bool setupOK = false;
 
 const char* decoriktSpeedoActive    = "ikt_speedo_active";
-const char* decorMTGear             = "mt_gear";
-const char* decorMTNeutral          = "mt_neutral";
-const char* decorMTShiftIndicator   = "mt_shift_indicator";
-const char* decorMTGetShiftMode     = "mt_get_shiftmode";
 const char* decorNOS                = "ikt_speedo_nos";
 const char* decorNOSLevel           = "ikt_speedo_nos_level";
 const char* decorNOSStage           = "nfsnitro_stage";
@@ -458,8 +457,8 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 		turbo = ext.GetTurbo(vehicle);
 		rpm = ext.GetCurrentRPM(vehicle);
 		gear = ext.GetGearCurr(vehicle);
-		neutral = DECORATOR::DECOR_GET_INT(vehicle, (char*)decorMTNeutral);
-		shift_indicator = DECORATOR::DECOR_GET_INT(vehicle, (char*)decorMTShiftIndicator);
+		neutral = MT::NeutralGear();
+		shift_indicator = MT::GetShiftIndicator();
 		if (getGameVersion() >= G_VER_1_0_944_2_STEAM) {
 			hasBoost = VEHICLE::_HAS_VEHICLE_ROCKET_BOOST(vehicle);
 			boostVal = ext.GetRocketBoostCharge(vehicle);
@@ -468,7 +467,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 			hasNOS = true;
 			nosVal = DECORATOR::_DECOR_GET_FLOAT(vehicle, (char*)decorNOSLevel);
 		}
-		switch(DECORATOR::DECOR_GET_INT(vehicle, (char*)decorMTGetShiftMode)) {
+		switch(MT::GetShiftMode()) {
 			case 1: shiftMode = ShiftMode::Sequential;
 			case 2: shiftMode = ShiftMode::HPattern;
 			case 3: shiftMode = ShiftMode::Automatic;
@@ -642,9 +641,6 @@ bool setupGlobals() {
 	*g_bIsDecorRegisterLockedPtr = 0;
 
 	registerDecorator(decoriktSpeedoActive, DECOR_TYPE_BOOL);
-	registerDecorator(decorMTShiftIndicator, DECOR_TYPE_INT);
-	registerDecorator(decorMTGear, DECOR_TYPE_INT);
-	registerDecorator(decorMTNeutral, DECOR_TYPE_INT);
 	registerDecorator(decorNOS, DECOR_TYPE_INT);
 	registerDecorator(decorNOSLevel, DECOR_TYPE_FLOAT);
 	registerDecorator(decorDragShowHud, DECOR_TYPE_BOOL);
@@ -754,6 +750,16 @@ void changeSkin(std::string skinTemp) {
 	createTextures(skinDir);
 }
 
+void setupMT() {
+	setupOK = setupCompatibility();
+	if (setupOK) {
+		logger.Write(INFO, "Manual Transmission [%s] integration success", MT::GetVersion());
+	}
+	else {
+		logger.Write(ERROR, "Manual Transmission integration failed");
+	}
+}
+
 void main() {
 	logger.Write(INFO, "Script started");
 	mem::init();
@@ -762,6 +768,7 @@ void main() {
 	if (!setupGlobals()) {
 		logger.Write(INFO, "Global setup failed!");
 	}
+	setupMT();
 
 	absoluteModPath = Paths::GetModuleFolder(Paths::GetOurModuleHandle()) + modDir;
 	settingsGeneralFile = absoluteModPath + "\\settings_general.ini";
