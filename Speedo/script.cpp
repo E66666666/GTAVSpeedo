@@ -1,27 +1,27 @@
 #define NOMINMAX
 #include "script.h"
 
-#include <string>
-#include <sstream>
-#include <iomanip>
-
-#include <lodepng/lodepng.h>
-#include <GTAVMenuBase/menu.h>
-
-#include "../../GTAVManualTransmission/Gears/Memory/NativeMemory.hpp"
-#include "../../GTAVManualTransmission/Gears/Memory/VehicleExtensions.hpp"
+#include "Compatibility.h"
+#include "ScriptSettings.hpp"
+#include "SpeedoInfo.h"
+#include "newNatives.h"
 
 #include "Util/Logger.hpp"
 #include "Util/Util.hpp"
 #include "Util/Paths.h"
 #include "Util/MathExt.h"
 
-#include "ScriptSettings.hpp"
-#include "newNatives.h"
+#include <GTAVManualTransmission/Gears/Memory/NativeMemory.hpp>
+#include <GTAVManualTransmission/Gears/Memory/VehicleExtensions.hpp>
+#include <GTAVManualTransmission/Gears/Memory/Versions.h>
+
+#include <GTAVMenuBase/menu.h>
+#include <lodepng/lodepng.h>
+
+#include <string>
+#include <sstream>
+#include <iomanip>
 #include <chrono>
-#include "../../GTAVManualTransmission/Gears/Memory/Versions.h"
-#include "SpeedoInfo.h"
-#include "Compatibility.h"
 
 bool setupOK = false;
 

@@ -7,7 +7,7 @@ http://dev-c.com
 #include "script.h"
 #include "Util/Paths.h"
 #include "Util/Logger.hpp"
-#include "../../GTAVManualTransmission/Gears/Memory/Versions.h"
+#include <GTAVManualTransmission/Gears/Memory/Versions.h>
 
 BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved) {
 	std::string logFile = Paths::GetModuleFolder(hInstance) + modDir +

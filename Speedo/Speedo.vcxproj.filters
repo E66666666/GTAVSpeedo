@@ -20,12 +20,6 @@
     <ClCompile Include="Util\MathExt.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\GTAVManualTransmission\Gears\Memory\NativeMemory.cpp">
-      <Filter>Memory</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\GTAVManualTransmission\Gears\Memory\VehicleExtensions.cpp">
-      <Filter>Memory</Filter>
-    </ClCompile>
     <ClCompile Include="..\thirdparty\lodepng\lodepng.cpp">
       <Filter>Thirdparty</Filter>
     </ClCompile>
@@ -53,20 +47,26 @@
     <ClCompile Include="Compatibility.cpp">
       <Filter>MTLib</Filter>
     </ClCompile>
+    <ClCompile Include="..\thirdparty\GTAVManualTransmission\Gears\Memory\NativeMemory.cpp">
+      <Filter>MTVehExt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\thirdparty\GTAVManualTransmission\Gears\Memory\VehicleExtensions.cpp">
+      <Filter>MTVehExt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="script.h" />
     <ClInclude Include="..\..\ScriptHookV_SDK\inc\main.h">
-      <Filter>include</Filter>
+      <Filter>ScriptHookV</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ScriptHookV_SDK\inc\enums.h">
-      <Filter>include</Filter>
+      <Filter>ScriptHookV</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ScriptHookV_SDK\inc\natives.h">
-      <Filter>include</Filter>
+      <Filter>ScriptHookV</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ScriptHookV_SDK\inc\types.h">
-      <Filter>include</Filter>
+      <Filter>ScriptHookV</Filter>
     </ClInclude>
     <ClInclude Include="ScriptSettings.hpp" />
     <ClInclude Include="Util\Util.hpp">
@@ -87,12 +87,6 @@
     <ClInclude Include="Util\MathExt.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\NativeMemory.hpp">
-      <Filter>Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\VehicleExtensions.hpp">
-      <Filter>Memory</Filter>
-    </ClInclude>
     <ClInclude Include="..\thirdparty\lodepng\lodepng.h">
       <Filter>Thirdparty</Filter>
     </ClInclude>
@@ -103,20 +97,20 @@
       <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="SpeedoInfo.h" />
-    <ClInclude Include="..\..\GTAVManualTransmission\Gears\Memory\Versions.h">
-      <Filter>Memory</Filter>
-    </ClInclude>
     <ClInclude Include="Compatibility.h">
       <Filter>MTLib</Filter>
     </ClInclude>
+    <ClInclude Include="..\thirdparty\GTAVManualTransmission\Gears\Memory\Versions.h">
+      <Filter>MTVehExt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\GTAVManualTransmission\Gears\Memory\NativeMemory.hpp">
+      <Filter>MTVehExt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\GTAVManualTransmission\Gears\Memory\VehicleExtensions.hpp">
+      <Filter>MTVehExt</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="include">
-      <UniqueIdentifier>{01012e73-37b7-4874-b66a-9390e9a83264}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Memory">
-      <UniqueIdentifier>{09af856a-dd6f-4abb-aa1d-57e413924122}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Util">
       <UniqueIdentifier>{6656e964-569c-448b-ac00-d586f48acb8a}</UniqueIdentifier>
     </Filter>
@@ -128,6 +122,12 @@
     </Filter>
     <Filter Include="MTLib">
       <UniqueIdentifier>{d734a0d7-4c72-4bea-abfa-83d460a42aca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MTVehExt">
+      <UniqueIdentifier>{483bcdcb-e76a-4b80-8d7d-90457b63e4a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ScriptHookV">
+      <UniqueIdentifier>{01012e73-37b7-4874-b66a-9390e9a83264}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
