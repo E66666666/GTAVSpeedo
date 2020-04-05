@@ -53,21 +53,12 @@
     <ClCompile Include="..\thirdparty\GTAVManualTransmission\Gears\Memory\VehicleExtensions.cpp">
       <Filter>MTVehExt</Filter>
     </ClCompile>
+    <ClCompile Include="Colors.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="script.h" />
-    <ClInclude Include="..\..\ScriptHookV_SDK\inc\main.h">
-      <Filter>ScriptHookV</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ScriptHookV_SDK\inc\enums.h">
-      <Filter>ScriptHookV</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ScriptHookV_SDK\inc\natives.h">
-      <Filter>ScriptHookV</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ScriptHookV_SDK\inc\types.h">
-      <Filter>ScriptHookV</Filter>
-    </ClInclude>
     <ClInclude Include="ScriptSettings.hpp" />
     <ClInclude Include="Util\Util.hpp">
       <Filter>Util</Filter>
@@ -108,6 +99,24 @@
     </ClInclude>
     <ClInclude Include="..\thirdparty\GTAVManualTransmission\Gears\Memory\VehicleExtensions.hpp">
       <Filter>MTVehExt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\ScriptHookV_SDK\inc\enums.h">
+      <Filter>ScriptHookV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\ScriptHookV_SDK\inc\main.h">
+      <Filter>ScriptHookV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\ScriptHookV_SDK\inc\nativeCaller.h">
+      <Filter>ScriptHookV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\ScriptHookV_SDK\inc\natives.h">
+      <Filter>ScriptHookV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\ScriptHookV_SDK\inc\types.h">
+      <Filter>ScriptHookV</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -116,6 +116,7 @@
     <ClCompile Include="..\thirdparty\GTAVMenuBase\menuutils.cpp" />
     <ClCompile Include="..\thirdparty\lodepng\lodepng.cpp" />
     <ClCompile Include="..\thirdparty\lodepng\lodepng_util.cpp" />
+    <ClCompile Include="Colors.cpp" />
     <ClCompile Include="Compatibility.cpp" />
     <ClCompile Include="Util\MathExt.cpp" />
     <ClCompile Include="ScriptMenu.cpp" />
@@ -128,16 +129,18 @@
     <ClCompile Include="Util\Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\ScriptHookV_SDK\inc\enums.h" />
-    <ClInclude Include="..\..\ScriptHookV_SDK\inc\main.h" />
-    <ClInclude Include="..\..\ScriptHookV_SDK\inc\natives.h" />
-    <ClInclude Include="..\..\ScriptHookV_SDK\inc\types.h" />
     <ClInclude Include="..\thirdparty\GTAVManualTransmission\Gears\Memory\NativeMemory.hpp" />
     <ClInclude Include="..\thirdparty\GTAVManualTransmission\Gears\Memory\VehicleExtensions.hpp" />
     <ClInclude Include="..\thirdparty\GTAVManualTransmission\Gears\Memory\Versions.h" />
     <ClInclude Include="..\thirdparty\lodepng\lodepng.h" />
     <ClInclude Include="..\thirdparty\lodepng\lodepng_util.h" />
+    <ClInclude Include="..\thirdparty\ScriptHookV_SDK\inc\enums.h" />
+    <ClInclude Include="..\thirdparty\ScriptHookV_SDK\inc\main.h" />
+    <ClInclude Include="..\thirdparty\ScriptHookV_SDK\inc\nativeCaller.h" />
+    <ClInclude Include="..\thirdparty\ScriptHookV_SDK\inc\natives.h" />
+    <ClInclude Include="..\thirdparty\ScriptHookV_SDK\inc\types.h" />
     <ClInclude Include="..\thirdparty\simpleini\SimpleIni.h" />
+    <ClInclude Include="Colors.h" />
     <ClInclude Include="Compatibility.h" />
     <ClInclude Include="newNatives.h" />
     <ClInclude Include="SpeedoInfo.h" />

@@ -4,6 +4,7 @@
 #include "ScriptSettings.hpp"
 #include "SpeedoInfo.h"
 #include "Util/Paths.h"
+#include "Colors.h"
 
 extern ScriptSettings settings;
 extern std::string settingsGeneralFile;
@@ -17,6 +18,48 @@ extern ScriptSettings settings;
 
 extern SpeedoInfo currentSpeedo;
 
+bool updateColorPicker(NativeMenu::Color& outColor) {
+    enum class EControl {
+        MouseAndKB,
+        Gamepad
+    };
+
+    EControl currentInput = CONTROLS::_IS_INPUT_DISABLED(2) ? EControl::MouseAndKB : EControl::Gamepad;
+    CONTROLS::DISABLE_ALL_CONTROL_ACTIONS(2);
+    // 2px on 1920?
+    double pxWidth = 2.0 / 1920.0;
+    for (int hue = 0; hue < 360; ++hue) {
+        auto rgb = Utils::Colors::HSVtoRGB({ static_cast<double>(hue), 1.0, 1.0 });
+
+        GRAPHICS::DRAW_RECT(
+            0.5f, // xpos
+            0.25f + pxWidth * static_cast<double>(hue), //ypos
+            pxWidth, pxWidth * 3.0f, // w/h
+            static_cast<int>(rgb.R * 255.0),
+            static_cast<int>(rgb.G * 255.0),
+            static_cast<int>(rgb.B * 255.0),
+            255);
+    }
+
+    for (int sat = 0; sat < 10; ++sat) {
+        
+    }
+
+    if (currentInput == EControl::MouseAndKB) {
+        UI::_SHOW_CURSOR_THIS_FRAME();
+        CONTROLS::ENABLE_CONTROL_ACTION(0, ControlCursorX, true);
+        CONTROLS::ENABLE_CONTROL_ACTION(0, ControlCursorY, true);
+
+        float cursorX = CONTROLS::GET_CONTROL_NORMAL(0, ControlCursorX);
+        float cursorY = CONTROLS::GET_CONTROL_NORMAL(0, ControlCursorY);
+
+        GRAPHICS::DRAW_RECT(cursorX, cursorY, pxWidth, pxWidth, 255, 255, 255, 255);
+    }
+
+    // TODO: Draw square/sprite?
+    return false;
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //                             Menu stuff
@@ -29,6 +72,8 @@ void menuClose() {
     settings.SaveGeneral();
     settings.SaveSkin(Paths::GetModuleFolder(Paths::GetOurModuleHandle()) + modDir + skinDir, currentSpeedo);
 }
+
+NativeMenu::Color g_col;
 
 void update_menu() {
     menu.CheckKeys();
@@ -68,6 +113,13 @@ void update_menu() {
         if (currentSpeedo.ExtraHUDComponents) {
             menu.Option("Extra components", {"This skin contains the extra components"});
             menu.MenuOption("Extra components config", "extramenu");
+        }
+
+        bool showColorPicker = false;
+        menu.OptionPlus("Colors!", {}, &showColorPicker);
+
+        if (showColorPicker) {
+            updateColorPicker(g_col);
         }
     }
 
