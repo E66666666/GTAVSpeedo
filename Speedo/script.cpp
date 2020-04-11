@@ -487,6 +487,13 @@ void drawHeatAlert(float screencorrection, float offsetX, float offsetY) {
                 0.0f, screencorrection, 0.6f, 0.0f, 0.0f, 0.75f * speedoAlpha);
 }
 
+enum class ENitroType {
+    None = -1,
+    Boost20 = 0,
+    Boost60 = 1,
+    Boost100 = 2,
+    Shunt = 3
+};
 
 /*
  * Was it really necessary to distribute your speedometer sprites 
@@ -504,6 +511,11 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
     bool hasBoost = false;
     float boostVal = 0.0f;
     float nosVal = 0.0f;
+
+    // 1604+ nitro
+    ENitroType nitroType = static_cast<ENitroType>(VEHICLE::GET_VEHICLE_MOD(vehicle, 40));
+    bool has1604Boost = nitroType != ENitroType::None;
+
     ShiftMode shiftMode;
     if (!vehicle || !ENTITY::DOES_ENTITY_EXIST(vehicle) ||
         playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1)) {
@@ -566,7 +578,27 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
     drawSpeed(speed, charNum, screencorrection, offsetX, offsetY, nextFrameTime);
     drawGear(gear, neutral, shift_indicator, charNum, screencorrection, offsetX, offsetY, nextFrameTime);
 
-    if (hasBoost || hasNOS) {
+    if (hasBoost || hasNOS || has1604Boost) {
+        if (!hasNOS && has1604Boost) {
+            float bla = ext.GetArenaBoost(vehicle);
+            switch (nitroType) {
+                case ENitroType::Boost20:
+                    nosVal = bla / 1.2f;
+                    break;
+                case ENitroType::Boost60:
+                    nosVal = bla / 2.05f;
+                    break;
+                case ENitroType::Boost100:
+                    nosVal = bla / 2.9f;
+                    break;
+                case ENitroType::Shunt:
+                    nosVal = bla / 3.0f;
+                    break;
+                case ENitroType::None: break;
+                default: ;
+            }
+        }
+
         drawNOSBars(hasBoost, boostVal, nosVal, screencorrection, offsetX, offsetY);
     }
 
