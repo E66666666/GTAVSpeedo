@@ -18,6 +18,14 @@ namespace MTInternal {
     bool Available = false;
 }
 
+namespace TFInternal {
+    bool        (*Active            )() = nullptr;
+    float       (*GetNormalizedBoost)() = nullptr;
+
+    HMODULE TurboFixModule = nullptr;
+    bool Available = false;
+}
+
 namespace MT {
     const char* GetVersion() {
         if (!MTInternal::Available)
@@ -56,6 +64,20 @@ namespace MT {
     }
 }
 
+namespace TF {
+    bool Active() {
+        if (!TFInternal::Available)
+            return false;
+        return TFInternal::Active();
+    }
+
+    float GetNormalizedBoost() {
+        if (!TFInternal::Available)
+            return false;
+        return TFInternal::GetNormalizedBoost();
+    }
+}
+
 // This function checks if the supplied function is available in the given library.
 template <typename T>
 T CheckAddr(HMODULE lib, const std::string& funcName) {
@@ -68,8 +90,7 @@ T CheckAddr(HMODULE lib, const std::string& funcName) {
     return reinterpret_cast<T>(func);
 }
 
-// The available functions are checked here. You could add more libraries here if needed.
-bool setupCompatibility() {
+bool setupMTCompatibility() {
     bool success = true;
     logger.Write(INFO, "Setting up Manual Transmission compatibility");
     MTInternal::GearsModule = GetModuleHandle(L"Gears.asi");
@@ -98,10 +119,32 @@ bool setupCompatibility() {
     return success;
 }
 
+bool setupTFCompatibility() {
+    bool success = true;
+    logger.Write(INFO, "Setting up TurboFix compatibility");
+    TFInternal::TurboFixModule = GetModuleHandle(L"TurboFix.asi");
+    if (!TFInternal::TurboFixModule) {
+        logger.Write(ERROR, "TurboFix.asi not found");
+        return false;
+    }
+
+    TFInternal::Active = CheckAddr<bool (*)()>(TFInternal::TurboFixModule, "TF_Active");
+    success &= TFInternal::Active != nullptr;
+    TFInternal::GetNormalizedBoost = CheckAddr<float (*)()>(TFInternal::TurboFixModule, "TF_GetNormalizedBoost");
+    success &= TFInternal::GetNormalizedBoost != nullptr;
+
+    TFInternal::Available = success;
+    return success;
+}
+
 void releaseCompatibility() {
     if (MTInternal::GearsModule) {
         // In this case GearsModule is gotten with GetModuleHandle, so no FreeLibrary is needed.
         // Just reset the pointer.
         MTInternal::GearsModule = nullptr;
+    }
+
+    if (TFInternal::TurboFixModule) {
+        TFInternal::TurboFixModule = nullptr;
     }
 }

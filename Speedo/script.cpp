@@ -22,7 +22,8 @@
 #include <iomanip>
 #include <chrono>
 
-bool setupOK = false;
+bool setupMTOK = false;
+bool setupTFOK = false;
 
 const char* decoriktSpeedoActive = "ikt_speedo_active";
 const char* decorNOS = "ikt_speedo_nos";
@@ -495,6 +496,13 @@ enum class ENitroType {
     Shunt = 3
 };
 
+float getTurbo() {
+    if (TF::Active()) {
+        return TF::GetNormalizedBoost();
+    }
+    return ext.GetTurbo(vehicle);
+}
+
 /*
  * Was it really necessary to distribute your speedometer sprites 
  * over multiple files and chop it up in multiple tiny bits?!
@@ -531,7 +539,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
             speed = abs(ENTITY::GET_ENTITY_SPEED_VECTOR(vehicle, true).y);
         }
 
-        turbo = ext.GetTurbo(vehicle);
+        turbo = getTurbo();
         rpm = ext.GetCurrentRPM(vehicle);
         gear = ext.GetGearCurr(vehicle);
         neutral = MT::NeutralGear();
@@ -865,12 +873,22 @@ void changeSkin(std::string skinTemp) {
 }
 
 void setupMT() {
-    setupOK = setupCompatibility();
-    if (setupOK) {
+    setupMTOK = setupMTCompatibility();
+    if (setupMTOK) {
         logger.Write(INFO, "Manual Transmission [%s] integration success", MT::GetVersion());
     }
     else {
-        logger.Write(ERROR, "Manual Transmission integration failed");
+        logger.Write(WARN, "Manual Transmission integration failed");
+    }
+}
+
+void setupTF() {
+    setupTFOK = setupTFCompatibility();
+    if (setupTFOK) {
+        logger.Write(INFO, "TurboFix integration success");
+    }
+    else {
+        logger.Write(WARN, "TurboFix integration failed");
     }
 }
 
@@ -883,6 +901,7 @@ void main() {
         logger.Write(INFO, "Global setup failed!");
     }
     setupMT();
+    setupTF();
 
     absoluteModPath = Paths::GetModuleFolder(Paths::GetOurModuleHandle()) + modDir;
     settingsGeneralFile = absoluteModPath + "\\settings_general.ini";

@@ -15,10 +15,16 @@ namespace MT {
     int GetShiftIndicator();
 }
 
+namespace TF {
+    bool  Active();
+    float GetNormalizedBoost();
+}
+
 // The library is loaded and checked here. A boolean indicating success is returned.
 // You can change this to whatever behavior is desired - for example, you could check
 // each functions availability (!= nullptr), or disable integration altogether.
-bool setupCompatibility();
+bool setupMTCompatibility();
+bool setupTFCompatibility();
 
 // This should be called when your script shuts down or stops using integration,
 // to release resources (the library).
