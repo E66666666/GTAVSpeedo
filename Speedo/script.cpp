@@ -159,9 +159,9 @@ void drawNOSBars(bool hasBoost, float boostVal, float nosVal, float screencorrec
     int numNOSItems;
     int nosStage = 3;
 
-    bool isStageUsed = DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)decorNOSStage, DECOR_TYPE_INT);
+    bool isStageUsed = DECORATOR::DECOR_IS_REGISTERED_AS_TYPE(decorNOSStage, DECOR_TYPE_INT);
     if (isStageUsed) {
-        nosStage = DECORATOR::DECOR_GET_INT(vehicle, (char*)decorNOSStage);
+        nosStage = DECORATOR::DECOR_GET_INT(vehicle, decorNOSStage);
     }
 
     std::vector<SpriteInfo> nosSprites;
@@ -539,6 +539,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
             speed = abs(ENTITY::GET_ENTITY_SPEED_VECTOR(vehicle, true).y);
         }
 
+        logger.Write(DEBUG, "get turbo");
         turbo = getTurbo();
         rpm = VExt::GetCurrentRPM(vehicle);
         gear = VExt::GetGearCurr(vehicle);
@@ -548,9 +549,9 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
             hasBoost = VEHICLE::_GET_HAS_ROCKET_BOOST(vehicle);
             boostVal = VExt::GetRocketBoostCharge(vehicle);
         }
-        if (DECORATOR::DECOR_GET_INT(vehicle, (char*)decorNOS) == 1) {
+        if (DECORATOR::DECOR_GET_INT(vehicle, decorNOS) == 1) {
             hasNOS = true;
-            nosVal = DECORATOR::DECOR_GET_FLOAT(vehicle, (char*)decorNOSLevel);
+            nosVal = DECORATOR::DECOR_GET_FLOAT(vehicle, decorNOSLevel);
         }
         switch (MT::GetShiftMode()) {
             case 1: shiftMode = ShiftMode::Sequential;
@@ -613,8 +614,8 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
     // yeah so this does the drag hud thingy
     if (currentSpeedo.ExtraHUDComponents) {
         float heatVal;
-        if (DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)decorDragHeat, DECOR_TYPE_FLOAT)) {
-            heatVal = DECORATOR::DECOR_GET_FLOAT(vehicle, (char*)decorDragHeat);;
+        if (DECORATOR::DECOR_IS_REGISTERED_AS_TYPE(decorDragHeat, DECOR_TYPE_FLOAT)) {
+            heatVal = DECORATOR::DECOR_GET_FLOAT(vehicle, decorDragHeat);;
         }
         else {
             heatVal = 0.0f;
@@ -704,7 +705,7 @@ void update() {
     }
 
     if (speedoAlpha > 0.0f) {
-        DECORATOR::DECOR_SET_BOOL(vehicle, (char*)decoriktSpeedoActive, true);
+        DECORATOR::DECOR_SET_BOOL(vehicle, decoriktSpeedoActive, true);
 
         if (VEHICLE::IS_TOGGLE_MOD_ON(vehicle, VehicleToggleModTurbo) && turboalpha < 1.0f) {
             turboalpha += settings.FadeSpeed;
@@ -715,13 +716,13 @@ void update() {
         drawSpeedo(settings.Unit, true, VEHICLE::GET_IS_VEHICLE_ENGINE_RUNNING(vehicle));
     }
     else {
-        DECORATOR::DECOR_SET_BOOL(vehicle, (char*)decoriktSpeedoActive, false);
+        DECORATOR::DECOR_SET_BOOL(vehicle, decoriktSpeedoActive, false);
     }
 
-    bool dragHUDRegistered = DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)decorDragShowHud, DECOR_TYPE_BOOL);
+    bool dragHUDRegistered = DECORATOR::DECOR_IS_REGISTERED_AS_TYPE(decorDragShowHud, DECOR_TYPE_BOOL);
     bool useDragHUD = false;
     if (dragHUDRegistered) {
-        if (DECORATOR::DECOR_GET_BOOL(vehicle, (char*)decorDragShowHud))
+        if (DECORATOR::DECOR_GET_BOOL(vehicle, decorDragShowHud))
             useDragHUD = true;
     }
     if (useDragHUD && skins[currSkinIndex] != "default-drag") {
@@ -747,8 +748,8 @@ void registerDecorator(const char* thing, eDecorType type) {
             break;
     }
 
-    if (!DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)thing, type)) {
-        DECORATOR::DECOR_REGISTER((char*)thing, type);
+    if (!DECORATOR::DECOR_IS_REGISTERED_AS_TYPE(thing, type)) {
+        DECORATOR::DECOR_REGISTER(thing, type);
         logger.Write(INFO, "DECOR: Registered \"" + std::string(thing) + "\" as " + strType);
     }
 }

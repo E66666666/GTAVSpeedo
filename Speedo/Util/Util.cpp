@@ -19,7 +19,7 @@ void showText(float x, float y, float scale, const std::string& text, int font, 
     if (outline)
         HUD::SET_TEXT_OUTLINE();
     HUD::BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
-    HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME((char*)text.c_str());
+    HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text.c_str());
     HUD::END_TEXT_COMMAND_DISPLAY_TEXT(x, y, 0);
 }
 
@@ -51,7 +51,7 @@ void showNotification(const std::string& message, int* prevNotification) {
     }
     HUD::BEGIN_TEXT_COMMAND_THEFEED_POST("STRING");
 
-    HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME((char*)message.c_str());
+    HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(message.c_str());
 
     int id = HUD::END_TEXT_COMMAND_THEFEED_POST_TICKER(false, false);
     if (prevNotification != nullptr) {
@@ -66,7 +66,7 @@ void showSubtitle(const std::string& message, int duration) {
 
     for (int i = 0; i < message.size(); i += maxStringLength) {
         int npos = std::min(maxStringLength, static_cast<int>(message.size()) - i);
-        HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME((char*)message.substr(i, npos).c_str());
+        HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(message.substr(i, npos).c_str());
     }
 
     HUD::END_TEXT_COMMAND_PRINT(duration, 1);
