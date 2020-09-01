@@ -139,7 +139,6 @@
     <ClInclude Include="..\thirdparty\lodepng\lodepng_util.h" />
     <ClInclude Include="..\thirdparty\simpleini\SimpleIni.h" />
     <ClInclude Include="Compatibility.h" />
-    <ClInclude Include="newNatives.h" />
     <ClInclude Include="SpeedoInfo.h" />
     <ClInclude Include="Util\MathExt.h" />
     <ClInclude Include="Util\Paths.h" />

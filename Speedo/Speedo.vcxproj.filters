@@ -93,9 +93,6 @@
     <ClInclude Include="..\thirdparty\lodepng\lodepng_util.h">
       <Filter>Thirdparty</Filter>
     </ClInclude>
-    <ClInclude Include="newNatives.h">
-      <Filter>Util</Filter>
-    </ClInclude>
     <ClInclude Include="SpeedoInfo.h" />
     <ClInclude Include="Compatibility.h">
       <Filter>MTLib</Filter>

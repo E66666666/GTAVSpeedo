@@ -3,7 +3,6 @@
 #include "Compatibility.h"
 #include "ScriptSettings.hpp"
 #include "SpeedoInfo.h"
-#include "newNatives.h"
 
 #include "Util/Logger.hpp"
 #include "Util/Util.hpp"
@@ -21,6 +20,8 @@
 #include <sstream>
 #include <iomanip>
 #include <chrono>
+
+using VExt = VehicleExtensions;
 
 bool setupMTOK = false;
 bool setupTFOK = false;
@@ -113,7 +114,6 @@ Player player;
 Ped playerPed;
 Vehicle vehicle;
 Vehicle prevVehicle;
-VehicleExtensions ext;
 bool hasDashSpeedo = false;
 
 int prevNotification = 0;
@@ -220,7 +220,7 @@ void drawNOSBars(bool hasBoost, float boostVal, float nosVal, float screencorrec
 }
 
 void drawRPM(float rpm, float screencorrection, float offsetX, float offsetY) {
-    displayRPM = lerp(displayRPM, rpm, 15.0f * GAMEPLAY::GET_FRAME_TIME());
+    displayRPM = lerp(displayRPM, rpm, 15.0f * MISC::GET_FRAME_TIME());
     float rpmRot = displayRPM * currentSpeedo.RPMDialFullRot + currentSpeedo.RPMDialZeroRot;
 
     drawTexture(spriteRPMBg.Id, 0, -9999, 100,
@@ -404,7 +404,7 @@ void drawGear(int gear, bool neutral, int shift_indicator, int charNum, float sc
         spriteGear = spriteN9;
 
     int level = -9990;
-    if (neutral || ext.GetHandbrake(vehicle)) {
+    if (neutral || VExt::GetHandbrake(vehicle)) {
         c.r = 0.99f;
         c.g = 0.5f;
         c.b = 0.25f;
@@ -500,7 +500,7 @@ float getTurbo() {
     if (TF::Active()) {
         return TF::GetNormalizedBoost();
     }
-    return ext.GetTurbo(vehicle);
+    return VExt::GetTurbo(vehicle);
 }
 
 /*
@@ -526,12 +526,12 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 
     ShiftMode shiftMode;
     if (!vehicle || !ENTITY::DOES_ENTITY_EXIST(vehicle) ||
-        playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1)) {
+        playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1, 0)) {
         hasDashSpeedo = false;
         shiftMode = ShiftMode::Default;
     }
     else {
-        speed = ext.GetDashSpeed(vehicle);
+        speed = VExt::GetDashSpeed(vehicle);
         if (speed > 0.5f && !hasDashSpeedo) {
             hasDashSpeedo = true;
         }
@@ -540,17 +540,17 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
         }
 
         turbo = getTurbo();
-        rpm = ext.GetCurrentRPM(vehicle);
-        gear = ext.GetGearCurr(vehicle);
+        rpm = VExt::GetCurrentRPM(vehicle);
+        gear = VExt::GetGearCurr(vehicle);
         neutral = MT::NeutralGear();
         shift_indicator = MT::GetShiftIndicator();
         if (getGameVersion() >= G_VER_1_0_944_2_STEAM) {
-            hasBoost = VEHICLE::_HAS_VEHICLE_ROCKET_BOOST(vehicle);
-            boostVal = ext.GetRocketBoostCharge(vehicle);
+            hasBoost = VEHICLE::_GET_HAS_ROCKET_BOOST(vehicle);
+            boostVal = VExt::GetRocketBoostCharge(vehicle);
         }
         if (DECORATOR::DECOR_GET_INT(vehicle, (char*)decorNOS) == 1) {
             hasNOS = true;
-            nosVal = DECORATOR::_DECOR_GET_FLOAT(vehicle, (char*)decorNOSLevel);
+            nosVal = DECORATOR::DECOR_GET_FLOAT(vehicle, (char*)decorNOSLevel);
         }
         switch (MT::GetShiftMode()) {
             case 1: shiftMode = ShiftMode::Sequential;
@@ -588,7 +588,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
 
     if (hasBoost || hasNOS || has1604Boost) {
         if (!hasNOS && has1604Boost) {
-            float bla = ext.GetArenaBoost(vehicle);
+            float bla = VExt::GetArenaBoost(vehicle);
             switch (nitroType) {
                 case ENitroType::Boost20:
                     nosVal = bla / 1.2f;
@@ -614,7 +614,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
     if (currentSpeedo.ExtraHUDComponents) {
         float heatVal;
         if (DECORATOR::DECOR_IS_REGISTERED_AS_TYPE((char*)decorDragHeat, DECOR_TYPE_FLOAT)) {
-            heatVal = DECORATOR::_DECOR_GET_FLOAT(vehicle, (char*)decorDragHeat);;
+            heatVal = DECORATOR::DECOR_GET_FLOAT(vehicle, (char*)decorDragHeat);;
         }
         else {
             heatVal = 0.0f;
@@ -673,7 +673,7 @@ void update() {
 
     if (!ENTITY::DOES_ENTITY_EXIST(playerPed) ||
         !PLAYER::IS_PLAYER_CONTROL_ON(player) ||
-        ENTITY::IS_ENTITY_DEAD(playerPed) ||
+        ENTITY::IS_ENTITY_DEAD(playerPed, 0) ||
         PLAYER::IS_PLAYER_BEING_ARRESTED(player, TRUE)) {
         return;
     }
@@ -685,11 +685,11 @@ void update() {
     }
 
     if (!settings.Enable || !vehicle || !ENTITY::DOES_ENTITY_EXIST(vehicle) ||
-        playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1) ||
+        playerPed != VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehicle, -1, 0) ||
         !isRoadDomain((eVehicleClass)VEHICLE::GET_VEHICLE_CLASS(vehicle)) ||
         PED::IS_PED_RUNNING_MOBILE_PHONE_TASK(playerPed) ||
         settings.HideInFPV && CAM::GET_FOLLOW_VEHICLE_CAM_VIEW_MODE() == 4 ||
-        settings.HideOnVehicleName && UI::IS_HUD_COMPONENT_ACTIVE(HudComponentVehicleName)) {
+        settings.HideOnVehicleName && HUD::IS_HUD_COMPONENT_ACTIVE(HudComponentVehicleName)) {
         if (speedoAlpha > 0.0f) {
             speedoAlpha -= settings.FadeSpeed;
         }
@@ -699,8 +699,8 @@ void update() {
     }
 
     if (speedoAlpha > 0.01f && settings.HideAreaName) {
-        UI::HIDE_HUD_COMPONENT_THIS_FRAME(HudComponentAreaName);
-        UI::HIDE_HUD_COMPONENT_THIS_FRAME(HudComponentStreetName);
+        HUD::HIDE_HUD_COMPONENT_THIS_FRAME(HudComponentAreaName);
+        HUD::HIDE_HUD_COMPONENT_THIS_FRAME(HudComponentStreetName);
     }
 
     if (speedoAlpha > 0.0f) {
@@ -895,7 +895,7 @@ void setupTF() {
 void main() {
     logger.Write(INFO, "Script started");
     mem::init();
-    ext.initOffsets();
+    VExt::Init();
     logger.Write(INFO, "Setting up globals");
     if (!setupGlobals()) {
         logger.Write(INFO, "Global setup failed!");
