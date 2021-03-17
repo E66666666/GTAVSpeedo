@@ -382,26 +382,24 @@ void drawGear(int gear, bool neutral, int shift_indicator, int charNum, float sc
     SpriteInfo spriteGear;
     Colorf c = {0.0f, 0.5f, 0.74f, 1.0f};
 
-    if (neutral)
+    if (neutral) {
         spriteGear = spriteNN;
-    else if (gear == 0)
-        spriteGear = spriteNR;
-    else if (gear == 1)
-        spriteGear = spriteN1;
-    else if (gear == 2)
-        spriteGear = spriteN2;
-    else if (gear == 3)
-        spriteGear = spriteN3;
-    else if (gear == 4)
-        spriteGear = spriteN4;
-    else if (gear == 5)
-        spriteGear = spriteN5;
-    else if (gear == 6)
-        spriteGear = spriteN6;
-    else if (gear == 7)
-        spriteGear = spriteN7;
-    else
-        spriteGear = spriteN9;
+    }
+    else {
+        switch (gear) {
+            case 0: spriteGear = spriteNR; break;
+            case 1: spriteGear = spriteN1; break;
+            case 2: spriteGear = spriteN2; break;
+            case 3: spriteGear = spriteN3; break;
+            case 4: spriteGear = spriteN4; break;
+            case 5: spriteGear = spriteN5; break;
+            case 6: spriteGear = spriteN6; break;
+            case 7: spriteGear = spriteN7; break;
+            case 8: spriteGear = spriteN8; break;
+            case 9: spriteGear = spriteN9; break;
+            default: spriteGear = spriteN0; break;
+        }
+    }
 
     int level = -9990;
     if (neutral || VExt::GetHandbrake(vehicle)) {
