@@ -342,28 +342,17 @@ void drawSpeed(float speed, int& charNum, float screencorrection, float offsetX,
     for (char c : speedoTxt) {
         SpriteInfo si;
         switch (c) {
-            case '0': si = spriteN0;
-                break;
-            case '1': si = spriteN1;
-                break;
-            case '2': si = spriteN2;
-                break;
-            case '3': si = spriteN3;
-                break;
-            case '4': si = spriteN4;
-                break;
-            case '5': si = spriteN5;
-                break;
-            case '6': si = spriteN6;
-                break;
-            case '7': si = spriteN7;
-                break;
-            case '8': si = spriteN8;
-                break;
-            case '9': si = spriteN9;
-                break;
-            default: si = spriteNE;
-                break;
+            case '0': si = spriteN0; break;
+            case '1': si = spriteN1; break;
+            case '2': si = spriteN2; break;
+            case '3': si = spriteN3; break;
+            case '4': si = spriteN4; break;
+            case '5': si = spriteN5; break;
+            case '6': si = spriteN6; break;
+            case '7': si = spriteN7; break;
+            case '8': si = spriteN8; break;
+            case '9': si = spriteN9; break;
+            default:  si = spriteNE; break;
         }
 
         drawTexture(si.Id, charNum, -9990, (int)displayTime,
@@ -382,26 +371,24 @@ void drawGear(int gear, bool neutral, int shift_indicator, int charNum, float sc
     SpriteInfo spriteGear;
     Colorf c = {0.0f, 0.5f, 0.74f, 1.0f};
 
-    if (neutral)
+    if (neutral) {
         spriteGear = spriteNN;
-    else if (gear == 0)
-        spriteGear = spriteNR;
-    else if (gear == 1)
-        spriteGear = spriteN1;
-    else if (gear == 2)
-        spriteGear = spriteN2;
-    else if (gear == 3)
-        spriteGear = spriteN3;
-    else if (gear == 4)
-        spriteGear = spriteN4;
-    else if (gear == 5)
-        spriteGear = spriteN5;
-    else if (gear == 6)
-        spriteGear = spriteN6;
-    else if (gear == 7)
-        spriteGear = spriteN7;
-    else
-        spriteGear = spriteN9;
+    }
+    else {
+        switch (gear) {
+            case 0: spriteGear = spriteNR; break;
+            case 1: spriteGear = spriteN1; break;
+            case 2: spriteGear = spriteN2; break;
+            case 3: spriteGear = spriteN3; break;
+            case 4: spriteGear = spriteN4; break;
+            case 5: spriteGear = spriteN5; break;
+            case 6: spriteGear = spriteN6; break;
+            case 7: spriteGear = spriteN7; break;
+            case 8: spriteGear = spriteN8; break;
+            case 9: spriteGear = spriteN9; break;
+            default: spriteGear = spriteN0; break;
+        }
+    }
 
     int level = -9990;
     if (neutral || VExt::GetHandbrake(vehicle)) {
@@ -417,6 +404,15 @@ void drawGear(int gear, bool neutral, int shift_indicator, int charNum, float sc
                 0.5f, 0.5f,
                 currentSpeedo.GearXpos + offsetX, currentSpeedo.GearYpos + offsetY,
                 0.0f, screencorrection, c.r, c.g, c.b, c.a * speedoAlpha);
+
+    if (gear == 10) {
+        drawTexture(spriteN1.Id, charNum, level, (int)displayTime,
+            currentSpeedo.GearSize,
+            static_cast<float>(spriteGear.Height) * (currentSpeedo.GearSize / static_cast<float>(spriteGear.Width)),
+            0.5f, 0.5f,
+            currentSpeedo.GearXpos + offsetX - currentSpeedo.GearSize * 1.125f, currentSpeedo.GearYpos + offsetY,
+            0.0f, screencorrection, c.r, c.g, c.b, c.a * speedoAlpha);
+    }
 
     if (shift_indicator != 0) {
         Colorf indicatorColor = {0.0f, 0.5f, 0.74f, 1.0f};
@@ -554,10 +550,10 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
             nosVal = DECORATOR::DECOR_GET_FLOAT(vehicle, decorNOSLevel);
         }
         switch (MT::GetShiftMode()) {
-            case 1: shiftMode = ShiftMode::Sequential;
-            case 2: shiftMode = ShiftMode::HPattern;
-            case 3: shiftMode = ShiftMode::Automatic;
-            default: shiftMode = ShiftMode::Default;
+            case 1: shiftMode = ShiftMode::Sequential; break;
+            case 2: shiftMode = ShiftMode::HPattern; break;
+            case 3: shiftMode = ShiftMode::Automatic; break;
+            default: shiftMode = ShiftMode::Default; break;
         }
     }
     if (!engineOn)
