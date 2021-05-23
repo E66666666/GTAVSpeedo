@@ -121,8 +121,6 @@ int prevNotification = 0;
 float speedoAlpha = 0.0f;
 float turboalpha = 0.0f;
 
-std::chrono::steady_clock::duration previousDisplayTime;
-
 SpeedoInfo currentSpeedo;
 
 std::vector<std::string> skins;
@@ -563,17 +561,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
     float offsetX = currentSpeedo.SpeedoXpos;
     float offsetY = currentSpeedo.SpeedoYpos;
 
-    auto now = std::chrono::steady_clock::now().time_since_epoch();
-    auto newDisplayTime = now - previousDisplayTime;
-    previousDisplayTime = now;
-    auto lastFrameTime = std::chrono::duration_cast<std::chrono::microseconds>(newDisplayTime).count();
-    // in microseconds!
-    auto nextFrameTime = lastFrameTime / 800; // in milliseconds!
-    if (lastFrameTime < 16666) {
-        // cap refresh @ 60 fps
-        nextFrameTime = 16666 / 800;
-    }
-    nextFrameTime = static_cast<long long>(nextFrameTime * 1.5);
+    auto nextFrameTime = ((int)(MISC::GET_FRAME_TIME() * 2000.0f));
 
     drawRPM(rpm, screencorrection, offsetX, offsetY);
     drawTurbo(turbo, screencorrection, offsetX, offsetY);
@@ -931,7 +919,6 @@ void main() {
     }
     changeSkin(settings.DefaultSkin);
 
-    previousDisplayTime = std::chrono::steady_clock::now().time_since_epoch();
     while (true) {
         update();
         update_menu();
