@@ -74,7 +74,7 @@ void ScriptSettings::parseSettingsGeneral() {
     if (unit == "mph")
         Unit = UnitType::MPH;
 
-    TurboScaling = settingsGeneral.GetBoolValue("SETTINGS", "TurboScaling", false);
+    PhysicalSpeed = settingsGeneral.GetBoolValue("SETTINGS", "PhysicalSpeed", false);
 
     ShowPlacementMenu = settingsGeneral.GetBoolValue("DEV", "ShowPlacementMenu", false);
 }
@@ -96,7 +96,7 @@ void ScriptSettings::SaveGeneral() const {
     if (Unit == UnitType::MPH)
         unit = "mph";
     settingsGeneral.SetValue("SETTINGS", "Unit", unit.c_str());
-    settingsGeneral.SetBoolValue("SETTINGS", "TurboScaling", TurboScaling);
+    settingsGeneral.SetBoolValue("SETTINGS", "PhysicalSpeed", PhysicalSpeed);
 
     settingsGeneral.SaveFile(settingsGeneralFile.c_str());
 }

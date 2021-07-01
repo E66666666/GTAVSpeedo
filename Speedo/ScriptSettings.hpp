@@ -43,7 +43,7 @@ public:
 
     bool ShowPlacementMenu;
 
-    bool TurboScaling;
+    bool PhysicalSpeed;
 private:
     void parseSettingsGeneral();
 
