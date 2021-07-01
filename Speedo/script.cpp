@@ -514,15 +514,19 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
         shiftMode = ShiftMode::Default;
     }
     else {
-        speed = VExt::GetDashSpeed(vehicle);
-        if (speed > 0.5f && !hasDashSpeedo) {
-            hasDashSpeedo = true;
+        if (settings.PhysicalSpeed) {
+            speed = Length(ENTITY::GET_ENTITY_SPEED_VECTOR(vehicle, true));
         }
-        if (!hasDashSpeedo) {
-            speed = abs(ENTITY::GET_ENTITY_SPEED_VECTOR(vehicle, true).y);
+        else {
+            speed = VExt::GetDashSpeed(vehicle);
+            if (speed > 0.5f && !hasDashSpeedo) {
+                hasDashSpeedo = true;
+            }
+            if (!hasDashSpeedo) {
+                speed = Length(ENTITY::GET_ENTITY_SPEED_VECTOR(vehicle, true));
+            }
         }
 
-        logger.Write(DEBUG, "get turbo");
         turbo = getTurbo();
         rpm = VExt::GetCurrentRPM(vehicle);
         gear = VExt::GetGearCurr(vehicle);
