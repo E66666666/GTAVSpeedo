@@ -554,7 +554,7 @@ void drawSpeedo(UnitType type, bool turboActive, bool engineOn) {
     float offsetX = currentSpeedo.SpeedoXpos;
     float offsetY = currentSpeedo.SpeedoYpos;
 
-    auto nextFrameTime = ((int)(MISC::GET_FRAME_TIME() * 2000.0f));
+    auto nextFrameTime = ((int)(MISC::GET_FRAME_TIME() * 5000.0f));
 
     drawRPM(rpm, screencorrection, offsetX, offsetY);
     drawTurbo(turbo, screencorrection, offsetX, offsetY);
